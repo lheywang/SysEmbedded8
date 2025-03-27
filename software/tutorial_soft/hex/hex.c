@@ -157,7 +157,7 @@ int hex_display(char* values, int len, int first)
 	// Finally, getting the final bit stream
 	bits = actual | bits;
 
-	// Writting the new bitstream
+	// Writing the new value
 	HEX_IOWR_DATA(bits);
 
 	return err;
