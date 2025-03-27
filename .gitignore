@@ -8,3 +8,5 @@ output_files/*
 *.d
 *.a
 
+# Eclipse workspace
+EclipseWorkspace/*

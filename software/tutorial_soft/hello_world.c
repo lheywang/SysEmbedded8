@@ -4,6 +4,7 @@ rotating pattern on the LEDs and HEXs:
 * 2. if a KEY1 is pressed, HEXs uses inverted SW positions as a pattern */
 #include "system.h"
 #include "alias.h"
+#include "hex/hex.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -19,6 +20,13 @@ int main(void) {
 	int press, delay_count = 0;
 
 	initial_message();
+
+	hex_display("-", 1, 3);
+
+	while(1)
+	{
+
+	}
 
 	while (1)
 	{

@@ -1,9 +1,0 @@
-17:24:20 **** Incremental Build of configuration Nios II for project tutorial_soft ****
-make all 
-Info: Building ../tutorial_soft_bsp/
-make --no-print-directory -C ../tutorial_soft_bsp/
-[BSP build complete]
-[tutorial_soft build complete]
-
-17:24:20 Build Finished (took 180ms)
-
