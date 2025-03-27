@@ -3,7 +3,7 @@
 # Machine generated for CPU 'NiosII_CPU' in SOPC Builder design 'QsysTuto'
 # SOPC Builder design path: ../../QsysTuto.sopcinfo
 #
-# Generated: Thu Mar 27 16:15:19 CET 2025
+# Generated: Thu Mar 27 17:09:35 CET 2025
 
 # DO NOT MODIFY THIS FILE
 #

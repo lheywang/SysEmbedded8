@@ -1,27 +1,27 @@
-16:44:35 **** Incremental Build of configuration Nios II for project tutorial_soft ****
+17:24:12 **** Incremental Build of configuration Nios II for project tutorial_soft ****
 make all 
 Info: Building ../tutorial_soft_bsp/
-C:/intelFPGA/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tutorial_soft_bsp/
+make --no-print-directory -C ../tutorial_soft_bsp/
 [BSP build complete]
 Info: Compiling hello_world.c to obj/default/hello_world.o
-nios2-elf-gcc -xc -MP -MMD -c -I../tutorial_soft_bsp//HAL/inc -I../tutorial_soft_bsp/ -I../tutorial_soft_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/hello_world.o hello_world.c
+nios2-elf-gcc -xc -MP -MMD -c -I../tutorial_soft_bsp//HAL/inc -I../tutorial_soft_bsp/ -I../tutorial_soft_bsp//drivers/inc -pipe -D__hal__ -DALT_NO_C_PLUS_PLUS -DALT_NO_INSTRUCTION_EMULATION -DALT_USE_SMALL_DRIVERS -DSMALL_C_LIB -DALT_SINGLE_THREADED    -O0 -g -Wall  -mno-hw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o obj/default/hello_world.o hello_world.c
 Info: Linking tutorial_soft.elf
-nios2-elf-g++  -T'../tutorial_soft_bsp//linker.x' -msys-crt0='../tutorial_soft_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../tutorial_soft_bsp/  -msmallc  -Wl,-Map=tutorial_soft.map   -O0 -g -Wall   -mno-hw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o tutorial_soft.elf obj/default/hello_world.o -lm -msys-lib=m
-nios2-elf-insert tutorial_soft.elf --thread_model hal --cpu_name NiosII_CPU --qsys true --simulation_enabled false --id 305419896 --sidp 0x41060 --timestamp 1743083485 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name QsysTuto --quartus_project_dir "C:/temp/SysEmbedded8" --jdi ../..//output_files/TD_SEME.jdi --sopcinfo C:/temp/SysEmbedded8/software/tutorial_soft_bsp/../../QsysTuto.sopcinfo
-Info: (tutorial_soft.elf) 8404 Bytes program size (code + initialized data).
+nios2-elf-g++ -T'../tutorial_soft_bsp//linker.x' -msys-crt0='../tutorial_soft_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../tutorial_soft_bsp/ -msmallc  -Wl,-Map=tutorial_soft.map   -O0 -g -Wall  -mno-hw-div -mhw-mul -mno-hw-mulx -mgpopt=global  -o tutorial_soft.elf obj/default/hello_world.o -lm -msys-lib=m
+nios2-elf-insert tutorial_soft.elf --thread_model hal --cpu_name NiosII_CPU --qsys true --simulation_enabled false --id 305419896 --sidp 0x41060 --timestamp 1743083485 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name QsysTuto --quartus_project_dir "/home/lheywang/Dev/SysEmbedded8" --jdi ../..//output_files/TD_SEME.jdi --sopcinfo /home/lheywang/Dev/SysEmbedded8/software/tutorial_soft_bsp/../../QsysTuto.sopcinfo
+Info: (tutorial_soft.elf) 8368 Bytes program size (code + initialized data).
 Info:                     111 KBytes free for stack + heap.
 Info: Creating tutorial_soft.objdump
 nios2-elf-objdump --disassemble --syms --all-header --source tutorial_soft.elf >tutorial_soft.objdump
 [tutorial_soft build complete]
-16:44:42 **** Build of configuration Nios II for project tutorial_soft ****
+17:24:19 **** Build of configuration Nios II for project tutorial_soft ****
 make all 
 Info: Building ../tutorial_soft_bsp/
-C:/intelFPGA/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tutorial_soft_bsp/
+make --no-print-directory -C ../tutorial_soft_bsp/
 [BSP build complete]
 [tutorial_soft build complete]
-16:44:43 **** Incremental Build of configuration Nios II for project tutorial_soft ****
+17:24:20 **** Incremental Build of configuration Nios II for project tutorial_soft ****
 make all 
 Info: Building ../tutorial_soft_bsp/
-C:/intelFPGA/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tutorial_soft_bsp/
+make --no-print-directory -C ../tutorial_soft_bsp/
 [BSP build complete]
 [tutorial_soft build complete]

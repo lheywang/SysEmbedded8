@@ -1,9 +1,9 @@
-16:44:43 **** Incremental Build of configuration Nios II for project tutorial_soft ****
+17:24:20 **** Incremental Build of configuration Nios II for project tutorial_soft ****
 make all 
 Info: Building ../tutorial_soft_bsp/
-C:/intelFPGA/18.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tutorial_soft_bsp/
+make --no-print-directory -C ../tutorial_soft_bsp/
 [BSP build complete]
 [tutorial_soft build complete]
 
-16:44:44 Build Finished (took 764ms)
+17:24:20 Build Finished (took 180ms)
 

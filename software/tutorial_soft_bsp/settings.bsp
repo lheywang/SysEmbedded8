@@ -2,11 +2,11 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>27 mars 2025 16:19:10</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1743088750210</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\temp\SysEmbedded8\software\tutorial_soft_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Mar 27, 2025 5:10:16 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1743091816176</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>/home/lheywang/Dev/SysEmbedded8/software/tutorial_soft_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
-        <SopcDesignFile>..\..\QsysTuto.sopcinfo</SopcDesignFile>
+        <SopcDesignFile>../../QsysTuto.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>NiosII_CPU</Cpu>
         <SchemaVersion>1.9</SchemaVersion>
