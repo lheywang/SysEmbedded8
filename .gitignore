@@ -1,0 +1,6 @@
+#Quartus compilation files
+incremental_db/*
+db/*
+output_files/*
+
+
