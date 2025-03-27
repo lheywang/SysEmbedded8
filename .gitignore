@@ -4,5 +4,7 @@ db/*
 output_files/*
 
 # Eclipse build files
-/*.o
+*.o
+*.d
+*.a
 
