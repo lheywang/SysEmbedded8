@@ -1,6 +1,8 @@
-#Quartus compilation files
+# Quartus compilation files
 incremental_db/*
 db/*
 output_files/*
 
+# Eclipse build files
+/*.o
 
