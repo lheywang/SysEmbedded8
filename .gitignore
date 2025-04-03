@@ -3,6 +3,9 @@ incremental_db/*
 db/*
 output_files/*
 
+# QSYS
+.qsys_edit/*
+
 # Eclipse build files
 *.o
 *.d
@@ -10,3 +13,9 @@ output_files/*
 
 # Eclipse workspace
 EclipseWorkspace/*
+
+# Modelsim files
+*.bak
+*.mti
+*.wlf
+*.do
