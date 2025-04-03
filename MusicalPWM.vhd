@@ -44,7 +44,7 @@ BEGIN
     -- Then, enter the main loop
     P2 : PROCESS (clk, control)
     BEGIN
-        IF (control(7) = '1') THEN
+        IF (control(31) = '1') THEN
             act <= 0;
 
         ELSIF rising_edge(clk) THEN

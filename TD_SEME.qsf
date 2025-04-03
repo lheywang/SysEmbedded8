@@ -105,9 +105,6 @@ set_location_assignment PIN_C20 -to HEX28
 set_location_assignment PIN_D19 -to HEX29
 set_location_assignment PIN_E17 -to HEX30
 set_location_assignment PIN_P11 -to MAX10_CLK1_50
-set_global_assignment -name QIP_FILE QsysTD/synthesis/QsysTD.qip
-set_global_assignment -name BDF_FILE TD_SEME.bdf
-set_global_assignment -name VHDL_FILE output_files/MusicalPWM.vhd
 set_location_assignment PIN_F18 -to HEX32
 set_location_assignment PIN_E20 -to HEX33
 set_location_assignment PIN_E19 -to HEX34
@@ -124,4 +121,9 @@ set_location_assignment PIN_N19 -to HEX45
 set_location_assignment PIN_N20 -to HEX46
 set_location_assignment PIN_L19 -to HEX47
 set_location_assignment PIN_Y11 -to PWM_BUZZ
+set_global_assignment -name VHDL_FILE MusicalPWM.vhd
+set_global_assignment -name VHDL_FILE MusicalPWM_vol.vhd
+set_global_assignment -name VHDL_FILE MusicalPWM_freq.vhd
+set_global_assignment -name QIP_FILE QsysTD/synthesis/QsysTD.qip
+set_global_assignment -name BDF_FILE TD_SEME.bdf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

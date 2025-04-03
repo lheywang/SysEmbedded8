@@ -15,11 +15,17 @@
  */
 
 #include <stdio.h>
+#include "alias.h"
+#include "buzzer/buzzer.h"
+#include "buzzer/note.h"
 
 int main()
 {
   printf("Hello from Nios II!\n");
 
+  buzzer_enable();
+  buzzer_set_volume(255);
+  buzzer_set_note(La3);
 
   int tmp = hex_display("abcdef", 6, 0);
   printf("Func retavl %d", tmp);

@@ -145,6 +145,7 @@ ELF := project_soft.elf
 C_SRCS += hello_world.c
 C_SRCS += hex/hex.c
 C_SRCS += time/ptime.c
+C_SRCS += buzzer/buzzer.c
 CXX_SRCS :=
 ASM_SRCS :=
 
