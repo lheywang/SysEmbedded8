@@ -30,7 +30,7 @@ BEGIN
 
     -- Conditionnal cast
     maxval <=
-			-- First octave
+		-- First octave
         764409 WHEN (freqval = 1)  ELSE -- Do : 65.41 Hz
         721501 WHEN (freqval = 2)  ELSE -- Dod : 69.3 Hz
         681013 WHEN (freqval = 3)  ELSE -- Re : 73.42 Hz
@@ -44,7 +44,7 @@ BEGIN
         429037 WHEN (freqval = 11) ELSE -- Sib : 116.54 Hz
         404957 WHEN (freqval = 12) ELSE -- Si : 123.47 Hz
 		  
-		  -- Second octave
+		-- Second octave
         382234 WHEN (freqval = 13) ELSE -- Do : 130.81 Hz
         360776 WHEN (freqval = 14) ELSE -- Dod : 138.59 Hz
         340530 WHEN (freqval = 15) ELSE -- Re : 146.83 Hz
@@ -58,7 +58,7 @@ BEGIN
         214519 WHEN (freqval = 23) ELSE -- Sib : 233.08 Hz
         202478 WHEN (freqval = 24) ELSE -- Si : 246.94 Hz
 		  
-		  -- Second octave
+		-- Second octave
         191110 WHEN (freqval = 25) ELSE -- Do : 261.63 Hz
         180388 WHEN (freqval = 26) ELSE -- Dod : 277.18 Hz
         170265 WHEN (freqval = 27) ELSE -- Re : 293.66 Hz
@@ -72,7 +72,7 @@ BEGIN
         107259 WHEN (freqval = 35) ELSE -- Sib : 466.16 Hz
         101239 WHEN (freqval = 36) ELSE -- Si : 493.88 Hz
 		  
-		  -- Third octave
+		-- Third octave
         95557  WHEN (freqval = 37) ELSE -- Do : 523.25 Hz
         90192  WHEN (freqval = 38) ELSE -- Dod : 554.37 Hz
         85131  WHEN (freqval = 39) ELSE -- Re : 587.33 Hz
@@ -86,7 +86,7 @@ BEGIN
         53629  WHEN (freqval = 47) ELSE -- Sib : 932.33 Hz
         50619  WHEN (freqval = 48) ELSE -- Si : 987.77 Hz
 		  
-		  -- Fourth octave
+		-- Fourth octave
         47778  WHEN (freqval = 49) ELSE -- Do : 1046.5 Hz
         45097  WHEN (freqval = 50) ELSE -- Dod : 1108.73 Hz
         42566  WHEN (freqval = 51) ELSE -- Re : 1174.66 Hz
@@ -100,7 +100,7 @@ BEGIN
         26815  WHEN (freqval = 59) ELSE -- Sib : 1864.66 Hz
         25310  WHEN (freqval = 60) ELSE -- Si : 1975.53 Hz
 		  
-		  -- Fifth octave
+		-- Fifth octave
         23889  WHEN (freqval = 61) ELSE -- Do : 2093 Hz
         22548  WHEN (freqval = 62) ELSE -- Dod : 2217.46 Hz
         21283  WHEN (freqval = 63) ELSE -- Re : 2349.32 Hz
@@ -114,7 +114,7 @@ BEGIN
         13407  WHEN (freqval = 71) ELSE -- Sib : 3729.31 Hz
         12655  WHEN (freqval = 72) ELSE -- Si : 3951.07 Hz
 		  
-		  -- Sixth octave
+		-- Sixth octave
         11945  WHEN (freqval = 73) ELSE -- Do : 4186.01 Hz
         11274  WHEN (freqval = 74) ELSE -- Dod : 4434.92 Hz
         10641  WHEN (freqval = 75) ELSE -- Re : 4696.64 Hz
@@ -128,7 +128,7 @@ BEGIN
         6704   WHEN (freqval = 83) ELSE -- Sib : 7458.62 Hz
         6327   WHEN (freqval = 84) ELSE -- Si : 7902.13 Hz
 		  
-		  -- Seventh octave
+		-- Seventh octave
         5972   WHEN (freqval = 85) ELSE -- Do : 8372.02 Hz
         5637   WHEN (freqval = 86) ELSE -- Dod : 8869.84 Hz
         5321   WHEN (freqval = 87) ELSE -- Re : 9397.28 Hz
