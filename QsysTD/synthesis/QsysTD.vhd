@@ -134,11 +134,15 @@ architecture rtl of QsysTD is
 
 	component QsysTD_PWM_STATUS is
 		port (
-			clk      : in  std_logic                     := 'X';             -- clk
-			reset_n  : in  std_logic                     := 'X';             -- reset_n
-			address  : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			readdata : out std_logic_vector(31 downto 0);                    -- readdata
-			in_port  : in  std_logic_vector(7 downto 0)  := (others => 'X')  -- export
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			in_port    : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- export
+			irq        : out std_logic                                         -- irq
 		);
 	end component QsysTD_PWM_STATUS;
 
@@ -273,7 +277,10 @@ architecture rtl of QsysTD is
 			PWM_CTRL_s1_writedata                         : out std_logic_vector(31 downto 0);                    -- writedata
 			PWM_CTRL_s1_chipselect                        : out std_logic;                                        -- chipselect
 			PWM_STATUS_s1_address                         : out std_logic_vector(1 downto 0);                     -- address
+			PWM_STATUS_s1_write                           : out std_logic;                                        -- write
 			PWM_STATUS_s1_readdata                        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			PWM_STATUS_s1_writedata                       : out std_logic_vector(31 downto 0);                    -- writedata
+			PWM_STATUS_s1_chipselect                      : out std_logic;                                        -- chipselect
 			SYS_CLK_timer_s1_address                      : out std_logic_vector(2 downto 0);                     -- address
 			SYS_CLK_timer_s1_write                        : out std_logic;                                        -- write
 			SYS_CLK_timer_s1_readdata                     : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
@@ -303,6 +310,7 @@ architecture rtl of QsysTD is
 			receiver2_irq : in  std_logic                     := 'X'; -- irq
 			receiver3_irq : in  std_logic                     := 'X'; -- irq
 			receiver4_irq : in  std_logic                     := 'X'; -- irq
+			receiver5_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq    : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component QsysTD_irq_mapper;
@@ -503,8 +511,11 @@ architecture rtl of QsysTD is
 	signal mm_interconnect_0_pwm_ctrl_s1_address                           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_CTRL_s1_address -> PWM_CTRL:address
 	signal mm_interconnect_0_pwm_ctrl_s1_write                             : std_logic;                     -- mm_interconnect_0:PWM_CTRL_s1_write -> mm_interconnect_0_pwm_ctrl_s1_write:in
 	signal mm_interconnect_0_pwm_ctrl_s1_writedata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:PWM_CTRL_s1_writedata -> PWM_CTRL:writedata
+	signal mm_interconnect_0_pwm_status_s1_chipselect                      : std_logic;                     -- mm_interconnect_0:PWM_STATUS_s1_chipselect -> PWM_STATUS:chipselect
 	signal mm_interconnect_0_pwm_status_s1_readdata                        : std_logic_vector(31 downto 0); -- PWM_STATUS:readdata -> mm_interconnect_0:PWM_STATUS_s1_readdata
 	signal mm_interconnect_0_pwm_status_s1_address                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_STATUS_s1_address -> PWM_STATUS:address
+	signal mm_interconnect_0_pwm_status_s1_write                           : std_logic;                     -- mm_interconnect_0:PWM_STATUS_s1_write -> mm_interconnect_0_pwm_status_s1_write:in
+	signal mm_interconnect_0_pwm_status_s1_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:PWM_STATUS_s1_writedata -> PWM_STATUS:writedata
 	signal mm_interconnect_0_sys_sec_s1_chipselect                         : std_logic;                     -- mm_interconnect_0:SYS_SEC_s1_chipselect -> SYS_SEC:chipselect
 	signal mm_interconnect_0_sys_sec_s1_readdata                           : std_logic_vector(15 downto 0); -- SYS_SEC:readdata -> mm_interconnect_0:SYS_SEC_s1_readdata
 	signal mm_interconnect_0_sys_sec_s1_address                            : std_logic_vector(2 downto 0);  -- mm_interconnect_0:SYS_SEC_s1_address -> SYS_SEC:address
@@ -525,6 +536,7 @@ architecture rtl of QsysTD is
 	signal irq_mapper_receiver2_irq                                        : std_logic;                     -- SYS_SEC:irq -> irq_mapper:receiver2_irq
 	signal irq_mapper_receiver3_irq                                        : std_logic;                     -- SYS_MEL:irq -> irq_mapper:receiver3_irq
 	signal irq_mapper_receiver4_irq                                        : std_logic;                     -- BOUTONS_POUSSOIRS:irq -> irq_mapper:receiver4_irq
+	signal irq_mapper_receiver5_irq                                        : std_logic;                     -- PWM_STATUS:irq -> irq_mapper:receiver5_irq
 	signal niosii_cpu_irq_irq                                              : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> NiosII_CPU:irq
 	signal rst_controller_reset_out_reset                                  : std_logic;                     -- rst_controller:reset_out -> [mm_interconnect_0:jtag_uart_0_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                              : std_logic;                     -- rst_controller_001:reset_out -> [MEMOIRE_ONCHIP:reset, irq_mapper:reset, mm_interconnect_0:NiosII_CPU_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
@@ -538,6 +550,7 @@ architecture rtl of QsysTD is
 	signal mm_interconnect_0_hex3_hex0_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_hex3_hex0_s1_write:inv -> HEX3_HEX0:write_n
 	signal mm_interconnect_0_hex5_hex4_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_hex5_hex4_s1_write:inv -> HEX5_HEX4:write_n
 	signal mm_interconnect_0_pwm_ctrl_s1_write_ports_inv                   : std_logic;                     -- mm_interconnect_0_pwm_ctrl_s1_write:inv -> PWM_CTRL:write_n
+	signal mm_interconnect_0_pwm_status_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_pwm_status_s1_write:inv -> PWM_STATUS:write_n
 	signal mm_interconnect_0_sys_sec_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_sys_sec_s1_write:inv -> SYS_SEC:write_n
 	signal mm_interconnect_0_sys_mel_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_sys_mel_s1_write:inv -> SYS_MEL:write_n
 	signal mm_interconnect_0_boutons_poussoirs_s1_write_ports_inv          : std_logic;                     -- mm_interconnect_0_boutons_poussoirs_s1_write:inv -> BOUTONS_POUSSOIRS:write_n
@@ -664,11 +677,15 @@ begin
 
 	pwm_status : component QsysTD_PWM_STATUS
 		port map (
-			clk      => clk_clk,                                  --                 clk.clk
-			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
-			address  => mm_interconnect_0_pwm_status_s1_address,  --                  s1.address
-			readdata => mm_interconnect_0_pwm_status_s1_readdata, --                    .readdata
-			in_port  => pwm_status_export                         -- external_connection.export
+			clk        => clk_clk,                                         --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,        --               reset.reset_n
+			address    => mm_interconnect_0_pwm_status_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_pwm_status_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_pwm_status_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_pwm_status_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_pwm_status_s1_readdata,        --                    .readdata
+			in_port    => pwm_status_export,                               -- external_connection.export
+			irq        => irq_mapper_receiver5_irq                         --                 irq.irq
 		);
 
 	sys_clk_timer : component QsysTD_SYS_CLK_timer
@@ -797,7 +814,10 @@ begin
 			PWM_CTRL_s1_writedata                         => mm_interconnect_0_pwm_ctrl_s1_writedata,                     --                                        .writedata
 			PWM_CTRL_s1_chipselect                        => mm_interconnect_0_pwm_ctrl_s1_chipselect,                    --                                        .chipselect
 			PWM_STATUS_s1_address                         => mm_interconnect_0_pwm_status_s1_address,                     --                           PWM_STATUS_s1.address
+			PWM_STATUS_s1_write                           => mm_interconnect_0_pwm_status_s1_write,                       --                                        .write
 			PWM_STATUS_s1_readdata                        => mm_interconnect_0_pwm_status_s1_readdata,                    --                                        .readdata
+			PWM_STATUS_s1_writedata                       => mm_interconnect_0_pwm_status_s1_writedata,                   --                                        .writedata
+			PWM_STATUS_s1_chipselect                      => mm_interconnect_0_pwm_status_s1_chipselect,                  --                                        .chipselect
 			SYS_CLK_timer_s1_address                      => mm_interconnect_0_sys_clk_timer_s1_address,                  --                        SYS_CLK_timer_s1.address
 			SYS_CLK_timer_s1_write                        => mm_interconnect_0_sys_clk_timer_s1_write,                    --                                        .write
 			SYS_CLK_timer_s1_readdata                     => mm_interconnect_0_sys_clk_timer_s1_readdata,                 --                                        .readdata
@@ -826,6 +846,7 @@ begin
 			receiver2_irq => irq_mapper_receiver2_irq,           -- receiver2.irq
 			receiver3_irq => irq_mapper_receiver3_irq,           -- receiver3.irq
 			receiver4_irq => irq_mapper_receiver4_irq,           -- receiver4.irq
+			receiver5_irq => irq_mapper_receiver5_irq,           -- receiver5.irq
 			sender_irq    => niosii_cpu_irq_irq                  --    sender.irq
 		);
 
@@ -974,6 +995,8 @@ begin
 	mm_interconnect_0_hex5_hex4_s1_write_ports_inv <= not mm_interconnect_0_hex5_hex4_s1_write;
 
 	mm_interconnect_0_pwm_ctrl_s1_write_ports_inv <= not mm_interconnect_0_pwm_ctrl_s1_write;
+
+	mm_interconnect_0_pwm_status_s1_write_ports_inv <= not mm_interconnect_0_pwm_status_s1_write;
 
 	mm_interconnect_0_sys_sec_s1_write_ports_inv <= not mm_interconnect_0_sys_sec_s1_write;
 

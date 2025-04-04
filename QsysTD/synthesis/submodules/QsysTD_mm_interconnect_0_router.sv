@@ -237,7 +237,7 @@ module QsysTD_mm_interconnect_0_router
     end
 
     // ( 0x41060 .. 0x41070 )
-    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 19'h41060  && read_transaction  ) begin
+    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 19'h41060   ) begin
             src_channel = 14'b00010000000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
     end

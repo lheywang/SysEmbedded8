@@ -11,8 +11,8 @@
 #ifndef _DEF_ALIAS
 #define _DEF_ALIAS
 
-#include "altera_avalon_pio_regs.h"
-#include "system.h"
+#include <system.h>
+#include <altera_avalon_pio_regs.h>
 
 // LEDR IO
 #define LEDR_IORD_DATA 				IORD_ALTERA_AVALON_PIO_DATA(	LEDR_BASE)
