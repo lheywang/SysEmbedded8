@@ -132,7 +132,7 @@ BEGIN
         5972   WHEN (freqval = 85) ELSE -- Do : 8372.02 Hz
         5637   WHEN (freqval = 86) ELSE -- Dod : 8869.84 Hz
         5321   WHEN (freqval = 87) ELSE -- Re : 9397.28 Hz
-        5022   WHEN (freqval = 88) ELSE -- Red : 9956.06 Hz
+        5022   WHEN (freqval = 88) ELSE -- Red : 9956.06 Hz
         4740   WHEN (freqval = 89) ELSE -- Mi : 10548.08 Hz
         4474   WHEN (freqval = 90) ELSE -- Fa : 11175.3 Hz
         4223   WHEN (freqval = 91) ELSE -- Fad : 11839.82 Hz
@@ -140,9 +140,9 @@ BEGIN
         3762   WHEN (freqval = 93) ELSE -- Sold : 13289.76 Hz
         3551   WHEN (freqval = 94) ELSE -- La : 14080 Hz
         3352   WHEN (freqval = 95) ELSE -- Sib : 14917.24 Hz
-		  3164   WHEN (freqval = 96) ELSE -- Si : 15804.26 Hz
+		3164   WHEN (freqval = 96) ELSE -- Si : 15804.26 Hz
 		  
-		  -- Default case
+		-- Default case
         0; -- Nothing
 
     -- Final assignement of the value
