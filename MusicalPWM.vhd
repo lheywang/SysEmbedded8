@@ -71,9 +71,9 @@ BEGIN
 
                 IF (duration > 0) THEN
                     duration_cnt <= duration_cnt + 1;
-                    pwm_enabled <= '1' AND pwm_enabled;
+                    pwm_enabled <= '1';
                 else
-                    pwm_enabled <= '0' AND pwm_enabled;
+                    pwm_enabled <= '0';
                 END IF;
 
                 IF (duration_cnt >= 500_000) THEN
@@ -105,22 +105,17 @@ BEGIN
             act <= 0;
 
         ELSIF rising_edge(clk) THEN
+            act <= act + 1;
 
-            IF (duration > 0) THEN
-                act <= act + 1;
-
-                IF (act >= to_integer(unsigned(maxv))) THEN
-                    act <= 0;
-                END IF;
-
-                IF (act < to_integer(unsigned(duty))) THEN
-                    pwm <= '1';
-                ELSE
-                    pwm <= '0';
-                END IF;
-
+            IF (act >= to_integer(unsigned(maxv))) THEN
+                act <= 0;
             END IF;
 
+            IF (act < to_integer(unsigned(duty))) THEN
+                pwm <= '1' AND pwm_enabled;
+            ELSE
+                pwm <= '0' AND pwm_enabled;
+            END IF;
         END IF;
 
     END PROCESS;
