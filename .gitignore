@@ -19,3 +19,7 @@ EclipseWorkspace/*
 *.mti
 *.wlf
 *.do
+
+# NIOS II 
+*.force_relink
+*.force_rebuild

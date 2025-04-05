@@ -3,8 +3,10 @@
  *
  * Define some functions about the buzzer management (proper peripheral)
  *
- * This remain the generic interface to the buzzer, more advanced functions
- * are available using the song interface.
+ * This header expose two main interfaces :
+ * 	- A note oriented one, for "low level" interractions
+ * 	- A song oriented one, build arround the songs/songs.h file, that
+ * 		define more advanced functionnalities.
  *
  * l.heywang
  * 04 / 03 / 2025
@@ -82,10 +84,10 @@ int buzzer_disable();
 int buzzer_play();
 
 /**
- *	@brief 		Register the play of the song.
+ *	@brief 		Register the play of the song (or cancel it)
  *
  *	@warning	This function make the usage of interruptions for each note.
- *				This may induce some overhead for the song
+ *				This may overhide previously defined settings.
  *
  *	@param 		struct song		A pointer to a song struct to be played
  *
@@ -95,5 +97,6 @@ int buzzer_play();
  *	@return 	-2 				Could not register the interrupts
  */
 int buzzer_play_song(const struct song *Song);
+int buzzer_stop_song();
 
 #endif /* _DEF_BUZZER */

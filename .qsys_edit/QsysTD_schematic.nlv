@@ -1,36 +1,36 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
 preplace inst QsysTD.NiosII_CPU.reset_bridge -pg 1
-preplace inst QsysTD.LEDR -pg 1 -lvl 3 -y 910
+preplace inst QsysTD.LEDR -pg 1 -lvl 3 -y 1030
 preplace inst QsysTD.NiosII_CPU.cpu -pg 1
 preplace inst QsysTD.NiosII_CPU -pg 1 -lvl 2 -y 440
-preplace inst QsysTD.INTERRUPTEURS -pg 1 -lvl 3 -y 810
+preplace inst QsysTD.INTERRUPTEURS -pg 1 -lvl 3 -y 930
 preplace inst QsysTD -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst QsysTD.SYS_SEC -pg 1 -lvl 3 -y 350
-preplace inst QsysTD.MEMOIRE_ONCHIP -pg 1 -lvl 3 -y 650
-preplace inst QsysTD.jtag_uart_0 -pg 1 -lvl 3 -y 450
-preplace inst QsysTD.SYS_MEL -pg 1 -lvl 3 -y 250
+preplace inst QsysTD.SYS_SEC -pg 1 -lvl 3 -y 470
+preplace inst QsysTD.MEMOIRE_ONCHIP -pg 1 -lvl 3 -y 770
+preplace inst QsysTD.jtag_uart_0 -pg 1 -lvl 3 -y 570
+preplace inst QsysTD.SYS_MEL -pg 1 -lvl 3 -y 370
 preplace inst QsysTD.NiosII_CPU.clock_bridge -pg 1
 preplace inst QsysTD.BOUTONS_POUSSOIRS -pg 1 -lvl 3 -y 30
-preplace inst QsysTD.PWM_STATUS -pg 1 -lvl 3 -y 1110
-preplace inst QsysTD.PWM_CTRL -pg 1 -lvl 3 -y 1010
-preplace inst QsysTD.HEX3_HEX0 -pg 1 -lvl 3 -y 550
+preplace inst QsysTD.PWM_STATUS -pg 1 -lvl 3 -y 150
+preplace inst QsysTD.PWM_CTRL -pg 1 -lvl 3 -y 1130
+preplace inst QsysTD.HEX3_HEX0 -pg 1 -lvl 3 -y 670
 preplace inst QsysTD.clk_0 -pg 1 -lvl 1 -y 770
-preplace inst QsysTD.HEX5_HEX4 -pg 1 -lvl 3 -y 1210
-preplace inst QsysTD.sysid_qsys_0 -pg 1 -lvl 3 -y 730
-preplace inst QsysTD.SYS_CLK_timer -pg 1 -lvl 3 -y 150
-preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.hex2,(SLAVE)HEX5_HEX4.external_connection) 1 0 3 NJ 1240 NJ 1240 NJ
-preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)HEX3_HEX0.external_connection,(SLAVE)QsysTD.hex1) 1 0 3 NJ 580 NJ 580 NJ
-preplace netloc INTERCONNECT<net_container>QsysTD</net_container>(MASTER)clk_0.clk_reset,(SLAVE)SYS_MEL.reset,(SLAVE)PWM_STATUS.reset,(SLAVE)HEX3_HEX0.reset,(SLAVE)INTERRUPTEURS.reset,(SLAVE)LEDR.reset,(SLAVE)BOUTONS_POUSSOIRS.reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)SYS_CLK_timer.reset,(SLAVE)MEMOIRE_ONCHIP.reset1,(SLAVE)jtag_uart_0.reset,(SLAVE)PWM_CTRL.reset,(MASTER)NiosII_CPU.debug_reset_request,(SLAVE)HEX5_HEX4.reset,(SLAVE)SYS_SEC.reset,(SLAVE)NiosII_CPU.reset) 1 1 2 350 1260 730
-preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)PWM_STATUS.external_connection,(SLAVE)QsysTD.pwm_status) 1 0 3 NJ 1140 NJ 1140 NJ
-preplace netloc FAN_OUT<net_container>QsysTD</net_container>(SLAVE)SYS_SEC.irq,(SLAVE)SYS_CLK_timer.irq,(MASTER)NiosII_CPU.irq,(SLAVE)BOUTONS_POUSSOIRS.irq,(SLAVE)SYS_MEL.irq,(SLAVE)jtag_uart_0.irq) 1 2 1 750
+preplace inst QsysTD.HEX5_HEX4 -pg 1 -lvl 3 -y 1230
+preplace inst QsysTD.sysid_qsys_0 -pg 1 -lvl 3 -y 850
+preplace inst QsysTD.SYS_CLK_timer -pg 1 -lvl 3 -y 270
+preplace netloc FAN_OUT<net_container>QsysTD</net_container>(MASTER)clk_0.clk,(SLAVE)MEMOIRE_ONCHIP.clk1,(SLAVE)HEX3_HEX0.clk,(SLAVE)SYS_MEL.clk,(SLAVE)BOUTONS_POUSSOIRS.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)LEDR.clk,(SLAVE)SYS_CLK_timer.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)HEX5_HEX4.clk,(SLAVE)INTERRUPTEURS.clk,(SLAVE)PWM_STATUS.clk,(SLAVE)PWM_CTRL.clk,(SLAVE)SYS_SEC.clk,(SLAVE)NiosII_CPU.clk) 1 1 2 330 1180 770
+preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)PWM_STATUS.external_connection,(SLAVE)QsysTD.pwm_status) 1 0 3 NJ 180 NJ 180 NJ
+preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.interrupteurs,(SLAVE)INTERRUPTEURS.external_connection) 1 0 3 NJ 960 NJ 960 NJ
 preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc FAN_OUT<net_container>QsysTD</net_container>(SLAVE)PWM_CTRL.clk,(SLAVE)PWM_STATUS.clk,(SLAVE)SYS_MEL.clk,(SLAVE)LEDR.clk,(SLAVE)BOUTONS_POUSSOIRS.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)MEMOIRE_ONCHIP.clk1,(SLAVE)NiosII_CPU.clk,(SLAVE)HEX3_HEX0.clk,(SLAVE)INTERRUPTEURS.clk,(MASTER)clk_0.clk,(SLAVE)SYS_SEC.clk,(SLAVE)SYS_CLK_timer.clk,(SLAVE)HEX5_HEX4.clk,(SLAVE)jtag_uart_0.clk) 1 1 2 330 1160 770
-preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.pwm_ctrl,(SLAVE)PWM_CTRL.external_connection) 1 0 3 NJ 1040 NJ 1040 NJ
+preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.pwm_ctrl,(SLAVE)PWM_CTRL.external_connection) 1 0 3 NJ 1160 NJ 1160 NJ
+preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.hex1,(SLAVE)HEX3_HEX0.external_connection) 1 0 3 NJ 700 NJ 700 NJ
 preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)clk_0.clk_in,(SLAVE)QsysTD.clk) 1 0 1 NJ
 preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)BOUTONS_POUSSOIRS.external_connection,(SLAVE)QsysTD.boutons_poussoirs) 1 0 3 NJ 60 NJ 60 NJ
-preplace netloc INTERCONNECT<net_container>QsysTD</net_container>(SLAVE)NiosII_CPU.debug_mem_slave,(SLAVE)HEX5_HEX4.s1,(MASTER)NiosII_CPU.instruction_master,(SLAVE)SYS_MEL.s1,(MASTER)NiosII_CPU.data_master,(SLAVE)PWM_CTRL.s1,(SLAVE)PWM_STATUS.s1,(SLAVE)BOUTONS_POUSSOIRS.s1,(SLAVE)SYS_CLK_timer.s1,(SLAVE)LEDR.s1,(SLAVE)MEMOIRE_ONCHIP.s1,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)HEX3_HEX0.s1,(SLAVE)INTERRUPTEURS.s1,(SLAVE)SYS_SEC.s1) 1 1 2 350 400 710
-preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.leds,(SLAVE)LEDR.external_connection) 1 0 3 NJ 940 NJ 940 NJ
-preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)INTERRUPTEURS.external_connection,(SLAVE)QsysTD.interrupteurs) 1 0 3 NJ 840 NJ 840 NJ
-levelinfo -pg 1 0 120 970
-levelinfo -hier QsysTD 130 160 470 810 960
+preplace netloc FAN_OUT<net_container>QsysTD</net_container>(SLAVE)PWM_STATUS.irq,(SLAVE)SYS_SEC.irq,(SLAVE)SYS_CLK_timer.irq,(SLAVE)SYS_MEL.irq,(SLAVE)BOUTONS_POUSSOIRS.irq,(MASTER)NiosII_CPU.irq,(SLAVE)jtag_uart_0.irq) 1 2 1 790
+preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)QsysTD.leds,(SLAVE)LEDR.external_connection) 1 0 3 NJ 1060 NJ 1060 NJ
+preplace netloc EXPORT<net_container>QsysTD</net_container>(SLAVE)HEX5_HEX4.external_connection,(SLAVE)QsysTD.hex2) 1 0 3 NJ 1260 NJ 1260 NJ
+preplace netloc INTERCONNECT<net_container>QsysTD</net_container>(SLAVE)HEX3_HEX0.reset,(SLAVE)SYS_CLK_timer.reset,(SLAVE)SYS_SEC.reset,(SLAVE)BOUTONS_POUSSOIRS.reset,(SLAVE)PWM_CTRL.reset,(MASTER)clk_0.clk_reset,(SLAVE)PWM_STATUS.reset,(SLAVE)SYS_MEL.reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)NiosII_CPU.reset,(SLAVE)MEMOIRE_ONCHIP.reset1,(SLAVE)INTERRUPTEURS.reset,(SLAVE)LEDR.reset,(MASTER)NiosII_CPU.debug_reset_request,(SLAVE)HEX5_HEX4.reset,(SLAVE)jtag_uart_0.reset) 1 1 2 350 1280 750
+preplace netloc INTERCONNECT<net_container>QsysTD</net_container>(SLAVE)MEMOIRE_ONCHIP.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave,(MASTER)NiosII_CPU.data_master,(SLAVE)LEDR.s1,(SLAVE)HEX5_HEX4.s1,(SLAVE)NiosII_CPU.debug_mem_slave,(SLAVE)INTERRUPTEURS.s1,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)PWM_STATUS.s1,(SLAVE)SYS_SEC.s1,(SLAVE)SYS_MEL.s1,(MASTER)NiosII_CPU.instruction_master,(SLAVE)SYS_CLK_timer.s1,(SLAVE)HEX3_HEX0.s1,(SLAVE)PWM_CTRL.s1,(SLAVE)BOUTONS_POUSSOIRS.s1) 1 1 2 350 400 730
+levelinfo -pg 1 0 120 990
+levelinfo -hier QsysTD 130 160 490 830 980

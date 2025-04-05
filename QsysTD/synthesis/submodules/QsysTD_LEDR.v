@@ -54,7 +54,7 @@ wire    [ 31: 0] readdata;
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
-          data_out <= 597;
+          data_out <= 1023;
       else if (chipselect && ~write_n && (address == 0))
           data_out <= writedata[9 : 0];
     end

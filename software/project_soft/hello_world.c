@@ -23,65 +23,48 @@
 #include <system.h>
 #include <altera_avalon_pio_regs.h>
 #include <unistd.h>
+#include "buzzer/songs/crazy-frog.h"
 
-static void PWM_ISR(void *context, alt_u32 id)
-{
-	int button_position;
-	button_position = IORD_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE);
-	IOWR_ALTERA_AVALON_PIO_DATA(PWM_STATUS_BASE, button_position);
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE, 0x0);
-    button_position = 0x0;
 
-	printf("Interrupt from the PIO !");
-
-	return;
-}
-
-static void SW_ISR(void *context, alt_u32 id)
+static void SW_ISR(void *context)
 {
 	int button_position;
 	button_position = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BOUTONS_POUSSOIRS_BASE);
 	IOWR_ALTERA_AVALON_PIO_DATA(BOUTONS_POUSSOIRS_BASE, button_position);
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BOUTONS_POUSSOIRS_BASE, 0x0);
-    button_position = 0x0;
+    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BOUTONS_POUSSOIRS_BASE, button_position);
 
-	printf("Interrupt from the PIO (SW) !");
+	printf("\nInterrupt from the PIO (SW) !\n\tValue of edge %d\n\n");
 
 	return;
 }
 
 int main()
 {
-  printf("Hello from Nios II!\n");
+  printf("Hello from Nios II!\n\n\r");
 
-  // Enable interrupts
-  printf("PIO NOK !\n");
+  BP_IOWR_MASK(0x3);
+  BP_IOWR_DATA(0x00);
+  BP_IOWR_EDGE(0x00);
+  alt_ic_isr_register(BOUTONS_POUSSOIRS_IRQ_INTERRUPT_CONTROLLER_ID, BOUTONS_POUSSOIRS_IRQ, (void *)SW_ISR, NULL, 0x00);
 
-  IOWR_ALTERA_AVALON_PIO_IRQ_MASK(PWM_STATUS_BASE, 0xFF);
-  IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE, 0x0);
-  alt_ic_isr_register(PWM_STATUS_IRQ_INTERRUPT_CONTROLLER_ID, PWM_STATUS_BASE, (void *)PWM_ISR, NULL, 0x00);
 
-  IOWR_ALTERA_AVALON_PIO_IRQ_MASK(BOUTONS_POUSSOIRS_BASE, 0xFF);
-  IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BOUTONS_POUSSOIRS_BASE, 0x0);
-  alt_ic_isr_register(BOUTONS_POUSSOIRS_IRQ_INTERRUPT_CONTROLLER_ID, BOUTONS_POUSSOIRS_BASE, (void *)SW_ISR, NULL, 0x00);
-
-  // Play a note
-  usleep(500 * 1000);
-  buzzer_enable();
-  buzzer_set_volume(255);
-  buzzer_set_duration(100);
-  buzzer_set_note(La4);
-  buzzer_play();
-  usleep(1200 * 1000);
-  buzzer_play();
+  // Launch a music
+  buzzer_play_song(&CrazyFrog);
 
   // Hex displaying
   hex_display("cccccc", 6, 0);
 
   int cnt = 0;
-  while(1){
+  while(1)
+  {
 	  usleep(1000 * 1000);
-	  printf("Looping... %d\n", cnt++);
+	  printf("Looping... %d\n\r", cnt++);
+
+	  printf("Buttons : %d; Edge %d\n\r", BP_IORD_DATA, BP_IORD_EDGE);
+	  BP_IOWR_EDGE(BP_IORD_DATA);
+	  printf("Status : %d; Edge %d\n\r", IORD_ALTERA_AVALON_PIO_DATA(PWM_STATUS_BASE), IORD_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE));
+	  IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE,IORD_ALTERA_AVALON_PIO_DATA(PWM_STATUS_BASE));
+	  printf("\n\n");
   }
 
   return 0;

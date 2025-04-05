@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="QsysTD" kind="QsysTD" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2025.04.04.20:52:02 -->
+ <!-- 2025.04.05.16:53:03 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1743792722</value>
+  <value>1743864783</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -3339,7 +3339,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>597</value>
+   <value>1023</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -3359,7 +3359,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
-   <value>597</value>
+   <value>1023</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -3423,7 +3423,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="resetValue">
    <type>long</type>
-   <value>597</value>
+   <value>1023</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -6555,7 +6555,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='MEMOIRE_ONCHIP.s1' start='0x20000' end='0x3E000' type='altera_avalon_onchip_memory2.s1' /><slave name='NiosII_CPU.debug_mem_slave' start='0x40800' end='0x41000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='SYS_MEL.s1' start='0x41000' end='0x41020' type='altera_avalon_timer.s1' /><slave name='SYS_SEC.s1' start='0x41020' end='0x41040' type='altera_avalon_timer.s1' /><slave name='SYS_CLK_timer.s1' start='0x41040' end='0x41060' type='altera_avalon_timer.s1' /><slave name='PWM_STATUS.s1' start='0x41060' end='0x41070' type='altera_avalon_pio.s1' /><slave name='PWM_CTRL.s1' start='0x41070' end='0x41080' type='altera_avalon_pio.s1' /><slave name='HEX5_HEX4.s1' start='0x41080' end='0x41090' type='altera_avalon_pio.s1' /><slave name='HEX3_HEX0.s1' start='0x41090' end='0x410A0' type='altera_avalon_pio.s1' /><slave name='LEDR.s1' start='0x410A0' end='0x410B0' type='altera_avalon_pio.s1' /><slave name='BOUTONS_POUSSOIRS.s1' start='0x410B0' end='0x410C0' type='altera_avalon_pio.s1' /><slave name='INTERRUPTEURS.s1' start='0x410C0' end='0x410D0' type='altera_avalon_pio.s1' /><slave name='sysid_qsys_0.control_slave' start='0x410D0' end='0x410D8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x410D8' end='0x410E0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='MEMOIRE_ONCHIP.s1' start='0x20000' end='0x3E000' type='altera_avalon_onchip_memory2.s1' /><slave name='NiosII_CPU.debug_mem_slave' start='0x40800' end='0x41000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='SYS_MEL.s1' start='0x41000' end='0x41020' type='altera_avalon_timer.s1' /><slave name='SYS_SEC.s1' start='0x41020' end='0x41040' type='altera_avalon_timer.s1' /><slave name='SYS_CLK_timer.s1' start='0x41040' end='0x41060' type='altera_avalon_timer.s1' /><slave name='LEDR.s1' start='0x41060' end='0x41070' type='altera_avalon_pio.s1' /><slave name='PWM_STATUS.s1' start='0x41070' end='0x41080' type='altera_avalon_pio.s1' /><slave name='BOUTONS_POUSSOIRS.s1' start='0x41080' end='0x41090' type='altera_avalon_pio.s1' /><slave name='PWM_CTRL.s1' start='0x41090' end='0x410A0' type='altera_avalon_pio.s1' /><slave name='HEX5_HEX4.s1' start='0x410A0' end='0x410B0' type='altera_avalon_pio.s1' /><slave name='HEX3_HEX0.s1' start='0x410B0' end='0x410C0' type='altera_avalon_pio.s1' /><slave name='INTERRUPTEURS.s1' start='0x410C0' end='0x410D0' type='altera_avalon_pio.s1' /><slave name='sysid_qsys_0.control_slave' start='0x410D0' end='0x410D8' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x410D8' end='0x410E0' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -6684,7 +6684,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="internalIrqMaskSystemInfo">
    <type>long</type>
-   <value>65567</value>
+   <value>63</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -7271,18 +7271,10 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>LEDR</moduleName>
-    <slaveName>s1</slaveName>
-    <name>LEDR.s1</name>
-    <baseAddress>266400</baseAddress>
-    <span>16</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
     <moduleName>HEX3_HEX0</moduleName>
     <slaveName>s1</slaveName>
     <name>HEX3_HEX0.s1</name>
-    <baseAddress>266384</baseAddress>
+    <baseAddress>266416</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -7290,7 +7282,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>HEX5_HEX4</moduleName>
     <slaveName>s1</slaveName>
     <name>HEX5_HEX4.s1</name>
-    <baseAddress>266368</baseAddress>
+    <baseAddress>266400</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -7298,15 +7290,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>PWM_CTRL</moduleName>
     <slaveName>s1</slaveName>
     <name>PWM_CTRL.s1</name>
-    <baseAddress>266352</baseAddress>
-    <span>16</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>PWM_STATUS</moduleName>
-    <slaveName>s1</slaveName>
-    <name>PWM_STATUS.s1</name>
-    <baseAddress>266336</baseAddress>
+    <baseAddress>266384</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -7330,7 +7314,23 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>BOUTONS_POUSSOIRS</moduleName>
     <slaveName>s1</slaveName>
     <name>BOUTONS_POUSSOIRS.s1</name>
-    <baseAddress>266416</baseAddress>
+    <baseAddress>266368</baseAddress>
+    <span>16</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>PWM_STATUS</moduleName>
+    <slaveName>s1</slaveName>
+    <name>PWM_STATUS.s1</name>
+    <baseAddress>266352</baseAddress>
+    <span>16</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>LEDR</moduleName>
+    <slaveName>s1</slaveName>
+    <name>LEDR.s1</name>
+    <baseAddress>266336</baseAddress>
     <span>16</span>
    </memoryBlock>
   </interface>
@@ -7716,14 +7716,14 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>irq</slaveName>
     <name>jtag_uart_0.irq</name>
-    <interruptNumber>16</interruptNumber>
+    <interruptNumber>0</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>SYS_CLK_timer</moduleName>
     <slaveName>irq</slaveName>
     <name>SYS_CLK_timer.irq</name>
-    <interruptNumber>0</interruptNumber>
+    <interruptNumber>1</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
@@ -7744,14 +7744,14 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>BOUTONS_POUSSOIRS</moduleName>
     <slaveName>irq</slaveName>
     <name>BOUTONS_POUSSOIRS.irq</name>
-    <interruptNumber>1</interruptNumber>
+    <interruptNumber>4</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>PWM_STATUS</moduleName>
     <slaveName>irq</slaveName>
     <name>PWM_STATUS.irq</name>
-    <interruptNumber>4</interruptNumber>
+    <interruptNumber>5</interruptNumber>
    </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="18.1">
@@ -9066,7 +9066,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
@@ -9110,7 +9110,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.IRQ_TYPE</name>
-   <value>LEVEL</value>
+   <value>EDGE</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.RESET_VALUE</name>
@@ -9134,15 +9134,19 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,interrupt-type</name>
-   <value>4</value>
+   <value>1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,interrupt_type</name>
-   <value>4</value>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.edge_type</name>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.level_trigger</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
@@ -9154,7 +9158,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="bitClearingEdgeCapReg">
    <type>boolean</type>
-   <value>true</value>
+   <value>false</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -9202,7 +9206,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="irqType">
    <type>java.lang.String</type>
-   <value>LEVEL</value>
+   <value>EDGE</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -9300,7 +9304,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="derived_irq_type">
    <type>java.lang.String</type>
-   <value>LEVEL</value>
+   <value>EDGE</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -9852,7 +9856,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <assignment>
     <name>embeddedsw.dts.irq.tx_type</name>
-    <value>ACTIVE_HIGH</value>
+    <value>RISING_EDGE</value>
    </assignment>
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
@@ -12541,12 +12545,6 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>LEDR</moduleName>
-    <slaveName>clk</slaveName>
-    <name>LEDR.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
     <moduleName>HEX3_HEX0</moduleName>
     <slaveName>clk</slaveName>
     <name>HEX3_HEX0.clk</name>
@@ -12565,12 +12563,6 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>PWM_STATUS</moduleName>
-    <slaveName>clk</slaveName>
-    <name>PWM_STATUS.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
     <moduleName>SYS_SEC</moduleName>
     <slaveName>clk</slaveName>
     <name>SYS_SEC.clk</name>
@@ -12586,6 +12578,18 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>BOUTONS_POUSSOIRS</moduleName>
     <slaveName>clk</slaveName>
     <name>BOUTONS_POUSSOIRS.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>PWM_STATUS</moduleName>
+    <slaveName>clk</slaveName>
+    <name>PWM_STATUS.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>LEDR</moduleName>
+    <slaveName>clk</slaveName>
+    <name>LEDR.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -13416,7 +13420,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1743792722</value>
+   <value>1743864783</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -13436,7 +13440,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1743792722</value>
+   <value>1743864783</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -13452,7 +13456,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1743792722</value>
+   <value>1743864783</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -14216,57 +14220,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="NiosII_CPU.data_master/LEDR.s1"
-   kind="avalon"
-   version="18.1"
-   start="NiosII_CPU.data_master"
-   end="LEDR.s1">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x000410a0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>NiosII_CPU</startModule>
-  <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>LEDR</endModule>
-  <endConnectionPoint>s1</endConnectionPoint>
- </connection>
- <connection
    name="NiosII_CPU.data_master/HEX3_HEX0.s1"
    kind="avalon"
    version="18.1"
@@ -14282,7 +14235,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00041090</value>
+   <value>0x000410b0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14333,7 +14286,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00041080</value>
+   <value>0x000410a0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14384,7 +14337,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00041070</value>
+   <value>0x00041090</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14417,57 +14370,6 @@ parameters are a RESULT of the module parameters. -->
   <startModule>NiosII_CPU</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>PWM_CTRL</endModule>
-  <endConnectionPoint>s1</endConnectionPoint>
- </connection>
- <connection
-   name="NiosII_CPU.data_master/PWM_STATUS.s1"
-   kind="avalon"
-   version="18.1"
-   start="NiosII_CPU.data_master"
-   end="PWM_STATUS.s1">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x00041060</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>NiosII_CPU</startModule>
-  <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>PWM_STATUS</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
@@ -14588,7 +14490,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000410b0</value>
+   <value>0x00041080</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14621,6 +14523,108 @@ parameters are a RESULT of the module parameters. -->
   <startModule>NiosII_CPU</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>BOUTONS_POUSSOIRS</endModule>
+  <endConnectionPoint>s1</endConnectionPoint>
+ </connection>
+ <connection
+   name="NiosII_CPU.data_master/PWM_STATUS.s1"
+   kind="avalon"
+   version="18.1"
+   start="NiosII_CPU.data_master"
+   end="PWM_STATUS.s1">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x00041070</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>NiosII_CPU</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>PWM_STATUS</endModule>
+  <endConnectionPoint>s1</endConnectionPoint>
+ </connection>
+ <connection
+   name="NiosII_CPU.data_master/LEDR.s1"
+   kind="avalon"
+   version="18.1"
+   start="NiosII_CPU.data_master"
+   end="LEDR.s1">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x00041060</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>NiosII_CPU</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>LEDR</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
@@ -14861,33 +14865,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk/LEDR.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="LEDR.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>LEDR</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk/HEX3_HEX0.clk"
    kind="clock"
    version="18.1"
@@ -14966,33 +14943,6 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>PWM_CTRL</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_0.clk/PWM_STATUS.clk"
-   kind="clock"
-   version="18.1"
-   start="clk_0.clk"
-   end="PWM_STATUS.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>PWM_STATUS</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
@@ -15077,6 +15027,60 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
+   name="clk_0.clk/PWM_STATUS.clk"
+   kind="clock"
+   version="18.1"
+   start="clk_0.clk"
+   end="PWM_STATUS.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>PWM_STATUS</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk/LEDR.clk"
+   kind="clock"
+   version="18.1"
+   start="clk_0.clk"
+   end="LEDR.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>LEDR</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_0.clk/MEMOIRE_ONCHIP.clk1"
    kind="clock"
    version="18.1"
@@ -15111,7 +15115,7 @@ parameters are a RESULT of the module parameters. -->
    end="jtag_uart_0.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>16</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15146,7 +15150,7 @@ parameters are a RESULT of the module parameters. -->
    end="SYS_CLK_timer.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15251,7 +15255,7 @@ parameters are a RESULT of the module parameters. -->
    end="BOUTONS_POUSSOIRS.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>1</value>
+   <value>4</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15286,7 +15290,7 @@ parameters are a RESULT of the module parameters. -->
    end="PWM_STATUS.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>4</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15449,33 +15453,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/LEDR.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="LEDR.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>LEDR</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk_reset/HEX3_HEX0.reset"
    kind="reset"
    version="18.1"
@@ -15557,33 +15534,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/PWM_STATUS.reset"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="PWM_STATUS.reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>PWM_STATUS</endModule>
-  <endConnectionPoint>reset</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk_reset/SYS_SEC.reset"
    kind="reset"
    version="18.1"
@@ -15662,6 +15612,60 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>BOUTONS_POUSSOIRS</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk_reset/PWM_STATUS.reset"
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="PWM_STATUS.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>PWM_STATUS</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk_reset/LEDR.reset"
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="LEDR.reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>LEDR</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection

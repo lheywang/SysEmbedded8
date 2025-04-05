@@ -22,7 +22,7 @@
 // Parameters
 //   NUM_RCVRS        : 6
 //   SENDER_IRW_WIDTH : 32
-//   IRQ_MAP          : 0:16,1:0,2:2,3:3,4:1,5:4
+//   IRQ_MAP          : 0:0,1:1,2:2,3:3,4:4,5:5
 //
 // -------------------------------------------------------
 
@@ -56,12 +56,12 @@ module QsysTD_irq_mapper
     always @* begin
 	sender_irq = 0;
 
-        sender_irq[16] = receiver0_irq;
-        sender_irq[0] = receiver1_irq;
+        sender_irq[0] = receiver0_irq;
+        sender_irq[1] = receiver1_irq;
         sender_irq[2] = receiver2_irq;
         sender_irq[3] = receiver3_irq;
-        sender_irq[1] = receiver4_irq;
-        sender_irq[4] = receiver5_irq;
+        sender_irq[4] = receiver4_irq;
+        sender_irq[5] = receiver5_irq;
     end
 
 endmodule

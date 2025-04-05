@@ -491,11 +491,6 @@ architecture rtl of QsysTD is
 	signal mm_interconnect_0_sys_clk_timer_s1_writedata                    : std_logic_vector(15 downto 0); -- mm_interconnect_0:SYS_CLK_timer_s1_writedata -> SYS_CLK_timer:writedata
 	signal mm_interconnect_0_interrupteurs_s1_readdata                     : std_logic_vector(31 downto 0); -- INTERRUPTEURS:readdata -> mm_interconnect_0:INTERRUPTEURS_s1_readdata
 	signal mm_interconnect_0_interrupteurs_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:INTERRUPTEURS_s1_address -> INTERRUPTEURS:address
-	signal mm_interconnect_0_ledr_s1_chipselect                            : std_logic;                     -- mm_interconnect_0:LEDR_s1_chipselect -> LEDR:chipselect
-	signal mm_interconnect_0_ledr_s1_readdata                              : std_logic_vector(31 downto 0); -- LEDR:readdata -> mm_interconnect_0:LEDR_s1_readdata
-	signal mm_interconnect_0_ledr_s1_address                               : std_logic_vector(1 downto 0);  -- mm_interconnect_0:LEDR_s1_address -> LEDR:address
-	signal mm_interconnect_0_ledr_s1_write                                 : std_logic;                     -- mm_interconnect_0:LEDR_s1_write -> mm_interconnect_0_ledr_s1_write:in
-	signal mm_interconnect_0_ledr_s1_writedata                             : std_logic_vector(31 downto 0); -- mm_interconnect_0:LEDR_s1_writedata -> LEDR:writedata
 	signal mm_interconnect_0_hex3_hex0_s1_chipselect                       : std_logic;                     -- mm_interconnect_0:HEX3_HEX0_s1_chipselect -> HEX3_HEX0:chipselect
 	signal mm_interconnect_0_hex3_hex0_s1_readdata                         : std_logic_vector(31 downto 0); -- HEX3_HEX0:readdata -> mm_interconnect_0:HEX3_HEX0_s1_readdata
 	signal mm_interconnect_0_hex3_hex0_s1_address                          : std_logic_vector(1 downto 0);  -- mm_interconnect_0:HEX3_HEX0_s1_address -> HEX3_HEX0:address
@@ -511,11 +506,6 @@ architecture rtl of QsysTD is
 	signal mm_interconnect_0_pwm_ctrl_s1_address                           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_CTRL_s1_address -> PWM_CTRL:address
 	signal mm_interconnect_0_pwm_ctrl_s1_write                             : std_logic;                     -- mm_interconnect_0:PWM_CTRL_s1_write -> mm_interconnect_0_pwm_ctrl_s1_write:in
 	signal mm_interconnect_0_pwm_ctrl_s1_writedata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:PWM_CTRL_s1_writedata -> PWM_CTRL:writedata
-	signal mm_interconnect_0_pwm_status_s1_chipselect                      : std_logic;                     -- mm_interconnect_0:PWM_STATUS_s1_chipselect -> PWM_STATUS:chipselect
-	signal mm_interconnect_0_pwm_status_s1_readdata                        : std_logic_vector(31 downto 0); -- PWM_STATUS:readdata -> mm_interconnect_0:PWM_STATUS_s1_readdata
-	signal mm_interconnect_0_pwm_status_s1_address                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_STATUS_s1_address -> PWM_STATUS:address
-	signal mm_interconnect_0_pwm_status_s1_write                           : std_logic;                     -- mm_interconnect_0:PWM_STATUS_s1_write -> mm_interconnect_0_pwm_status_s1_write:in
-	signal mm_interconnect_0_pwm_status_s1_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:PWM_STATUS_s1_writedata -> PWM_STATUS:writedata
 	signal mm_interconnect_0_sys_sec_s1_chipselect                         : std_logic;                     -- mm_interconnect_0:SYS_SEC_s1_chipselect -> SYS_SEC:chipselect
 	signal mm_interconnect_0_sys_sec_s1_readdata                           : std_logic_vector(15 downto 0); -- SYS_SEC:readdata -> mm_interconnect_0:SYS_SEC_s1_readdata
 	signal mm_interconnect_0_sys_sec_s1_address                            : std_logic_vector(2 downto 0);  -- mm_interconnect_0:SYS_SEC_s1_address -> SYS_SEC:address
@@ -531,6 +521,16 @@ architecture rtl of QsysTD is
 	signal mm_interconnect_0_boutons_poussoirs_s1_address                  : std_logic_vector(1 downto 0);  -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_address -> BOUTONS_POUSSOIRS:address
 	signal mm_interconnect_0_boutons_poussoirs_s1_write                    : std_logic;                     -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_write -> mm_interconnect_0_boutons_poussoirs_s1_write:in
 	signal mm_interconnect_0_boutons_poussoirs_s1_writedata                : std_logic_vector(31 downto 0); -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_writedata -> BOUTONS_POUSSOIRS:writedata
+	signal mm_interconnect_0_pwm_status_s1_chipselect                      : std_logic;                     -- mm_interconnect_0:PWM_STATUS_s1_chipselect -> PWM_STATUS:chipselect
+	signal mm_interconnect_0_pwm_status_s1_readdata                        : std_logic_vector(31 downto 0); -- PWM_STATUS:readdata -> mm_interconnect_0:PWM_STATUS_s1_readdata
+	signal mm_interconnect_0_pwm_status_s1_address                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_STATUS_s1_address -> PWM_STATUS:address
+	signal mm_interconnect_0_pwm_status_s1_write                           : std_logic;                     -- mm_interconnect_0:PWM_STATUS_s1_write -> mm_interconnect_0_pwm_status_s1_write:in
+	signal mm_interconnect_0_pwm_status_s1_writedata                       : std_logic_vector(31 downto 0); -- mm_interconnect_0:PWM_STATUS_s1_writedata -> PWM_STATUS:writedata
+	signal mm_interconnect_0_ledr_s1_chipselect                            : std_logic;                     -- mm_interconnect_0:LEDR_s1_chipselect -> LEDR:chipselect
+	signal mm_interconnect_0_ledr_s1_readdata                              : std_logic_vector(31 downto 0); -- LEDR:readdata -> mm_interconnect_0:LEDR_s1_readdata
+	signal mm_interconnect_0_ledr_s1_address                               : std_logic_vector(1 downto 0);  -- mm_interconnect_0:LEDR_s1_address -> LEDR:address
+	signal mm_interconnect_0_ledr_s1_write                                 : std_logic;                     -- mm_interconnect_0:LEDR_s1_write -> mm_interconnect_0_ledr_s1_write:in
+	signal mm_interconnect_0_ledr_s1_writedata                             : std_logic_vector(31 downto 0); -- mm_interconnect_0:LEDR_s1_writedata -> LEDR:writedata
 	signal irq_mapper_receiver0_irq                                        : std_logic;                     -- jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                        : std_logic;                     -- SYS_CLK_timer:irq -> irq_mapper:receiver1_irq
 	signal irq_mapper_receiver2_irq                                        : std_logic;                     -- SYS_SEC:irq -> irq_mapper:receiver2_irq
@@ -546,14 +546,14 @@ architecture rtl of QsysTD is
 	signal mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read_ports_inv  : std_logic;                     -- mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read:inv -> jtag_uart_0:av_read_n
 	signal mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv : std_logic;                     -- mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write:inv -> jtag_uart_0:av_write_n
 	signal mm_interconnect_0_sys_clk_timer_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_sys_clk_timer_s1_write:inv -> SYS_CLK_timer:write_n
-	signal mm_interconnect_0_ledr_s1_write_ports_inv                       : std_logic;                     -- mm_interconnect_0_ledr_s1_write:inv -> LEDR:write_n
 	signal mm_interconnect_0_hex3_hex0_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_hex3_hex0_s1_write:inv -> HEX3_HEX0:write_n
 	signal mm_interconnect_0_hex5_hex4_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_hex5_hex4_s1_write:inv -> HEX5_HEX4:write_n
 	signal mm_interconnect_0_pwm_ctrl_s1_write_ports_inv                   : std_logic;                     -- mm_interconnect_0_pwm_ctrl_s1_write:inv -> PWM_CTRL:write_n
-	signal mm_interconnect_0_pwm_status_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_pwm_status_s1_write:inv -> PWM_STATUS:write_n
 	signal mm_interconnect_0_sys_sec_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_sys_sec_s1_write:inv -> SYS_SEC:write_n
 	signal mm_interconnect_0_sys_mel_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_sys_mel_s1_write:inv -> SYS_MEL:write_n
 	signal mm_interconnect_0_boutons_poussoirs_s1_write_ports_inv          : std_logic;                     -- mm_interconnect_0_boutons_poussoirs_s1_write:inv -> BOUTONS_POUSSOIRS:write_n
+	signal mm_interconnect_0_pwm_status_s1_write_ports_inv                 : std_logic;                     -- mm_interconnect_0_pwm_status_s1_write:inv -> PWM_STATUS:write_n
+	signal mm_interconnect_0_ledr_s1_write_ports_inv                       : std_logic;                     -- mm_interconnect_0_ledr_s1_write:inv -> LEDR:write_n
 	signal rst_controller_reset_out_reset_ports_inv                        : std_logic;                     -- rst_controller_reset_out_reset:inv -> [BOUTONS_POUSSOIRS:reset_n, HEX3_HEX0:reset_n, HEX5_HEX4:reset_n, INTERRUPTEURS:reset_n, LEDR:reset_n, PWM_CTRL:reset_n, PWM_STATUS:reset_n, SYS_CLK_timer:reset_n, SYS_MEL:reset_n, SYS_SEC:reset_n, jtag_uart_0:rst_n, sysid_qsys_0:reset_n]
 	signal rst_controller_001_reset_out_reset_ports_inv                    : std_logic;                     -- rst_controller_001_reset_out_reset:inv -> NiosII_CPU:reset_n
 
@@ -988,21 +988,21 @@ begin
 
 	mm_interconnect_0_sys_clk_timer_s1_write_ports_inv <= not mm_interconnect_0_sys_clk_timer_s1_write;
 
-	mm_interconnect_0_ledr_s1_write_ports_inv <= not mm_interconnect_0_ledr_s1_write;
-
 	mm_interconnect_0_hex3_hex0_s1_write_ports_inv <= not mm_interconnect_0_hex3_hex0_s1_write;
 
 	mm_interconnect_0_hex5_hex4_s1_write_ports_inv <= not mm_interconnect_0_hex5_hex4_s1_write;
 
 	mm_interconnect_0_pwm_ctrl_s1_write_ports_inv <= not mm_interconnect_0_pwm_ctrl_s1_write;
 
-	mm_interconnect_0_pwm_status_s1_write_ports_inv <= not mm_interconnect_0_pwm_status_s1_write;
-
 	mm_interconnect_0_sys_sec_s1_write_ports_inv <= not mm_interconnect_0_sys_sec_s1_write;
 
 	mm_interconnect_0_sys_mel_s1_write_ports_inv <= not mm_interconnect_0_sys_mel_s1_write;
 
 	mm_interconnect_0_boutons_poussoirs_s1_write_ports_inv <= not mm_interconnect_0_boutons_poussoirs_s1_write;
+
+	mm_interconnect_0_pwm_status_s1_write_ports_inv <= not mm_interconnect_0_pwm_status_s1_write;
+
+	mm_interconnect_0_ledr_s1_write_ports_inv <= not mm_interconnect_0_ledr_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

@@ -81,14 +81,14 @@ reg     [ 31: 0] readdata;
     end
 
 
-  assign irq = |(data_in      & irq_mask);
+  assign irq = |(edge_capture & irq_mask);
   assign edge_capture_wr_strobe = chipselect && ~write_n && (address == 3);
   always @(posedge clk or negedge reset_n)
     begin
       if (reset_n == 0)
           edge_capture[0] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[0])
+          if (edge_capture_wr_strobe)
               edge_capture[0] <= 0;
           else if (edge_detect[0])
               edge_capture[0] <= -1;
@@ -100,7 +100,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[1] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[1])
+          if (edge_capture_wr_strobe)
               edge_capture[1] <= 0;
           else if (edge_detect[1])
               edge_capture[1] <= -1;
@@ -112,7 +112,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[2] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[2])
+          if (edge_capture_wr_strobe)
               edge_capture[2] <= 0;
           else if (edge_detect[2])
               edge_capture[2] <= -1;
@@ -124,7 +124,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[3] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[3])
+          if (edge_capture_wr_strobe)
               edge_capture[3] <= 0;
           else if (edge_detect[3])
               edge_capture[3] <= -1;
@@ -136,7 +136,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[4] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[4])
+          if (edge_capture_wr_strobe)
               edge_capture[4] <= 0;
           else if (edge_detect[4])
               edge_capture[4] <= -1;
@@ -148,7 +148,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[5] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[5])
+          if (edge_capture_wr_strobe)
               edge_capture[5] <= 0;
           else if (edge_detect[5])
               edge_capture[5] <= -1;
@@ -160,7 +160,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[6] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[6])
+          if (edge_capture_wr_strobe)
               edge_capture[6] <= 0;
           else if (edge_detect[6])
               edge_capture[6] <= -1;
@@ -172,7 +172,7 @@ reg     [ 31: 0] readdata;
       if (reset_n == 0)
           edge_capture[7] <= 0;
       else if (clk_en)
-          if (edge_capture_wr_strobe && writedata[7])
+          if (edge_capture_wr_strobe)
               edge_capture[7] <= 0;
           else if (edge_detect[7])
               edge_capture[7] <= -1;
