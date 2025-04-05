@@ -1,30 +1,65 @@
 /** =======================================================================
- * buzzer/songs/crazy-frog.h
+ * buzzer/songs/elise/elise.c
  *
- * Define values for the crazy frog song.
+ * Define values for the Anissa (Wejdene) song.
  *
  * l.heywang
- * 04 / 03 / 2025
+ * 05 / 03 / 2025
  *  =======================================================================
  */
 
-#ifndef _DEF_CRAZY_FROG
-#define _DEF_CRAZY_FROG
+#ifndef _DEF_ELISE
+#define _DEF_ELISE
 
 /** =======================================================================
  *	LIBS
  *  =======================================================================
  */
-// Headers
-#include "songs.h"
+// Header
+#include "elise.h"
+
+// Libs
+#include "../../note.h"
+#include "../songs.h"
 
 /** =======================================================================
  *	DATA
  *  =======================================================================
  */
 
-#if (INCLUDE_CRAZY_FROG == 1)
-int crazy_frog_data[] = {
+const int elise_data[] = {
+		// Line 1
+		_REG_FROM_PARAM(50, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(30, DEFAULT_VOLUME, Fa3),
+		_REG_FROM_PARAM(18, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(22, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(30, DEFAULT_VOLUME, Sol3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Do3),
+		_REG_FROM_PARAM(50, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(30, DEFAULT_VOLUME, La3),
+		_REG_FROM_PARAM(18, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(22, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(30, DEFAULT_VOLUME, Si3_b),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, La3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Fa3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, La3),
+		_REG_FROM_PARAM(24, DEFAULT_VOLUME, Do4),
+		_REG_FROM_PARAM(17, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(21, DEFAULT_VOLUME, Do3),
+		_REG_FROM_PARAM(17, DEFAULT_VOLUME, Do3),
+		_REG_FROM_PARAM(21, DEFAULT_VOLUME, La2),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Mi3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(100, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3),
+		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3),
+
+		// EMpty space
+		_REG_FROM_PARAM(25, MUTED, Re3),
+
+		// Line 2
 		_REG_FROM_PARAM(50, DEFAULT_VOLUME, Re3),
 		_REG_FROM_PARAM(30, DEFAULT_VOLUME, Fa3),
 		_REG_FROM_PARAM(18, DEFAULT_VOLUME, Re3),
@@ -53,11 +88,11 @@ int crazy_frog_data[] = {
 		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3)
 };
 
-struct song CrazyFrog = {
-	.name = "Crazy-Frog",
-	.len = sizeof(crazy_frog_data),
-	.notes = crazy_frog_data
+struct song Elise = {
+	.name = "Elise",
+	.artist = "Beethoven",
+	.len = sizeof(elise_data),
+	.notes = elise_data
 };
 
-#endif /* INCLUDE_CRAZY_FROG */
-#endif /* _DEF_CRAZY_FROG */
+#endif /* _DEF_ELISE */

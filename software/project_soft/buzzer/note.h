@@ -1,7 +1,7 @@
 /** =======================================================================
  * buzzer/note.h
  *
- * Define the notes values
+ * Define the notes values and volumes
  *
  * l.heywang
  * 04 / 03 / 2025
@@ -128,5 +128,30 @@ enum note {
 	Si8_b		= 95,
 	Si8			= 96
 };
+
+/** =======================================================================
+ *	SONGS BUILDING DEFINE (Enable data compression on the memory).
+ *  =======================================================================
+ */
+
+#define _REG_FROM_PARAM(duration, volume, note) \
+	((duration & 0xFF) << 16) | ((volume & 0xFF) << 8) | (note & 0xFF)
+
+/** =======================================================================
+ *	SONGS PARAMETERS
+ *  =======================================================================
+ */
+// Volume control
+#define DEFAULT_VOLUME 			31
+#define MUTED 					0
+
+// Notes interval
+#define INTERVAL				2 // 20 ms between notes
+
+// Sub defines
+#define SMALL_VOLUME 			((DEFAULT_VOLUME / 4) * 2)
+#define MEDIUM_VOLUME 			((DEFAULT_VOLUME / 4) * 3)
+#define HIGH_VOLUME 			((DEFAULT_VOLUME / 4) * 5)
+#define FULL_VOLUME 			((DEFAULT_VOLUME / 4) * 6)
 
 #endif /* DEF_NOTES */

@@ -5,7 +5,7 @@
  * buzzer.
  *
  * l.heywang
- * 04 / 04 / 2025
+ * 05 / 04 / 2025
  *  =======================================================================
  */
 
@@ -13,50 +13,54 @@
 #define _DEF_SONGS
 
 /** =======================================================================
- *	LIBS
- *  =======================================================================
- */
-// Headers
-#include "../note.h"
-
-/** =======================================================================
  *	SONGS TO INCLUDE
  *  =======================================================================
  */
 // Set to 0 to remove a song from the list
-#define INCLUDE_CRAZY_FROG 1
-#define INCLUDE_ASTRONOMIA 1
-#define INCLUDE_HAPPY_BIRTHDAY 1
-#define INCLUDE_BABY_SHARK 1
-#define INCLUDE_ELISE 1
-#define INCLUDE_ANISSA 1
-
-/** =======================================================================
- *	SONGS PARAMETERS
- *  =======================================================================
- */
-#define DEFAULT_VOLUME 8
-
-// Sub defines
-#define SMALL_VOLUME 	((DEFAULT_VOLUME / 4) * 2)
-#define MEDIUM_VOLUME 	((DEFAULT_VOLUME / 4) * 3)
-#define MEDIUM_VOLUME 	((DEFAULT_VOLUME / 4) * 3)
-
-/** =======================================================================
- *	SONGS BUILDING DEFINE (Enable data compression on the memory).
- *  =======================================================================
- */
-
-#define _REG_FROM_PARAM(duration, volume, note) \
-	((duration & 0xFF) << 16) | ((volume & 0xFF) << 8) | (note & 0xFF)
+#define INCLUDE_CRAZY_FROG 		1
+#define INCLUDE_ASTRONOMIA 		0
+#define INCLUDE_HAPPY_BIRTHDAY 	0
+#define INCLUDE_BABY_SHARK 		0
+#define INCLUDE_ELISE 			0
+#define INCLUDE_ANISSA 			0
 
 /** =======================================================================
  *	STRUCTS
  *  =======================================================================
  */
-typedef struct song {
-	char name[16];
-	int len;
-	int *notes;
-};
+struct song {
+	const char name[16];
+	const char artist[16];
+	const int len;
+	const int *notes;
+} defsong;
+
+/** =======================================================================
+ *	CONDITIONNAL INCLUDES
+ *  =======================================================================
+ */
+#if (INCLUDE_CRAZY_FROG == 1)
+#include "crazy-frog/crazy-frog.h"
+#endif
+// ------------------------------------------------------------------------
+#if (INCLUDE_ASTRONOMIA == 1)
+#include "astronomia.h"
+#endif
+// ------------------------------------------------------------------------
+#if (INCLUDE_HAPPY_BIRTHDAY == 1)
+#include "happy-birthday.h"
+#endif
+
+#if (INCLUDE_BABY_SHARK == 1)
+#include "baby-shark.h"
+#endif
+// ------------------------------------------------------------------------
+#if (INCLUDE_ELISE == 1)
+#include "elise.h"
+#endif
+// ------------------------------------------------------------------------
+#if (INCLUDE_ANISSA == 1)
+#include "anissa.h"
+#endif
+// ------------------------------------------------------------------------
 #endif /* _DEF_SONGS */

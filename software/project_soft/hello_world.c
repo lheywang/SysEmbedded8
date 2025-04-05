@@ -14,17 +14,15 @@
  *
  */
 
-#include <stdio.h>
 #include "alias.h"
 #include "buzzer/buzzer.h"
-#include "buzzer/note.h"
 #include "hex/hex.h"
+
+#include <stdio.h>
 #include <sys/alt_irq.h>
 #include <system.h>
 #include <altera_avalon_pio_regs.h>
 #include <unistd.h>
-#include "buzzer/songs/crazy-frog.h"
-
 
 static void SW_ISR(void *context)
 {
@@ -32,9 +30,6 @@ static void SW_ISR(void *context)
 	button_position = IORD_ALTERA_AVALON_PIO_EDGE_CAP(BOUTONS_POUSSOIRS_BASE);
 	IOWR_ALTERA_AVALON_PIO_DATA(BOUTONS_POUSSOIRS_BASE, button_position);
     IOWR_ALTERA_AVALON_PIO_EDGE_CAP(BOUTONS_POUSSOIRS_BASE, button_position);
-
-	printf("\nInterrupt from the PIO (SW) !\n\tValue of edge %d\n\n");
-
 	return;
 }
 

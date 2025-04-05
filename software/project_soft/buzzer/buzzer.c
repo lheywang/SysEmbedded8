@@ -36,6 +36,7 @@
 static int *data = NULL;
 static int len = 0;
 static int actual = 0;
+static int pad_required = 0;
 
 /** =======================================================================
  *	PRIVATE FUNCTIONS PROTOTYPES
@@ -175,8 +176,8 @@ int buzzer_play_song(const struct song *Song)
 	}
 
 	// Copy the data to our local expression.
-	data = Song->notes;
-	len = Song->len;
+	data = (int *)Song->notes;
+	len = (int)Song->len;
 	actual = 0;
 
 	// Initialize the buzzer
@@ -222,12 +223,31 @@ static void _SONG_ISR(void *context)
     PWM_IOWR_SDATA(PWM_IORD_EDGE);
     PWM_IOWR_EDGE(0x00);
 
-    // Fetch the next note, and apply settings.
-    int reg = data[actual];
-    buzzer_set_duration((reg & 0x00FF0000) >> 16);
-    buzzer_set_volume((reg & 0x0000FF00) >> 8);
-    buzzer_set_note((reg & 0x000000FF));
-    actual += 1;
+    // Check if we're at the end
+    if (actual == len)
+    {
+    	return;
+    }
+
+    // One note over two, we insert a small delay between them.
+    // This make the listening for fluent.
+    // This is done by requesting a note for a duration INTERVAL
+    // at volume 0;
+    if (pad_required == 1)
+    {
+    	buzzer_set_duration(INTERVAL);
+    	buzzer_set_volume(0);
+    	pad_required = 0;
+    }
+    else
+    {
+		int reg = data[actual];
+		buzzer_set_duration((reg & 0x00FF0000) >> 16);
+		buzzer_set_volume((reg & 0x0000FF00) >> 8);
+		buzzer_set_note((reg & 0x000000FF));
+		actual += 1;
+		pad_required = 1;
+    }
 
     // Play
     buzzer_play();
