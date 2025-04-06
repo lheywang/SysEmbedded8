@@ -88,6 +88,6 @@ const int crazy_frog_data[] = {
 const struct song CrazyFrog = {
 	.name = "Crazy-Frog",
 	.artist = "Axel-F",
-	.len = sizeof(crazy_frog_data),
+	.len = (sizeof(crazy_frog_data) / sizeof(int)),
 	.notes = crazy_frog_data
 };

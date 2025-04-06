@@ -177,7 +177,7 @@ int buzzer_play_song(const struct song *Song)
 
 	// Copy the data to our local expression.
 	data = (int *)Song->notes;
-	len = (int)Song->len;
+	len = (int)Song->len - 1;
 	actual = 0;
 
 	// Initialize the buzzer

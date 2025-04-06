@@ -10,6 +10,10 @@ output_files/*
 *.o
 *.d
 *.a
+.obj
+.elf
+.objdump
+.map
 
 # Eclipse workspace
 EclipseWorkspace/*

@@ -146,12 +146,10 @@ C_SRCS += hello_world.c
 C_SRCS += hex/hex.c
 C_SRCS += time/ptime.c
 C_SRCS += buzzer/buzzer.c
-C_SRCS += buzzer/songs/anissa/anissa.c
 C_SRCS += buzzer/songs/baby-shark/baby-shark.c
 C_SRCS += buzzer/songs/crazy-frog/crazy-frog.c
 C_SRCS += buzzer/songs/astronomia/astronomia.c
 C_SRCS += buzzer/songs/elise/elise.c
-C_SRCS += buzzer/songs/happy-birthday/happy-birthday.c
 CXX_SRCS :=
 ASM_SRCS :=
 

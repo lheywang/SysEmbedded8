@@ -44,7 +44,7 @@ int main()
 
 
   // Launch a music
-  buzzer_play_song(&CrazyFrog);
+  buzzer_play_song(&Astronomia);
 
   // Hex displaying
   hex_display("cccccc", 6, 0);

@@ -18,11 +18,9 @@
  */
 // Set to 0 to remove a song from the list
 #define INCLUDE_CRAZY_FROG 		1
-#define INCLUDE_ASTRONOMIA 		0
-#define INCLUDE_HAPPY_BIRTHDAY 	0
-#define INCLUDE_BABY_SHARK 		0
-#define INCLUDE_ELISE 			0
-#define INCLUDE_ANISSA 			0
+#define INCLUDE_ASTRONOMIA 		1
+#define INCLUDE_BABY_SHARK 		1
+#define INCLUDE_ELISE 			1
 
 /** =======================================================================
  *	STRUCTS
@@ -44,23 +42,15 @@ struct song {
 #endif
 // ------------------------------------------------------------------------
 #if (INCLUDE_ASTRONOMIA == 1)
-#include "astronomia.h"
+#include "astronomia/astronomia.h"
 #endif
 // ------------------------------------------------------------------------
-#if (INCLUDE_HAPPY_BIRTHDAY == 1)
-#include "happy-birthday.h"
-#endif
-
 #if (INCLUDE_BABY_SHARK == 1)
-#include "baby-shark.h"
+#include "baby-shark/baby-shark.h"
 #endif
 // ------------------------------------------------------------------------
 #if (INCLUDE_ELISE == 1)
-#include "elise.h"
-#endif
-// ------------------------------------------------------------------------
-#if (INCLUDE_ANISSA == 1)
-#include "anissa.h"
+#include "elise/elise.h"
 #endif
 // ------------------------------------------------------------------------
 #endif /* _DEF_SONGS */
