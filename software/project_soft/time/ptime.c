@@ -24,7 +24,8 @@
  *  =======================================================================
  */
 
-int time_increment(struct time * const hour){
+int time_increment(struct time * const hour)
+{
 	// Input checks
 	if (hour == NULL)
 	{
@@ -58,9 +59,10 @@ int time_increment(struct time * const hour){
 	return 0;
 }
 
-int time_print(const struct time * const hour, char buf[6]){
+int time_print(const struct time * const hour, char buf[6])
+{
 	// Input checks
-	if (hour == NULL)
+	if ((hour == NULL) | (buf == NULL))
 	{
 		return -1;
 	}
@@ -70,24 +72,66 @@ int time_print(const struct time * const hour, char buf[6]){
 	 * We use that value to check for any formatting errors.
 	 */
 
-	buf = "......"; // empty char (. is not handled by the hex.h lib).
+	*buf = (char*)"......"; // empty char (. is not handled by the hex.h lib).
 
 	int val = 0;
-	val = sprintf(&buf[0], "%d", hour->hour);
+	val = sprintf(&buf[0], "%02d", hour->hour);
 	if (val > 2)
 	{
 		return -2;
 	}
-	val = sprintf(&buf[2], "%d", hour->minute);
+	val = sprintf(&buf[2], "%02d", hour->minute);
 	if (val > 2)
 	{
 		return -2;
 	}
-	val = sprintf(&buf[4], "%d", hour->second);
+	val = sprintf(&buf[4], "%02d", hour->second);
 	if (val > 2)
 	{
 		return -2;
 	}
 
+	return 0;
+}
+
+int time_compare(const struct time * A, const struct time * B)
+{
+	// Inputs checks
+	if ((A == NULL) | (B == NULL))
+	{
+		return -128;
+	}
+
+	// First, check for the hour and return if we can direct match
+	if (A->hour > B->hour)
+	{
+		return 1;
+	}
+	else if (A->hour < B->hour)
+	{
+		return -1;
+	}
+
+	// In case of equality, check for the minutes
+	if (A->minute > B->minute)
+	{
+		return 1;
+	}
+	else if (A->minute < B->minute)
+	{
+		return -1;
+	}
+
+	// In case of equality, check for the seconds
+	if (A->second > B->second)
+	{
+		return 1;
+	}
+	else if (A->second < B->second)
+	{
+		return -1;
+	}
+
+	// That's a perfect match, return 0.
 	return 0;
 }

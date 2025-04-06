@@ -150,6 +150,9 @@ C_SRCS += buzzer/songs/baby-shark/baby-shark.c
 C_SRCS += buzzer/songs/crazy-frog/crazy-frog.c
 C_SRCS += buzzer/songs/astronomia/astronomia.c
 C_SRCS += buzzer/songs/elise/elise.c
+C_SRCS += init/init.c
+C_SRCS += ISR/timer1s/timer1s.c
+C_SRCS += ISR/timer1ms/timer1ms.c
 CXX_SRCS :=
 ASM_SRCS :=
 

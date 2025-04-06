@@ -12,7 +12,9 @@
 #define _DEF_ALIAS
 
 #include <system.h>
+
 #include <altera_avalon_pio_regs.h>
+#include <altera_avalon_timer_regs.h>
 
 // LEDR IO
 #define LEDR_IORD_DATA 				(IORD_ALTERA_AVALON_PIO_DATA(		LEDR_BASE							))
@@ -49,5 +51,13 @@
 #define PWM_IORD_EDGE				(IORD_ALTERA_AVALON_PIO_EDGE_CAP(	PWM_STATUS_BASE						))
 #define PWM_IOWR_EDGE(data)			(IOWR_ALTERA_AVALON_PIO_EDGE_CAP(	PWM_STATUS_BASE, 			data	))
 #define PWM_IOWR_MASK(data)			(IOWR_ALTERA_AVALON_PIO_IRQ_MASK(	PWM_STATUS_BASE, 			data	))
+
+// Timer 1s
+#define TIMER1S_IODR_CONTROL		(IORD_ALTERA_AVALON_TIMER_CONTROL(	SYS_SEC_BASE						))
+#define TIMER1S_IOWR_CONTROL(data)	(IOWR_ALTERA_AVALON_TIMER_CONTROL(	SYS_SEC_BASE,				data	))
+
+// Timer 1ms
+#define TIMER1MS_IODR_CONTROL		(IORD_ALTERA_AVALON_TIMER_CONTROL(	SYS_CLK_TIMER_BASE					))
+#define TIMER1MS_IOWR_CONTROL(data)	(IOWR_ALTERA_AVALON_TIMER_CONTROL(	SYS_CLK_TIMER_BASE,			data	))
 
 #endif

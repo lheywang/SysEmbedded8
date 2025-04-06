@@ -17,6 +17,7 @@
 #include "alias.h"
 #include "buzzer/buzzer.h"
 #include "hex/hex.h"
+#include "time/ptime.h"
 
 #include <stdio.h>
 #include <sys/alt_irq.h>
@@ -44,10 +45,22 @@ int main()
 
 
   // Launch a music
-  buzzer_play_song(&Astronomia);
+  // buzzer_play_song(&Astronomia);
+
+  struct time Act = {.hour = 10,
+		  	  	  	  .minute = 49,
+					  .second = 59
+  };
+  time_increment(&Act);
+  time_increment(&Act);
+
+
 
   // Hex displaying
-  hex_display("cccccc", 6, 0);
+  char buf[7] = {'\0'};
+  printf("print = %d\n", time_print(&Act, buf));
+  printf("Printed hour %6s\n", buf);
+  hex_display(buf, 6, 0);
 
   int cnt = 0;
   while(1)

@@ -12,11 +12,6 @@
 #define _DEF_TIME
 
 /** =======================================================================
- *	LIBS
- *  =======================================================================
- */
-
-/** =======================================================================
  *	STRUCTS
  *  =======================================================================
  */
@@ -56,6 +51,20 @@ int time_increment(struct time * const hour);
  * @return -2 		Failed to format the output
  */
 int time_print(const struct time * hour, char buf[6]);
+
+/**
+ * @brief 	Compare two hours
+ *
+ * @param 	hour	A pointer to a time struct A
+ * @param 	hour 	A pointer to a time struct B
+ *
+ * @return 	int
+ * @return 	0		Times are equal
+ * @return 	>1 		Time A is greater than time B
+ * @return <1(>-127)Time A is smaller than time B
+ * @return -128 	Invalid pointers provided
+ */
+int time_compare(const struct time * A, const struct time * B);
 
 
 #endif /* _DEF_TIME */
