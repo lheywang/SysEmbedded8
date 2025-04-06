@@ -27,10 +27,10 @@
  *  =======================================================================
  */
 struct song {
-	const char name[16];
-	const char artist[16];
-	const int len;
-	const int *notes;
+	char name[16];
+	char artist[16];
+	int len;
+	int *notes;
 } defsong;
 
 /** =======================================================================

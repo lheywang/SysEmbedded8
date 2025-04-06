@@ -15,6 +15,12 @@
 // Header
 #include "timer1s.h"
 
+// Other headers
+#include "../ISR.h"
+#include "../../alias.h"
+#include "../../time/ptime.h"
+#include "../../hex/hex.h"
+
 // STD
 #include <stdio.h>
 
@@ -23,8 +29,34 @@
  *  =======================================================================
  */
 
-static void ISR_1S(void *context)
+void ISR_1S(void *context)
 {
-	printf("Hello from ISR 1S \n");
+	// Clear the interrupt pin
+	TIMER1S_IOWR_STATUS(0x00);
+
+	// User code
+	int ret = ISR_GetMutex(0);
+	if (ret == 0)
+	{
+		// Fetch and cast the context to our control struct
+		struct ISR_Ctx *Ctx = (struct ISR_Ctx*)context;
+
+		// Increment the time counter and if needed, trigger the alarm (-> Will be played in a another interrupt)
+		time_increment(Ctx->Time);
+		if (time_compare(Ctx->Time, Ctx->Alarm) > 0)
+		{
+			Ctx->Ring = 1;
+		}
+
+		// Update hour on the 7 segments
+		char buf[7] = {'\0'};
+		time_print(Ctx->Time, buf);
+		hex_display(buf, 6, 0);
+	}
+
+	// Free the mutex we got on the mutex.
+	ISR_LeaveMutex();
+
+	// Increment the time
 	return;
 }

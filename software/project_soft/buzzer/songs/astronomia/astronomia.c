@@ -24,7 +24,7 @@
  *  =======================================================================
  */
 
-const int astronomia_data[] = {
+int astronomia_data[] = {
 		// Line 1
 		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Sol3),
 		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Sol3),
@@ -186,7 +186,7 @@ const int astronomia_data[] = {
 		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Fa4),
 };
 
-const struct song Astronomia = {
+struct song Astronomia = {
 	.name = "Astronomia",
 	.artist = "?",
 	.len = (sizeof(astronomia_data) / sizeof(int)),

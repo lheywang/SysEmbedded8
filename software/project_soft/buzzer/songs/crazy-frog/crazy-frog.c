@@ -24,7 +24,7 @@
  *  =======================================================================
  */
 
-const int crazy_frog_data[] = {
+int crazy_frog_data[] = {
 		// Line 1
 		_REG_FROM_PARAM(50, DEFAULT_VOLUME, Re3),
 		_REG_FROM_PARAM(30, DEFAULT_VOLUME, Fa3),
@@ -85,7 +85,7 @@ const int crazy_frog_data[] = {
 		_REG_FROM_PARAM(25, DEFAULT_VOLUME, Re3)
 };
 
-const struct song CrazyFrog = {
+struct song CrazyFrog = {
 	.name = "Crazy-Frog",
 	.artist = "Axel-F",
 	.len = (sizeof(crazy_frog_data) / sizeof(int)),

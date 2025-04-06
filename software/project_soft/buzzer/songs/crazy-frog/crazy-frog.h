@@ -16,7 +16,7 @@
  *  =======================================================================
  */
 
-extern const int crazy_frog_data[];
-extern const struct song CrazyFrog;
+extern int crazy_frog_data[];
+extern struct song CrazyFrog;
 
 #endif /* _DEF_CRAZY_FROG */

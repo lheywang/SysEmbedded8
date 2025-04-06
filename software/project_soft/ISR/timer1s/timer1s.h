@@ -19,6 +19,6 @@
 /**
  * ISR for the 1 second timer
  */
-static void ISR_1S(void *context);
+void ISR_1S(void *context);
 
 #endif /* _DEF_ISR_1S */

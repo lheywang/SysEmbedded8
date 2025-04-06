@@ -15,12 +15,19 @@
 // Header
 #include "timer1ms.h"
 
+// Other headers
+#include "../../alias.h"
+
 /** =======================================================================
  *	FUNCTIONS
  *  =======================================================================
  */
 
-static void ISR_1MS(void *context)
+void ISR_1MS(void *context)
 {
+	// Clear the interrupt pin
+	TIMER1MS_IOWR_STATUS(0x00);
+
+	// User code
 	return;
 }

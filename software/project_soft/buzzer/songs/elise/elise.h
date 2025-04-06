@@ -16,7 +16,7 @@
  *  =======================================================================
  */
 
-extern const int elise_data[];
-extern const struct song Elise;
+extern int elise_data[];
+extern struct song Elise;
 
 #endif /* _DEF_ELISE */

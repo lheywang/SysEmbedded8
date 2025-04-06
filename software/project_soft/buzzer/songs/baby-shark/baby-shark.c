@@ -24,7 +24,7 @@
  *  =======================================================================
  */
 
-const int baby_shark_data[] = {
+int baby_shark_data[] = {
 		// Intro
 		_REG_FROM_PARAM(52, DEFAULT_VOLUME, Re3),
 		_REG_FROM_PARAM(52, DEFAULT_VOLUME, Mi3),
@@ -285,7 +285,7 @@ const int baby_shark_data[] = {
 		_REG_FROM_PARAM(104, DEFAULT_VOLUME, Fa3_d)
 };
 
-const struct song BabyShark = {
+struct song BabyShark = {
 	.name = "Baby-Shark",
 	.artist = "Pinkfong",
 	.len = (sizeof(baby_shark_data) / sizeof(int)),

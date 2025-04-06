@@ -16,7 +16,7 @@
  *  =======================================================================
  */
 
-extern const int baby_shark_data[];
-extern const struct song BabyShark;
+extern int baby_shark_data[];
+extern struct song BabyShark;
 
 #endif /* _DEF_BABY_SHARK */

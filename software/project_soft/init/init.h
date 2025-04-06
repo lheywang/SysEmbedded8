@@ -12,7 +12,13 @@
 #define _DEF_INIT
 
 /** =======================================================================
- *	FUNCTIONS
+ *	LIBS
+ *  =======================================================================
+ */
+#include "../ISR/ISR.h"
+
+/** =======================================================================
+ *	FUNCTIONS (TIMERS)
  *  =======================================================================
  */
 /**
@@ -34,5 +40,21 @@ int init_timer1s();
  * @return 	-1 		Failed to initialize the interrupt routine
  */
 int init_timer1ms();
+
+/** =======================================================================
+ *	FUNCTIONS (VARIABLE INIT)
+ *  =======================================================================
+ */
+/**
+ * @brief 	Initialize the ISR context struct, used to elegantly share data
+ * 			between processes and ISR without needing global variables.
+ *
+ * @param 	ISR_Ctx 	A pointer to an ISR_Ctx context variable to be shared.
+ *
+ * @return 	int
+ * @retval 	 0 			Struct was initialized
+ * @retval 	-1 			Failed to initialize struct.
+ */
+int init_ISR_Ctx(struct ISR_Ctx *Ctx);
 
 #endif /* _DEF_INIT */

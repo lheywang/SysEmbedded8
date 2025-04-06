@@ -24,7 +24,7 @@
  *  =======================================================================
  */
 
-const int elise_data[] = {
+int elise_data[] = {
 		// Line 1
 		_REG_FROM_PARAM(20, DEFAULT_VOLUME, Mi4),
 		_REG_FROM_PARAM(20, DEFAULT_VOLUME, Re4_d),
@@ -263,7 +263,7 @@ const int elise_data[] = {
 		_REG_FROM_PARAM(20, DEFAULT_VOLUME, La3),
 };
 
-const struct song Elise = {
+struct song Elise = {
 	.name = "Elise",
 	.artist = "Beethoven",
 	.len = (sizeof(elise_data) / sizeof(int)),

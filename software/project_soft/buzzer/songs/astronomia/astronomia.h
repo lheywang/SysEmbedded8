@@ -16,7 +16,7 @@
  *  =======================================================================
  */
 
-extern const int astronomia_data[];
-extern const struct song Astronomia;
+extern int astronomia_data[];
+extern struct song Astronomia;
 
 #endif /* _DEF_ASTRONOMIA */

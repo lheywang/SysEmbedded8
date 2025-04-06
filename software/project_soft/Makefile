@@ -142,7 +142,6 @@ ACDS_VERSION := 18.1
 ELF := project_soft.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS += hello_world.c
 C_SRCS += hex/hex.c
 C_SRCS += time/ptime.c
 C_SRCS += buzzer/buzzer.c
@@ -153,6 +152,8 @@ C_SRCS += buzzer/songs/elise/elise.c
 C_SRCS += init/init.c
 C_SRCS += ISR/timer1s/timer1s.c
 C_SRCS += ISR/timer1ms/timer1ms.c
+C_SRCS += main.c
+C_SRCS += ISR/ISR.c
 CXX_SRCS :=
 ASM_SRCS :=
 

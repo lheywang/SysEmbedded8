@@ -19,6 +19,7 @@
 #include "../alias.h"
 #include "../ISR/timer1ms/timer1ms.h"
 #include "../ISR/timer1s/timer1s.h"
+#include "../ISR/ISR.h"
 
 // Altera
 #include <altera_avalon_timer_regs.h>
@@ -26,6 +27,12 @@
 
 // STD
 #include <stddef.h>
+
+/** =======================================================================
+ *	VARIABLES
+ *  =======================================================================
+ */
+static struct ISR_Ctx *ISR_Data;
 
 /** =======================================================================
  *	FUNCTIONS
@@ -38,7 +45,7 @@ int init_timer1s()
 	int res = alt_ic_isr_register(	SYS_SEC_IRQ_INTERRUPT_CONTROLLER_ID,
 							SYS_SEC_IRQ,
 							(void*)ISR_1S,
-							NULL,
+							(void*)ISR_Data,
 							0x0);
 	if (res != 0)
 	{
@@ -60,7 +67,7 @@ int init_timer1ms()
 	int res = alt_ic_isr_register(	SYS_CLK_TIMER_IRQ_INTERRUPT_CONTROLLER_ID,
 									SYS_CLK_TIMER_IRQ,
 									(void*)ISR_1MS,
-									NULL,
+									(void*)ISR_Data,
 									0x0);
 	if (res != 0)
 	{
@@ -75,3 +82,34 @@ int init_timer1ms()
 
 	return 0;
 }
+
+int init_ISR_Ctx(struct ISR_Ctx *Ctx)
+{
+	// Input checks
+	if (Ctx == NULL)
+	{
+		return -1;
+	}
+
+	// Initialize alarm time
+	Ctx->Alarm->hour = 0;
+	Ctx->Alarm->minute = 0;
+	Ctx->Alarm->second = 0;
+
+	// Initialize actual time
+	Ctx->Time->hour = 0;
+	Ctx->Time->minute = 0;
+	Ctx->Time->second = 0;
+
+	// Initialize song
+	Ctx->Song = &CrazyFrog;
+
+	// Initialize status
+	Ctx->Ring = 0;
+
+	// Define the variable used in our file as the one passed
+	ISR_Data = Ctx;
+
+	return 0;
+}
+
