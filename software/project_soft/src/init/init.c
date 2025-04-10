@@ -113,3 +113,26 @@ int init_ISR_Ctx(struct ISR_Ctx *Ctx)
 	return 0;
 }
 
+int init_PIO()
+{
+	// Initialize LEDS to OFF
+	LEDR_IOWR_DATA(0x00000000);
+
+	// Initialize Buttons to the default state
+	BP_IOWR_DATA(0x00000000);
+	BP_IOWR_EDGE(0x00000000);
+	BP_IOWR_MASK(0x00000000);
+
+	// Initialize the 7-segment display (common cathode, so inverted logic)
+	HEX_IOWR_DATA(0xFFFFFFFF);
+	HEX2_IOWR_DATA(0xFFFFFFFF);
+
+	// Initialize PWM peripheral
+	PWM_IOWR_SDATA(0x00000000);
+	PWM_IOWR_EDGE(0x00000000);
+	PWM_IOWR_DATA(0x00000000);
+	PWM_IOWR_MASK(0x00000000);
+
+	return 0;
+}
+

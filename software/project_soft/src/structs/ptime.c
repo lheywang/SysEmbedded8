@@ -18,6 +18,7 @@
 // STD
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
 /** =======================================================================
  *	FUNCTIONS
@@ -72,7 +73,7 @@ int time_print(const struct time * const hour, char buf[6])
 	 * We use that value to check for any formatting errors.
 	 */
 
-	*buf = (char*)"......"; // empty char (. is not handled by the hex.h lib).
+	strncpy(buf, (const char*)"......", 6);
 
 	int val = 0;
 	val = sprintf(&buf[0], "%02d", hour->hour);

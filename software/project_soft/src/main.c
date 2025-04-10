@@ -12,13 +12,9 @@
  *	LIBS
  *  =======================================================================
  */
-#include "alias.h"
+// Headers
 #include "init/init.h"
 #include "ISR/ISR.h"
-#include "drivers/leds.h"
-
-#include <stdio.h>
-#include <unistd.h>
 
 /** =======================================================================
  *	FUNCTIONS
@@ -26,35 +22,22 @@
  */
 int main()
 {
-	// Initialize
+	// Allocate and initialize a struct for the Interrupt Context
 	struct ISR_Ctx Ctx;
 	init_ISR_Ctx(&Ctx);
+
+	// Init all peripherals
+	init_PIO();
+
+	// Init the different peripherals
 	init_timer1s();
 	init_timer1ms();
-
-	for(int k = 0; k < 10; k ++)
-	{
-		leds_SetLed(k, 0);
-	}
-
-	// buzzer_play_song(&CrazyFrog);
 
 	/*
 	 * After this point, all of the code executed is done under interrupts
 	 */
 
-	int cnt = 0;
-	while(1)
-	{
-	  usleep(1000 * 1000);
-	  printf("Looping... %d\n\r", cnt++);
+	for (;;){}
 
-	  printf("Buttons : %d; Edge %d\n\r", BP_IORD_DATA, BP_IORD_EDGE);
-	  BP_IOWR_EDGE(BP_IORD_DATA);
-	  printf("Status : %d; Edge %d\n\r", IORD_ALTERA_AVALON_PIO_DATA(PWM_STATUS_BASE), IORD_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE));
-	  IOWR_ALTERA_AVALON_PIO_EDGE_CAP(PWM_STATUS_BASE,IORD_ALTERA_AVALON_PIO_DATA(PWM_STATUS_BASE));
-	  printf("\n\n");
-	}
-
-  return 0;
+	return 0;
 }

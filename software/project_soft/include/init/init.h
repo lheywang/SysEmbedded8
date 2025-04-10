@@ -18,6 +18,20 @@
 #include "ISR/ISR.h"
 
 /** =======================================================================
+ *	FUNCTIONS (PERIPHERALS)
+ *  =======================================================================
+ */
+/**
+ * @brief 	Initialize all PIO peripherals on the NIOS II processor to an idle state
+ *
+ * @param 	None
+ *
+ * @return 	int
+ * @retval 	 0 		Everything is fine !
+ */
+int init_PIO();
+
+/** =======================================================================
  *	FUNCTIONS (TIMERS)
  *  =======================================================================
  */
