@@ -95,6 +95,7 @@ int buzzer_play();
  *	@return 	 0 				Everything went fine
  *	@return 	-1 				Invaling pointer
  *	@return 	-2 				Could not register the interrupts
+ *	@return 	-3 				Song already in play.
  */
 int buzzer_play_song(const struct song *Song);
 int buzzer_stop_song();

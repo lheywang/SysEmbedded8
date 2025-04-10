@@ -37,6 +37,7 @@ static int *data = NULL;
 static int len = 0;
 static int actual = 0;
 static int pad_required = 0;
+static int song_launched = 0;
 
 /** =======================================================================
  *	PRIVATE FUNCTIONS PROTOTYPES
@@ -175,6 +176,11 @@ int buzzer_play_song(const struct song *Song)
 		return -1;
 	}
 
+	if (song_launched != 0)
+	{
+		return -3;
+	}
+
 	// Copy the data to our local expression.
 	data = (int *)Song->notes;
 	len = (int)Song->len - 1;
@@ -182,6 +188,7 @@ int buzzer_play_song(const struct song *Song)
 
 	// Initialize the buzzer
 	buzzer_enable();
+	song_launched = 1;
 
 	// Initialize the interrupts for the PWM to see
 	PWM_IOWR_MASK(0x40); // --> Only the END NOTE FLAG
@@ -226,31 +233,38 @@ static void _SONG_ISR(void *context)
     // Check if we're at the end
     if (actual == len)
     {
+    	// Reset the soft lock
+    	song_launched = 0;
+
+    	// Disable interrupts for the PWM peripheral
+    	buzzer_stop_song();
+
+    	// Return
     	return;
     }
 
-    // One note over two, we insert a small delay between them.
-    // This make the listening for fluent.
-    // This is done by requesting a note for a duration INTERVAL
-    // at volume 0;
-    if (pad_required == 1)
-    {
-    	buzzer_set_duration(INTERVAL);
-    	buzzer_set_volume(0);
-    	pad_required = 0;
-    }
-    else
-    {
+	// One note over two, we insert a small delay between them.
+	// This make the listening for fluent.
+	// This is done by requesting a note for a duration INTERVAL
+	// at volume 0;
+	if (pad_required == 1)
+	{
+		buzzer_set_duration(INTERVAL);
+		buzzer_set_volume(0);
+		pad_required = 0;
+	}
+	else
+	{
 		int reg = data[actual];
 		buzzer_set_duration((reg & 0x00FF0000) >> 16);
 		buzzer_set_volume((reg & 0x0000FF00) >> 8);
 		buzzer_set_note((reg & 0x000000FF));
 		actual += 1;
 		pad_required = 1;
-    }
+	}
 
-    // Play
-    buzzer_play();
+	// Play
+	buzzer_play();
 
 	return;
 }

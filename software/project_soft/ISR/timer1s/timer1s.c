@@ -47,11 +47,6 @@ void ISR_1S(void *context)
 		{
 			Ctx->Ring = 1;
 		}
-
-		// Update hour on the 7 segments
-		char buf[7] = {'\0'};
-		time_print(Ctx->Time, buf);
-		hex_display(buf, 6, 0);
 	}
 
 	// Free the mutex we got on the mutex.

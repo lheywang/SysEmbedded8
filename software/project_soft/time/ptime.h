@@ -40,7 +40,7 @@ struct time {
 int time_increment(struct time * const hour);
 
 /**
- * @brief 	Return the formatted text output on 6 char [hhmmss]
+ * @brief 	Return the formatted text output on 6 char [hhmmss] (24h or 12h for the __12 function)
  *
  * @param 	hour 	A pointer to a time struct to be printed
  * @param 	buf 	A pointer to a 6 char array.
@@ -51,6 +51,7 @@ int time_increment(struct time * const hour);
  * @return -2 		Failed to format the output
  */
 int time_print(const struct time * hour, char buf[6]);
+int time_print12(const struct time * hour, char buf[6]);
 
 /**
  * @brief 	Compare two hours

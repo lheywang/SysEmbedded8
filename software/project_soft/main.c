@@ -30,19 +30,11 @@ int main()
 	struct ISR_Ctx Ctx;
 	init_ISR_Ctx(&Ctx);
 	init_timer1s();
-
-	for(int k = 0; k < 10; k ++)
-	{
-		leds_SetLed(k, 1);
-		usleep(500 * 1000);
-	}
-
-	usleep(1000 * 1000);
+	init_timer1ms();
 
 	for(int k = 0; k < 10; k ++)
 	{
 		leds_SetLed(k, 0);
-		usleep(500 * 1000);
 	}
 
 	/*

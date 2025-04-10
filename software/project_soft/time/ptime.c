@@ -94,6 +94,31 @@ int time_print(const struct time * const hour, char buf[6])
 	return 0;
 }
 
+int time_print12(const struct time * hour, char buf[6])
+{
+	// Input checks
+	if ((hour == NULL) | (buf == NULL))
+	{
+		return -1;
+	}
+
+	// Create a new struct for temporary use
+	struct time Ust = *hour;
+
+	// Cast the 24:00 time to 12:00 time by using a modulo 12.
+	// The only edge case is 0:00 or 12:00 which is addressed by the if.
+	Ust.hour = hour->hour % 12;
+	if ((hour->hour == 12) | (hour->hour == 0))
+	{
+		Ust.hour = 12;
+	}
+
+	// Call the default function, to not duplicate code...
+	time_print(&Ust, buf);
+
+	return 0;
+}
+
 int time_compare(const struct time * A, const struct time * B)
 {
 	// Inputs checks
