@@ -1,5 +1,5 @@
 /** =======================================================================
- * hex/hex.c
+ * hex/hex.h
  *
  * Define some functions about printing on the 7 segments
  *

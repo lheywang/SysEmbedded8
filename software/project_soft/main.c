@@ -15,6 +15,7 @@
 #include "alias.h"
 #include "init/init.h"
 #include "ISR/ISR.h"
+#include "leds/leds.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -29,6 +30,20 @@ int main()
 	struct ISR_Ctx Ctx;
 	init_ISR_Ctx(&Ctx);
 	init_timer1s();
+
+	for(int k = 0; k < 10; k ++)
+	{
+		leds_SetLed(k, 1);
+		usleep(500 * 1000);
+	}
+
+	usleep(1000 * 1000);
+
+	for(int k = 0; k < 10; k ++)
+	{
+		leds_SetLed(k, 0);
+		usleep(500 * 1000);
+	}
 
 	/*
 	 * After this point, all of the code executed is done under interrupts

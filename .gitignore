@@ -2,6 +2,8 @@
 incremental_db/*
 db/*
 output_files/*
+*transcript
+/work
 
 # QSYS
 .qsys_edit/*
@@ -10,10 +12,10 @@ output_files/*
 *.o
 *.d
 *.a
-.obj
-.elf
-.objdump
-.map
+*.obj
+*.elf
+*.objdump
+*.map
 
 # Eclipse workspace
 EclipseWorkspace/*

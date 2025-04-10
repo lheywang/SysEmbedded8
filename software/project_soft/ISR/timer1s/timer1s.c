@@ -35,7 +35,7 @@ void ISR_1S(void *context)
 	TIMER1S_IOWR_STATUS(0x00);
 
 	// User code
-	int ret = ISR_GetMutex(0);
+	int ret = ISR_GetMutex(1); // Wait for ever until we get the mutex. The other thread exit every 1 ms, so worst case is 1 ms.
 	if (ret == 0)
 	{
 		// Fetch and cast the context to our control struct

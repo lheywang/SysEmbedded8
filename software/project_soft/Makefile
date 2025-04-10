@@ -154,6 +154,7 @@ C_SRCS += ISR/timer1s/timer1s.c
 C_SRCS += ISR/timer1ms/timer1ms.c
 C_SRCS += main.c
 C_SRCS += ISR/ISR.c
+C_SRCS += leds/leds.c
 CXX_SRCS :=
 ASM_SRCS :=
 
