@@ -20,6 +20,7 @@
 #include "drivers/leds.h"
 #include "drivers/hex.h"
 #include "ISR/ISR.h"
+#include "func/button_handler.h"
 
 // STD
 #include <stdint.h>
@@ -36,12 +37,6 @@ static uint64_t Timestamp = 0;
 static uint64_t LedTime = 0;
 
 // Variable to store the previous state of the buttons (edge detection)
-static uint64_t HourStamp = 0;
-static uint64_t MinStamp = 0;
-static int PreviousHour = 0;
-static int PreviousMinute = 0;
-static int LongHourNeeded = 0;
-static int LongMinuteNeeded = 0;
 static int MinuteButtonStatus = OFF;
 static int HourButtonStatus = OFF;
 
@@ -111,77 +106,48 @@ void ISR_1MS(void *context)
 		 *  =======================================================================
 		 */
 
-		// Start a counter if the value seen on the button is different that the one registered
-		if ((MinButton != PreviousMinute) & MinButton == 1)
-		{
-			PreviousMinute = MinButton;
-			MinStamp = Timestamp;
-			LongMinuteNeeded = 1;
-		}
-		if ((HourButton != PreviousHour) & HourButton == 1)
-		{
-			PreviousHour = HourButton;
-			HourStamp = Timestamp;
-			LongHourNeeded = 1;
-		}
-
-		// Action to do is pressed
-		uint64_t MinuteDelta = Timestamp - MinStamp;
-		uint64_t HourDelta = Timestamp - HourStamp;
-
-		// Compare against the time to know when to look
-		if ((MinuteDelta > TLONG) & (LongMinuteNeeded == 1))
-		{
-			printf("Minute called, delta = %d, Needed = %d", MinuteDelta, LongMinuteNeeded);
-
-			// Soft lock to prevent looking too many times
-			LongMinuteNeeded = 0;
-
-			// Set the button variable as needed.
-			if (MinButton == 1)
-			{
-				MinuteButtonStatus = Long;
-			}
-			else
-			{
-				MinuteButtonStatus = Short;
-			}
-
-			PreviousMinute = 0;
-		}
-		if ((HourDelta > TLONG) & (LongHourNeeded == 1))
-		{
-			// Soft lock to prevent looking too many times
-			LongHourNeeded = 0;
-
-			// Set the button variable as needed.
-			if (HourButton == 1)
-			{
-				HourButtonStatus = Long;
-			}
-			else
-			{
-				HourButtonStatus = Short;
-			}
-
-			PreviousHour = 0;
-		}
+		bp_IsButtonInLongPress(0, MinButton, Timestamp, &MinuteButtonStatus);
+		bp_IsButtonInLongPress(1, HourButton, Timestamp, &HourButtonStatus);
 
 		/** =======================================================================
 		 *	TEST DISPLAY
 		 *  =======================================================================
 		 */
 		switch (MinuteButtonStatus) {
+		case OFF :
+			leds_SetLed(8, 0);
+			leds_SetLed(9, 0);
+			break;
+
 		case Long :
 			leds_SetLed(8, 0);
 			leds_SetLed(9, 1);
-			MinuteButtonStatus = OFF;
+			// MinuteButtonStatus = OFF;
 			break;
 
 		case Short :
 			leds_SetLed(8, 1);
 			leds_SetLed(9, 0);
-			MinuteButtonStatus = OFF;
+			// MinuteButtonStatus = OFF;
+			break;
+		}
+
+		switch (HourButtonStatus) {
+		case OFF :
+			leds_SetLed(6, 0);
+			leds_SetLed(7, 0);
+			break;
+
+		case Long :
+			leds_SetLed(6, 0);
+			leds_SetLed(7, 1);
+			// MinuteButtonStatus = OFF;
+			break;
+
+		case Short :
+			leds_SetLed(6, 1);
+			leds_SetLed(7, 0);
+			// MinuteButtonStatus = OFF;
 			break;
 		}
 
