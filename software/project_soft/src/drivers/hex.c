@@ -13,7 +13,8 @@
  *  =======================================================================
  */
 // Header
-#include "hex.h"
+#include "drivers/hex.h"
+#include "alias.h"
 
 // STD
 #include "stdint.h"

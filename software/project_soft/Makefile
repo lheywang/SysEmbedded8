@@ -4,7 +4,7 @@
 
 # List of include directories for -I compiler option (-I added when used).
 # Includes the BSP.
-ALT_INCLUDE_DIRS :=
+ALT_INCLUDE_DIRS := include/
 
 # List of library directories for -L linker option (-L added when used).
 # Includes the BSP.
@@ -142,19 +142,17 @@ ACDS_VERSION := 18.1
 ELF := project_soft.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS += hex/hex.c
-C_SRCS += time/ptime.c
-C_SRCS += buzzer/buzzer.c
-C_SRCS += buzzer/songs/baby-shark/baby-shark.c
-C_SRCS += buzzer/songs/crazy-frog/crazy-frog.c
-C_SRCS += buzzer/songs/astronomia/astronomia.c
-C_SRCS += buzzer/songs/elise/elise.c
-C_SRCS += init/init.c
-C_SRCS += ISR/timer1s/timer1s.c
-C_SRCS += ISR/timer1ms/timer1ms.c
-C_SRCS += main.c
-C_SRCS += ISR/ISR.c
-C_SRCS += leds/leds.c
+C_SRCS += src/drivers/leds.c
+C_SRCS += src/drivers/hex.c
+C_SRCS += src/init/init.c
+C_SRCS += src/main.c
+C_SRCS += src/structs/ptime.c
+C_SRCS += src/ISR/timer1s.c
+C_SRCS += src/ISR/ISR.c
+C_SRCS += src/ISR/timer1ms.c
+C_SRCS += src/drivers/buzzer.c
+C_SRCS += src/buzzer/elise/elise.c
+C_SRCS += src/buzzer/crazy-frog/crazy-frog.c
 CXX_SRCS :=
 ASM_SRCS :=
 

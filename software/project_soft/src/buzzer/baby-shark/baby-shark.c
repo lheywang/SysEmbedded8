@@ -16,7 +16,7 @@
 #include "baby-shark.h"
 
 // Libs
-#include "../../note.h"
+#include "../note.h"
 #include "../songs.h"
 
 /** =======================================================================

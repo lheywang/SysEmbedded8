@@ -17,8 +17,8 @@
  *  =======================================================================
  */
 // Local headers
-#include "../time/ptime.h"
-#include "../buzzer/buzzer.h"
+#include "structs/ptime.h"
+#include "drivers/buzzer.h"
 
 /** =======================================================================
  *	STRUCTS

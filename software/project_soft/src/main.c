@@ -15,7 +15,7 @@
 #include "alias.h"
 #include "init/init.h"
 #include "ISR/ISR.h"
-#include "leds/leds.h"
+#include "drivers/leds.h"
 
 #include <stdio.h>
 #include <unistd.h>

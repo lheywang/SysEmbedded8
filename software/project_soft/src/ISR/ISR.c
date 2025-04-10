@@ -14,11 +14,11 @@
  *  =======================================================================
  */
 // Header
-#include "ISR.h"
+#include "ISR/ISR.h"
 
 // Other headers
-#include "../time/ptime.h"
-#include "../buzzer/buzzer.h"
+#include "structs/ptime.h"
+#include "drivers/buzzer.h"
 
 // STD
 #include <unistd.h>

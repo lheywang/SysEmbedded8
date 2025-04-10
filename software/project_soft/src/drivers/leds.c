@@ -13,10 +13,10 @@
  *  =======================================================================
  */
 // Header
-#include "leds.h"
+#include "drivers/leds.h"
 
 // Other headers
-#include "../alias.h"
+#include "alias.h"
 
 /** =======================================================================
  *	FUNCTIONS

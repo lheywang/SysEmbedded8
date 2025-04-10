@@ -13,13 +13,13 @@
  *  =======================================================================
  */
 // Header
-#include "timer1s.h"
+#include "ISR/timer1s.h"
 
 // Other headers
-#include "../ISR.h"
-#include "../../alias.h"
-#include "../../time/ptime.h"
-#include "../../hex/hex.h"
+#include "ISR/ISR.h"
+#include "alias.h"
+#include "structs/ptime.h"
+#include "drivers/hex.h"
 
 // STD
 #include <stdio.h>

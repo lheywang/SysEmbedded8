@@ -13,13 +13,13 @@
  *  =======================================================================
  */
 // Header
-#include "init.h"
+#include "init/init.h"
 
 // Other headers
-#include "../alias.h"
-#include "../ISR/timer1ms/timer1ms.h"
-#include "../ISR/timer1s/timer1s.h"
-#include "../ISR/ISR.h"
+#include "alias.h"
+#include "ISR/timer1ms.h"
+#include "ISR/timer1s.h"
+#include "ISR/ISR.h"
 
 // Altera
 #include <altera_avalon_timer_regs.h>

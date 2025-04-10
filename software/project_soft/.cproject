@@ -10,11 +10,21 @@
 					<folderInfo id="preference.org.eclipse.cdt.managedbuilder.core.configurationDataProvider.1842294106." name="/" resourcePath="">
 						<toolChain id="altera.nios2.linux.gcc4.856024060" name="Linux Nios II GCC4" superClass="altera.nios2.linux.gcc4">
 							<targetPlatform id="altera.nios2.linux.gcc4.702800959" name="Nios II" osList="linux" superClass="altera.nios2.linux.gcc4"/>
-							<builder buildPath="${workspace_loc://project_soft}" id="altera.tool.gnu.builder.843814892" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="altera.tool.gnu.builder"/>
+							<builder buildPath="${workspace_loc://project_soft}" id="altera.tool.gnu.builder.843814892" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="altera.tool.gnu.builder">
+								<outputEntries>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name=""/>
+								</outputEntries>
+							</builder>
 							<tool id="altera.tool.gnu.c.compiler.1846998120" name="Nios II GCC C Compiler" superClass="altera.tool.gnu.c.compiler">
+								<option id="gnu.c.compiler.option.include.paths.768372645" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../include/"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1555457653" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="altera.tool.gnu.cpp.compiler.642673077" name="Nios II GCC C++ Compiler" superClass="altera.tool.gnu.cpp.compiler">
+								<option id="gnu.cpp.compiler.option.include.paths.569694765" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="../include/"/>
+								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.684242308" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="altera.tool.gnu.archiver.1840455246" name="Nios II GCC Archiver" superClass="altera.tool.gnu.archiver"/>
@@ -32,8 +42,6 @@
 					</folderInfo>
 					<sourceEntries>
 						<entry excluding="time|buzzer" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="buzzer"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="time"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

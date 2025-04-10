@@ -14,10 +14,10 @@
  */
 
 // Headers
-#include "buzzer.h"
-#include "note.h"
+#include "drivers/buzzer.h"
+#include "../buzzer/note.h"
 
-#include "../alias.h"
+#include "alias.h"
 
 // STD
 #include <stdint.h>

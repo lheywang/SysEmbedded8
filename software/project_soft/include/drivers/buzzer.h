@@ -21,8 +21,8 @@
  *  =======================================================================
  */
 // Sublibs
-#include "note.h"
-#include "songs/songs.h"
+#include "../../src/buzzer/note.h"
+#include "../../src/buzzer/songs.h"
 
 /** =======================================================================
  *	FUNCTIONS
