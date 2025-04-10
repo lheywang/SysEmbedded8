@@ -23,6 +23,7 @@
 
 // STD
 #include <stdint.h>
+#include <stdio.h>
 
 /** =======================================================================
  *	VARIABLES
@@ -131,9 +132,10 @@ void ISR_1MS(void *context)
 		// Compare against the time to know when to look
 		if ((MinuteDelta > TLONG) & (LongMinuteNeeded == 1))
 		{
+			printf("Minute called, delta = %d, Needed = %d", MinuteDelta, LongMinuteNeeded);
+
 			// Soft lock to prevent looking too many times
 			LongMinuteNeeded = 0;
-			MinStamp = Timestamp;
 
 			// Set the button variable as needed.
 			if (MinButton == 1)
@@ -151,7 +153,6 @@ void ISR_1MS(void *context)
 		{
 			// Soft lock to prevent looking too many times
 			LongHourNeeded = 0;
-			HourStamp = Timestamp;
 
 			// Set the button variable as needed.
 			if (HourButton == 1)

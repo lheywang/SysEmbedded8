@@ -37,6 +37,8 @@ int main()
 		leds_SetLed(k, 0);
 	}
 
+	// buzzer_play_song(&CrazyFrog);
+
 	/*
 	 * After this point, all of the code executed is done under interrupts
 	 */
