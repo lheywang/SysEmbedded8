@@ -25,7 +25,7 @@
  *  =======================================================================
  */
 
-int time_increment(struct time * const hour)
+int time_increment_custom(struct time * const hour, int seconds)
 {
 	// Input checks
 	if (hour == NULL)
@@ -34,19 +34,19 @@ int time_increment(struct time * const hour)
 	}
 
 	// Increment seconds
-	hour->second += 1;
+	hour->second += seconds;
 
-	// Check if a minute is elapsed
-	if (hour->second > 59)
+	// Check for minutes
+	while (hour->second > 59)
 	{
-		hour->second = 0;
+		hour->second -= 60;
 		hour->minute += 1;
 	}
 
 	// Check if an hour is elapsed
-	if (hour->minute > 59)
+	while (hour->minute > 59)
 	{
-		hour->minute = 0;
+		hour->minute -= 60;
 		hour->hour += 1;
 	}
 
@@ -58,6 +58,11 @@ int time_increment(struct time * const hour)
 	}
 
 	return 0;
+}
+
+int time_increment(struct time * const hour)
+{
+	return time_increment_custom(hour, 1);
 }
 
 int time_print(const struct time * const hour, char buf[6])

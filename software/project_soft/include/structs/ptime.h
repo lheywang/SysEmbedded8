@@ -27,7 +27,7 @@ struct time {
  */
 
 /**
- *	@brief	Increment the hour pointed by the time struct by one second
+ *	@brief	Increment the hour pointed by the time struct by one second (or custom duration)
  *			Handle every hour / minute and so incrementation.
  *
  *	@param	hour 	A pointer to a time struct to be incremented.
@@ -38,6 +38,7 @@ struct time {
  *	@retval -2 		Overflow detected
  */
 int time_increment(struct time * const hour);
+int time_increment_custom(struct time * const hour, int seconds);
 
 /**
  * @brief 	Return the formatted text output on 6 char [hhmmss] (24h or 12h for the __12 function)

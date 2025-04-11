@@ -37,7 +37,7 @@ int main()
 	 * After this point, all of the code executed is done under interrupts
 	 */
 
-	for (;;){}
+	for (;;) {}
 
 	return 0;
 }

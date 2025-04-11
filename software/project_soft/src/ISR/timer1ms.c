@@ -19,11 +19,14 @@
 #include "alias.h"
 #include "drivers/leds.h"
 #include "drivers/hex.h"
+#include "drivers/buzzer.h"
 #include "ISR/ISR.h"
 #include "func/button_handler.h"
 
+// Altera
+#include <alt_types.h>
+
 // STD
-#include <stdint.h>
 #include <stdio.h>
 
 /** =======================================================================
@@ -31,14 +34,23 @@
  *  =======================================================================
  */
 // Timestamp
-static uint64_t Timestamp = 0;
-
-// Variable for different subprocess timed by timestamp
-static uint64_t LedTime = 0;
+static alt_u64 Timestamp = 0;
 
 // Variable to store the previous state of the buttons (edge detection)
 static int MinuteButtonStatus = OFF;
 static int HourButtonStatus = OFF;
+
+// Last mel, to not cut music when we start a another one
+static int LastMel = 0;
+
+// Variable to track led blinking
+static alt_u64 LedTime = 0;
+
+// Variable to track the hex PWM
+static alt_u64 HexTime = 0;
+
+// Variable to track the led PWM on the ALARM led
+static alt_u64 LedAlarmTime = 0;
 
 /** =======================================================================
  *	FUNCTIONS
@@ -59,6 +71,7 @@ void ISR_1MS(void *context)
 	int AlarmEnabled = switchs & 0x00000001;
 	int ShowHour = (switchs & 0x00000002) >> 1;
 	int HourFormat = (switchs & 0x00000004) >> 2;
+	int AlarmACK = (switchs & 0x00000008) >> 3;
 	int HexBrightness = (switchs & 0x00000070) >> 4;
 	int SelectedMel = (switchs & 0x00000380) >> 7;
 
@@ -79,9 +92,11 @@ void ISR_1MS(void *context)
 		 *	ALARM LED STATUS
 		 *  =======================================================================
 		 */
-		uint64_t LedInterval = Timestamp - LedTime;
 		if (AlarmEnabled == 1)
 		{
+			alt_u64 LedInterval = Timestamp - LedTime;
+
+			// Evaluate sections
 			if (LedInterval <= ALARM_HIGH)
 			{
 				// Enable led
@@ -89,10 +104,12 @@ void ISR_1MS(void *context)
 			}
 			else if (LedInterval < (ALARM_HIGH + ALARM_PERIOD))
 			{
+				// Disable led
 				leds_SetLed(0, 0);
 			}
 			else
 			{
+				// Clear timestamp
 				LedTime = Timestamp;
 			}
 		}
@@ -102,53 +119,39 @@ void ISR_1MS(void *context)
 		}
 
 		/** =======================================================================
-		 *	LONG PRESS DETECTION
+		 *	BUTTON HOUR INCREMENT
 		 *  =======================================================================
 		 */
 
-		bp_IsButtonInLongPress(0, MinButton, Timestamp, &MinuteButtonStatus);
-		bp_IsButtonInLongPress(1, HourButton, Timestamp, &HourButtonStatus);
+		// Identify for long presses
+		bp_IsButtonInLongPress(	0,
+								MinButton,
+								Timestamp,
+								&MinuteButtonStatus);
 
-		/** =======================================================================
-		 *	TEST DISPLAY
-		 *  =======================================================================
-		 */
-		switch (MinuteButtonStatus) {
-		case OFF :
-			leds_SetLed(8, 0);
-			leds_SetLed(9, 0);
-			break;
+		bp_IsButtonInLongPress(	1,
+								HourButton,
+								Timestamp,
+								&HourButtonStatus);
 
-		case Long :
-			leds_SetLed(8, 0);
-			leds_SetLed(9, 1);
-			// MinuteButtonStatus = OFF;
-			break;
-
-		case Short :
-			leds_SetLed(8, 1);
-			leds_SetLed(9, 0);
-			// MinuteButtonStatus = OFF;
-			break;
+		if (ShowHour == 1) 	// Change the hour of the device
+		{
+			leds_SetLed(7, 1);
+			leds_SetLed(6, 0);
+			bp_IncrementTimePerPress(	Ctx->Time,
+										Timestamp,
+										&MinuteButtonStatus,
+										&HourButtonStatus);
 		}
 
-		switch (HourButtonStatus) {
-		case OFF :
-			leds_SetLed(6, 0);
+		else				// Change the alarm hour
+		{
 			leds_SetLed(7, 0);
-			break;
-
-		case Long :
-			leds_SetLed(6, 0);
-			leds_SetLed(7, 1);
-			// MinuteButtonStatus = OFF;
-			break;
-
-		case Short :
 			leds_SetLed(6, 1);
-			leds_SetLed(7, 0);
-			// MinuteButtonStatus = OFF;
-			break;
+			bp_IncrementTimePerPress(	Ctx->Alarm,
+										Timestamp,
+										&MinuteButtonStatus,
+										&HourButtonStatus);
 		}
 
 		/** =======================================================================
@@ -157,24 +160,172 @@ void ISR_1MS(void *context)
 		 */
 		// Update hour on the 7 segments
 		char buf[7] = {'\0'};
-		if (HourFormat == 1)
+		if (HourFormat == 1) 			// 24 hour print
 		{
-			time_print(Ctx->Time, buf); 	// 24 hour print
-			// Add some leds here ?
+			if (ShowHour == 1)			// Time
+			{
+				time_print(Ctx->Time, buf);
+			}
+			else						// Alarm
+			{
+				time_print(Ctx->Alarm, buf);
+			}
+
+		}
+		else							// 12 hour print
+		{
+			if (ShowHour == 1)			// Time
+			{
+				time_print12(Ctx->Time, buf);
+			}
+			else						// Alarm
+			{
+				time_print12(Ctx->Alarm, buf);
+			}
+		}
+
+		// 125 Hz PWM on the hex display, to enable some luminosity pulsations.
+		alt_u64 HexInterval = Timestamp - HexTime;
+		if (HexInterval <= HexBrightness)
+		{
+			// Enable hex
+			hex_display(buf, 6, 0);
+		}
+		else if (HexInterval < 8)
+		{
+			// Disable hex
+			hex_display("......", 6, 0);
 		}
 		else
 		{
-			time_print12(Ctx->Time, buf);	// 12 hour print
-			// Add some leds here ?
+			// Clear timestamp
+			HexTime = Timestamp;
 		}
 
-		hex_display(buf, 6, 0);
+		/** =======================================================================
+		 *	SONG UPDATE
+		 *  =======================================================================
+		 */
+
+		if (LastMel != SelectedMel)
+		{
+			// Cancel the ongoing song
+			buzzer_stop_song();
+
+			// Select the new one.
+			// Play will be triggered if needed.
+			switch (SelectedMel)
+			{
+				case 0 :		// Elise
+				{
+#if (INCLUDE_ELISE == 1)
+					Ctx->Song = &Elise;
+#endif
+					break;
+				}
+
+				case 1 :		// Astronomia
+				{
+#if (INCLUDE_ASTRONOMIA == 1)
+					// Ctx->Song = &Astronomia;
+#endif
+					break;
+				}
+
+				case 2 :		// Crazy frog
+				{
+#if (INCLUDE_CRAZY_FROG == 1)
+					Ctx->Song = &CrazyFrog;
+#endif
+					break;
+				}
+
+				case 3 :		// Baby Shark
+				{
+#if (INCLUDE_BABY_SHARK == 1)
+					// Ctx->Song = &BabyShark;
+#endif
+					break;
+				}
+
+				case 4 :
+				{
+#if (0 == 1)
+					// Unused for now
+#endif
+					break;
+				}
+				case 5 :
+				{
+#if (0 == 1)
+					// Unused for now
+#endif
+					break;
+				}
+
+				case 6 :
+				{
+#if (0 == 1)
+					// Unusued for now
+#endif
+					break;
+				}
+
+				case 7 :
+				{
+#if (0 == 1)
+					// Unused for now
+#endif
+					break;
+				}
+
+				case 8 :
+				{
+#if (0 == 1)
+					// Unused for now
+#endif
+					break;
+				}
+
+				default:
+					break;
+			}
+
+			LastMel = SelectedMel;
+		}
 
 		/** =======================================================================
 		 *	BUZZER PLAY
 		 *  =======================================================================
 		 */
-		// buzzer_play_song(Ctx->Song);
+		if (Ctx->Ring == 1)
+		{
+			buzzer_play_song(Ctx->Song);
+
+			// Blink a led when the alarm is ringing !
+			alt_u64 LedAlarmInterval = Timestamp - LedAlarmTime;
+			if (LedAlarmInterval <= 500)
+			{
+				// Enable led
+				leds_SetLed(9, 1);
+			}
+			else if (LedAlarmInterval < 1000)
+			{
+				// Disable led
+				leds_SetLed(9, 0);
+			}
+			else
+			{
+				// Clear timestamp
+				LedTime = Timestamp;
+			}
+
+			// If button is pressed, audio is cutted but led remain on !
+			if (AlarmACK == 1)
+			{
+				buzzer_stop_song();
+			}
+		}
 	}
 	ISR_LeaveMutex();
 
