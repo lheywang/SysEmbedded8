@@ -16,10 +16,12 @@ output_files/*
 *.elf
 *.objdump
 *.map
+*.cproject
 
 # Eclipse workspace
 EclipseWorkspace/*
 software/project_soft/mem_init/*
+.settings/
 
 # Modelsim files
 *.bak
@@ -31,3 +33,6 @@ software/project_soft/mem_init/*
 *.force_relink
 *.force_rebuild
 *.qws
+
+# VSCode artifacts
+.VSCodeCounter/

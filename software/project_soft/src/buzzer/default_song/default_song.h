@@ -1,22 +1,22 @@
 /** =======================================================================
- * buzzer/elise/elise.h
+ * buzzer/default_song/default_song.h
  *
- * Define values for the Elise (Beethoven) song.
+ * Define values for the default song
  *
  * l.heywang
- * 05 / 04 / 2025
+ * 12 / 04 / 2025
  *  =======================================================================
  */
 
-#ifndef _DEF_ELISE
-#define _DEF_ELISE
+#ifndef _DEF_CRAZY_FROG
+#define _DEF_DEFAULT_SONG
 
 /** =======================================================================
  *	DATA
  *  =======================================================================
  */
 
-extern int elise_data[];
-extern struct song Elise;
+extern int default_data[];
+extern struct song Default;
 
-#endif /* _DEF_ELISE */
+#endif /* _DEF_DEFAULT_SONG */

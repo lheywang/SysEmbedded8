@@ -1,15 +1,15 @@
 /** =======================================================================
- * buzzer/songs/crazy-frog.h
+ * buzzer/crazy-frog.h
  *
  * Define values for the crazy frog song (Axel F).
  *
  * l.heywang
- * 05 / 03 / 2025
+ * 05 / 04 / 2025
  *  =======================================================================
  */
 
-#ifndef _DEF_CRAZY_FROG
-#define _DEF_CRAZY_FROG
+#ifndef _DEF_DEFAULT_SONG
+#define _DEF_DEFAULT_SONG
 
 /** =======================================================================
  *	DATA
@@ -19,4 +19,4 @@
 extern int crazy_frog_data[];
 extern struct song CrazyFrog;
 
-#endif /* _DEF_CRAZY_FROG */
+#endif /* _DEF_DEFAULT_SONG */

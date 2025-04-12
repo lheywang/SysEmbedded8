@@ -153,7 +153,12 @@ C_SRCS += src/ISR/timer1ms.c
 C_SRCS += src/drivers/buzzer.c
 C_SRCS += src/buzzer/elise/elise.c
 C_SRCS += src/buzzer/crazy-frog/crazy-frog.c
+C_SRCS += src/buzzer/baby-shark/baby-shark.c
+C_SRCS += src/buzzer/astronomia/astronomia.c
 C_SRCS += src/ISR/func/button_handler.c
+C_SRCS += src/ISR/func/led_blinker.c
+C_SRCS += src/ISR/func/song_select.c
+C_SRCS += src/buzzer/default_song/default_song.c
 CXX_SRCS :=
 ASM_SRCS :=
 

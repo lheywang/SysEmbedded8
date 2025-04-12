@@ -1,10 +1,10 @@
 /** =======================================================================
- * buzzer/songs/astronomia/astronomia.c
+ * buzzer/astronomia/astronomia.c
  *
  * Define values for the Astronomia / Coffins Dance song.
  *
  * l.heywang
- * 05 / 03 / 2025
+ * 05 / 04 / 2025
  *  =======================================================================
  */
 

@@ -53,4 +53,6 @@ struct song {
 #include "elise/elise.h"
 #endif
 // ------------------------------------------------------------------------
+// Always include default song
+#include "default_song/default_song.h"
 #endif /* _DEF_SONGS */

@@ -1,10 +1,10 @@
 /** =======================================================================
- * buzzer/songs/crazy-frog/crazy-frog.c
+ * buzzer/crazy-frog/crazy-frog.c
  *
  * Define values for the crazy frog song (Axel F).
  *
  * l.heywang
- * 05 / 03 / 2025
+ * 05 / 04 / 2025
  *  =======================================================================
  */
 

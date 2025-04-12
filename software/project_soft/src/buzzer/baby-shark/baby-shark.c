@@ -1,10 +1,10 @@
 /** =======================================================================
- * buzzer/songs/baby-shark/baby-shark.c
+ * buzzer/baby-shark/baby-shark.c
  *
  * Define values for the Baby Shark (Pinkfong) song.
  *
  * l.heywang
- * 05 / 03 / 2025
+ * 05 / 04 / 2025
  *  =======================================================================
  */
 
