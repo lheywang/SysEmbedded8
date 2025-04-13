@@ -15,10 +15,6 @@
  *	DEFINED PARAMETERS
  *  =======================================================================
  */
-// ALARM LED BLINK PERIOD
-#define ALARM_HIGH 500
-#define ALARM_PERIOD 4500
-
 // GENERIC SETTINGS
 #define TIMER_PERIOD 1; // 1 ms
 

@@ -37,7 +37,6 @@ static int *data = NULL;
 static int len = 0;
 static int actual = 0;
 static int pad_required = 0;
-static int song_launched = 0;
 
 /** =======================================================================
  *	PRIVATE FUNCTIONS PROTOTYPES
@@ -176,11 +175,6 @@ int buzzer_play_song(const struct song *Song)
 		return -1;
 	}
 
-	if (song_launched != 0)
-	{
-		return -3;
-	}
-
 	// Copy the data to our local expression.
 	data = (int *)Song->notes;
 	len = (int)Song->len - 1;
@@ -188,17 +182,21 @@ int buzzer_play_song(const struct song *Song)
 
 	// Initialize the buzzer
 	buzzer_enable();
-	song_launched = 1;
 
 	// Initialize the interrupts for the PWM to see
 	PWM_IOWR_MASK(0x40); // --> Only the END NOTE FLAG
 	PWM_IOWR_EDGE(0x00);
 	PWM_IOWR_SDATA(0x00);
-  	alt_ic_isr_register(PWM_STATUS_IRQ_INTERRUPT_CONTROLLER_ID,
-  						PWM_STATUS_IRQ,
-						(void *)_SONG_ISR,
-						NULL,
-						0x00);
+  	int ret = alt_ic_isr_register(	PWM_STATUS_IRQ_INTERRUPT_CONTROLLER_ID,
+  									PWM_STATUS_IRQ,
+									(void *)_SONG_ISR,
+									NULL,
+									0x00);
+
+  	if (ret != 0)
+  	{
+  		return -4;
+  	}
 
   	// Start the play of the first note
   	int reg = data[actual];
@@ -233,9 +231,6 @@ static void _SONG_ISR(void *context)
     // Check if we're at the end
     if (actual == len)
     {
-    	// Reset the soft lock
-    	song_launched = 0;
-
     	// Disable interrupts for the PWM peripheral
     	buzzer_stop_song();
 

@@ -91,18 +91,10 @@ int init_ISR_Ctx(struct ISR_Ctx *Ctx)
 		return -1;
 	}
 
-	// Initialize alarm time
-	Ctx->Alarm->hour = 0;
-	Ctx->Alarm->minute = 0;
-	Ctx->Alarm->second = 0;
-
 	// Initialize actual time
 	Ctx->Time->hour = 0;
 	Ctx->Time->minute = 0;
 	Ctx->Time->second = 0;
-
-	// Initialize song
-	Ctx->Song = &CrazyFrog;
 
 	// Initialize status
 	Ctx->Ring = 0;

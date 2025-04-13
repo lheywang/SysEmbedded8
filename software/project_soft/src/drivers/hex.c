@@ -41,7 +41,7 @@ static const int chars[] = {0b11000000, // 0    0            x   x   x   x   x  
 							0b10100001, //  	d        x       x   x   x   x
 							0b10000110, //  	e        x   x   x   x           x
 							0b10001110, //  	f        x   x   x               x
-							0b10001011,	// 16 	h        x   x   x       x
+							0b10001001,	// 16 	h        x   x   x       x   x
 							0b11101111, //  	i            x
 							0b10100011, // 18 	o        x       x   x   x
 							0b11100011, // 19 	u                x   x   x

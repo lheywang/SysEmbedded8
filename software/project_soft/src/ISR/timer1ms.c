@@ -21,9 +21,11 @@
 #include "drivers/hex.h"
 #include "drivers/buzzer.h"
 #include "ISR/ISR.h"
+// ISR Helpers
 #include "func/button_handler.h"
 #include "func/led_blinker.h"
 #include "func/song_select.h"
+#include "func/hex_helper.h"
 
 // Altera
 #include <alt_types.h>
@@ -36,14 +38,24 @@
  *  =======================================================================
  */
 // Timestamp
-static alt_u64 Timestamp = 0;
+static alt_u64 		Timestamp = 0;
 
 // Variable to store the previous state of the buttons (edge detection)
-static int MinuteButtonStatus = OFF;
-static int HourButtonStatus = OFF;
+static int 			MinuteButtonStatus = OFF;
+static int 			HourButtonStatus = OFF;
 
 // Variable to track the hex PWM
-static alt_u64 HexTime = 0;
+static alt_u64		HexDiff = 0;
+
+// Alarm struct
+static struct time 	Alarm = {	.hour = 0,
+								.minute = 0,
+								.second = 0};
+
+// Song struct
+static struct song 	*Song = &CrazyFrog;
+static int			SongLaunched = 0;
+static int 			MaintainRing = 0;
 
 /** =======================================================================
  *	FUNCTIONS
@@ -91,7 +103,6 @@ void ISR_1MS(void *context)
 		// Fetch and cast the context to our control struct
 		struct ISR_Ctx *Ctx = (struct ISR_Ctx*)context;
 
-
 		/** =======================================================================
 		 *	ALARM LED STATUS
 		 *  =======================================================================
@@ -110,36 +121,35 @@ void ISR_1MS(void *context)
 		 *  =======================================================================
 		 */
 
-		// Identify for long presses
-		bp_IsButtonInLongPress(	0,
-								MinButton,
-								Timestamp,
-								&MinuteButtonStatus);
+		// Identify for long presses (Only if the correct mode is selected, otherwise we save cycles)
+		if ((SetHour == 1) | (SetAlarm == 1))
+		{
+			bp_IsButtonInLongPress(	0,
+									MinButton,
+									Timestamp,
+									&MinuteButtonStatus);
 
-		bp_IsButtonInLongPress(	1,
-								HourButton,
-								Timestamp,
-								&HourButtonStatus);
+			bp_IsButtonInLongPress(	1,
+									HourButton,
+									Timestamp,
+									&HourButtonStatus);
+		}
 
-		// Change the hour of the device
-		if (SetHour == 1)
+		// Change the correct time mode here
+		if ((SetHour == 1) & (SetAlarm == 0))
 		{
 			bp_IncrementTimePerPress(	Ctx->Time,
 										Timestamp,
 										&MinuteButtonStatus,
 										&HourButtonStatus);
 		}
-
-		// Change the alarm hour
-		else if (SetAlarm == 1)
+		else if ((SetHour == 0) & (SetAlarm == 1))
 		{
-			bp_IncrementTimePerPress(	Ctx->Alarm,
+			bp_IncrementTimePerPress(	&Alarm,
 										Timestamp,
 										&MinuteButtonStatus,
 										&HourButtonStatus);
 		}
-
-		// None, clear the values
 		else
 		{
 			MinuteButtonStatus = OFF;
@@ -152,54 +162,36 @@ void ISR_1MS(void *context)
 		 */
 		// Update hour on the 7 segments
 		char buf[7] = {'\0'};
-		if (HourFormat == 1) 			// 24 hour print
-		{
-			if (SetAlarm == 1)			// Alarm
-			{
-				time_print(Ctx->Alarm, buf);
-			}
-			else						// Else we show the time
-			{
-				time_print(Ctx->Time, buf);
-			}
+		int ret = hexhelp_DefinePrintMessage(	buf,
+									7,
+									Timestamp,
+									SetHour,
+									SetAlarm,
+									HourFormat,
+									&Ctx->Time,
+									&Alarm);
 
-		}
-		else							// 12 hour print
-		{
-			if (SetAlarm == 1)			// Alarm
-			{
-				time_print12(Ctx->Alarm, buf);
-			}
-			else						// Else we show the time
-			{
-				time_print12(Ctx->Time, buf);
-			}
-		}
-
-		// 125 Hz PWM on the hex display, to enable some luminosity pulsations.
-		alt_u64 HexInterval = Timestamp - HexTime;
-		if (HexInterval <= (HexBrightness + 1)) // Ensure HEX is always ON !
-		{
-			// Enable hex
-			hex_display(buf, 6, 0);
-		}
-		else if (HexInterval < 8)
-		{
-			// Disable hex
-			hex_display("......", 6, 0);
-		}
-		else
-		{
-			// Clear timestamp
-			HexTime = Timestamp;
-		}
+		hexhelp_Blink(buf, 6, 0, Timestamp, HexBrightness);
 
 		/** =======================================================================
 		 *	SONG UPDATE
 		 *  =======================================================================
 		 */
 
-		Ctx->Song = songSel_GetSong(SelectedMel, Ctx->Song);
+		Song = songSel_GetSong(SelectedMel, Song);
+
+		/** =======================================================================
+		 *	TIME COMPARISON
+		 *  =======================================================================
+		 */
+		// This provide a latchup, than can only be set if the hour as overflowed
+		// Thus, once the alarm has been disabled that's done for the day !
+		// This does not affect the led blinking, which will remain on !
+		Ctx->Ring = time_compare(Ctx->Time, &Alarm);
+		if (Ctx->Ring < 0)
+		{
+			MaintainRing = 0;
+		}
 
 		/** =======================================================================
 		 *	BUZZER PLAY
@@ -207,14 +199,20 @@ void ISR_1MS(void *context)
 		 */
 		if ((Ctx->Ring == 1) & (AlarmEnabled == 1))
 		{
-			buzzer_play_song(Ctx->Song);
-			ledblink_Blink(9, Timestamp, 500, 1000);
+			if ((SongLaunched == 0) & (MaintainRing == 0))
+			{
+				buzzer_play_song(Song);
+				SongLaunched = 1;
+				MaintainRing = 1;
+			}
+			ledblink_Blink(9, Timestamp, ALARM_BUZZ_HIGH, ALARM_BUZZ_PERIOD);
 		}
 		// If we shut down the switch, cut the song and the led !
 		else
 		{
 			buzzer_stop_song();
 			leds_SetLed(9, 0);
+			SongLaunched = 0;
 		}
 	}
 	ISR_LeaveMutex();

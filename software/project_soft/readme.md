@@ -51,9 +51,6 @@ NIOS II + Embedded C developpement project, for school
 
 ## Known issues
 ### Bugs
-- Selecting hour / alarm does not work
-- Cannot set up alarm
-
-### To test
-- Alarm ringing
+- Only first note is played ??
+- Ctx->Time struct contain incorrect values after being initialized ?
 

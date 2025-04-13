@@ -27,10 +27,6 @@
 struct ISR_Ctx {
 	// Hour management
 	struct time *Time;
-	struct time *Alarm;
-
-	// Song selection
-	struct song *Song;
 
 	// Board settings
 	int Ring;

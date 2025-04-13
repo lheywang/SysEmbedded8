@@ -159,6 +159,7 @@ C_SRCS += src/ISR/func/button_handler.c
 C_SRCS += src/ISR/func/led_blinker.c
 C_SRCS += src/ISR/func/song_select.c
 C_SRCS += src/buzzer/default_song/default_song.c
+C_SRCS += src/ISR/func/hex_helper.c
 CXX_SRCS :=
 ASM_SRCS :=
 

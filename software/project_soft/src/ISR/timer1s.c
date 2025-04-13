@@ -43,10 +43,6 @@ void ISR_1S(void *context)
 
 		// Increment the time counter and if needed, trigger the alarm (-> Will be played in a another interrupt)
 		time_increment(Ctx->Time);
-		if (time_compare(Ctx->Time, Ctx->Alarm) > 0)
-		{
-			Ctx->Ring = 1;
-		}
 	}
 
 	// Free the mutex we got on the mutex.
