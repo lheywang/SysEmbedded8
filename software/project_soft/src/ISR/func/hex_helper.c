@@ -25,6 +25,7 @@
 // STD
 #include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
 /** =======================================================================
  * FILE VARIABLES
@@ -90,28 +91,28 @@ int hexhelp_DefinePrintMessage(	char *buf,
 		// 24h prints
 		case 0b001 :
 		{
-			time_print(buf, Alarm);
+			time_print(Alarm, buf);
 			break;
 		}
 		case 0b000 :
 		case 0b010 :
 		case 0b011 :
 		{
-			time_print(buf, Time);
+			time_print(Time, buf);
 			break;
 		}
 
 		// 12h prints
 		case 0b101 :
 		{
-			time_print12(buf, Alarm);
+			time_print12(Alarm, buf);
 			break;
 		}
 		case 0b100 :
 		case 0b110 :
 		case 0b111 :
 		{
-			time_print12(buf, Time);
+			time_print12(Time, buf);
 			break;
 		}
 	}
@@ -128,22 +129,25 @@ int hexhelp_DefinePrintMessage(	char *buf,
 
 		if (diff & 0b100) // Handle time format change
 		{
-			*saveBuf = (cmd & 0b100) ? ".12.h.." : ".24.h..";
+			char *newval = (cmd & 0b100) ? ".12.h.." : ".24.h..";
+			strncpy(saveBuf, newval, 6);
 		}
 		else if (diff & 0b001) // Handle alarm showing
 		{
-			*saveBuf = (cmd & 0b100) ? "..al.." : "..hr..";
+			char *newval = (cmd & 0b001) ? "alarm" : ".hour.";
+			strncpy(saveBuf, newval, 6);
 		}
 		else // Print that we're displaying time
 		{
-			*saveBuf = "..al..";
+			char *newval = ".alarm";
+			strncpy(saveBuf, newval, 6);
 		}
 	}
 
 	if ((HexLast + HEX_MAINTAIN) > Timestamp) 	// An info display was required so we copy the data.
 												// Otherwise, the buffer was already formatted.
 	{
-		strncpy(buf, saveBuf, 7);
+		strncpy(buf, saveBuf, 6);				// Copy the char from one buf to the other
 	}
 
 	return 0;

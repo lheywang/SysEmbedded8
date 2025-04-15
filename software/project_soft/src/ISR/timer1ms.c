@@ -162,13 +162,13 @@ void ISR_1MS(void *context)
 		 */
 		// Update hour on the 7 segments
 		char buf[7] = {'\0'};
-		int ret = hexhelp_DefinePrintMessage(	buf,
+		hexhelp_DefinePrintMessage(	buf,
 									7,
 									Timestamp,
 									SetHour,
 									SetAlarm,
 									HourFormat,
-									&Ctx->Time,
+									Ctx->Time,
 									&Alarm);
 
 		hexhelp_Blink(buf, 6, 0, Timestamp, HexBrightness);

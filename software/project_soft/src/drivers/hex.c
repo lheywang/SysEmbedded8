@@ -43,10 +43,13 @@ static const int chars[] = {0b11000000, // 0    0            x   x   x   x   x  
 							0b10001110, //  	f        x   x   x               x
 							0b10001001,	// 16 	h        x   x   x       x   x
 							0b11101111, //  	i            x
-							0b10100011, // 18 	o        x       x   x   x
-							0b11100011, // 19 	u                x   x   x
-							0b10111111, // 20	-        x
-							0b11111111  // 21 	.    									!! Unwired on the board !!
+							0b11000111, // 18   l 	         x   x   x
+							0b11001000,	// 		m	         x   x       x   x
+							0b10100011, // 20 	o        x       x   x   x
+							0b11100011, // 21 	u                x   x   x
+							0b10101111, // 22	r		 x       x
+							0b10111111, // 23	-        x
+							0b11111111  //  	.    									!! Unwired on the board !!
 };
 
 /** =======================================================================
@@ -94,21 +97,32 @@ int char27seg(char in, int * val)
 		return 0;
 		break;
 
+	case 'l':
+	case 'm':
+		*val = chars[(in - 0x6C) + 18];
+		return 0;
+		break;
+
 	// Last chars...
 	case 'o':
-		*val = chars[18];
+		*val = chars[20];
 		return 0;
 		break;
 
 	case 'u':
-		*val = chars[19];
+		*val = chars[21];
+		return 0;
+		break;
+
+	case 'r':
+		*val = chars[22];
 		return 0;
 		break;
 
 	// Handling two special chars
 	case '-':
 	case '.':
-		*val = chars[(in - 0x2D) + 20];
+		*val = chars[(in - 0x2D) + 23];
 		return 0;
 		break;
 
