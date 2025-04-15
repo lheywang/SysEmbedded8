@@ -50,6 +50,7 @@
  * @retval 	 0 			Operation successfull
  * @retval 	-1 			Invalid pointers (buf or Time or Alarm)
  * @retval 	-2 			Buffer too small
+ * @retval 	-3 			Invalid combination of ShowAlarm and ShowHour.
  */
 int hexhelp_DefinePrintMessage(	char *buf,
 								int len,

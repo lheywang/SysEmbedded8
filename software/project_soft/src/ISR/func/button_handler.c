@@ -35,8 +35,8 @@ static int 		Previous[BUTTON_NB] = {0};
 static int 		LongRequired[BUTTON_NB] = {0};
 
 // TimeIncrements
-static alt_u64  LastStamp[2] = {0};
-static int 		CNT[2] = {0};
+static alt_u64  LastStamp[BUTTON_NB] = {0};
+static int 		CNT[BUTTON_NB] = {0};
 
 /** =======================================================================
  * FUNCTIONS

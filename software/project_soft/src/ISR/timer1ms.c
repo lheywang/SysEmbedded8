@@ -121,39 +121,48 @@ void ISR_1MS(void *context)
 		 *  =======================================================================
 		 */
 
-		// Identify for long presses (Only if the correct mode is selected, otherwise we save cycles)
-		if ((SetHour == 1) | (SetAlarm == 1))
-		{
-			bp_IsButtonInLongPress(	0,
-									MinButton,
-									Timestamp,
-									&MinuteButtonStatus);
+		bp_IsButtonInLongPress(	0,
+								MinButton,
+								Timestamp,
+								&MinuteButtonStatus);
 
-			bp_IsButtonInLongPress(	1,
-									HourButton,
-									Timestamp,
-									&HourButtonStatus);
-		}
+		bp_IsButtonInLongPress(	1,
+								HourButton,
+								Timestamp,
+								&HourButtonStatus);
 
-		// Change the correct time mode here
-		if ((SetHour == 1) & (SetAlarm == 0))
+		int cmd = 	((SetHour == 0) ? 0 : 1) << 1 |
+					((SetAlarm == 0) ? 0 : 1);
+
+		switch (cmd)
 		{
-			bp_IncrementTimePerPress(	Ctx->Time,
-										Timestamp,
-										&MinuteButtonStatus,
-										&HourButtonStatus);
-		}
-		else if ((SetHour == 0) & (SetAlarm == 1))
-		{
-			bp_IncrementTimePerPress(	&Alarm,
-										Timestamp,
-										&MinuteButtonStatus,
-										&HourButtonStatus);
-		}
-		else
-		{
-			MinuteButtonStatus = OFF;
-			HourButtonStatus = OFF;
+			case 0b01 :
+			{
+				bp_IncrementTimePerPress(	Ctx->Time,
+											Timestamp,
+											&MinuteButtonStatus,
+											&HourButtonStatus);
+				break;
+			}
+			case 0b10 :
+			{
+				bp_IncrementTimePerPress(	&Alarm,
+											Timestamp,
+											&MinuteButtonStatus,
+											&HourButtonStatus);
+				break;
+			}
+			case 0b00 :
+			{
+				MinuteButtonStatus = OFF;
+				HourButtonStatus = OFF;
+				break;
+			}
+			case 0b11 :
+			{
+				// Unsupported operation --> Hex will print ..err. in any cases !
+				break;
+			}
 		}
 
 		/** =======================================================================
@@ -177,7 +186,6 @@ void ISR_1MS(void *context)
 		 *	SONG UPDATE
 		 *  =======================================================================
 		 */
-
 		Song = songSel_GetSong(SelectedMel, Song);
 
 		/** =======================================================================

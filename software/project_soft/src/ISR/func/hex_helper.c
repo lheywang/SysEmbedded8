@@ -75,12 +75,12 @@ int hexhelp_DefinePrintMessage(	char *buf,
 	 *   	0			0			0				--> Show actual time as 24 hour format
 	 *   	0			0			1				--> Show alarm as 24 hour format
 	 *   	0			1			0				--> Show actual time as 24 hour format
-	 *   	0			1			1				--> Show actual time as 24 hour format (RETURN ERROR in any cases !)
+	 *   	0			1			1				--> No prints. Return error immediately.
 	 *
 	 *   	1			0			0				--> Show actual time as 12 hour format
 	 *   	1			0			1				--> Show alarm as 12 hour format
 	 *   	1			1			0				--> Show actual time as 12 hour format
-	 *   	1			1			1				--> Show actual time as 12 hour format (RETURN ERROR in any cases !)
+	 *   	1			1			1				--> No prints. Return error immediately.
 	 *
 	 * And, in any cases : If the format has changed, we show for HEX_MAINTAIN ms some infos on it,
 	 * such as " 12 H  " or equivalent.
@@ -96,7 +96,7 @@ int hexhelp_DefinePrintMessage(	char *buf,
 		}
 		case 0b000 :
 		case 0b010 :
-		case 0b011 :
+
 		{
 			time_print(Time, buf);
 			break;
@@ -110,10 +110,16 @@ int hexhelp_DefinePrintMessage(	char *buf,
 		}
 		case 0b100 :
 		case 0b110 :
-		case 0b111 :
 		{
 			time_print12(Time, buf);
 			break;
+		}
+		case 0b011 :
+		case 0b111 :
+		{
+			char *newval = "..err.";
+			strncpy(buf, newval, 6);
+			return -3;
 		}
 	}
 
@@ -132,16 +138,17 @@ int hexhelp_DefinePrintMessage(	char *buf,
 			char *newval = (cmd & 0b100) ? ".12.h.." : ".24.h..";
 			strncpy(saveBuf, newval, 6);
 		}
+		else if (diff & 0b010) // Handle alarm showing
+		{
+			char *newval = (cmd & 0b010) ? ".hour" : ".hour";
+			strncpy(saveBuf, newval, 6);
+		}
 		else if (diff & 0b001) // Handle alarm showing
 		{
-			char *newval = (cmd & 0b001) ? "alarm" : ".hour.";
+			char *newval = (cmd & 0b001) ? ".alarm" : ".hour.";
 			strncpy(saveBuf, newval, 6);
 		}
-		else // Print that we're displaying time
-		{
-			char *newval = ".alarm";
-			strncpy(saveBuf, newval, 6);
-		}
+
 	}
 
 	if ((HexLast + HEX_MAINTAIN) > Timestamp) 	// An info display was required so we copy the data.
