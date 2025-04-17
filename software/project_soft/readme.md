@@ -51,7 +51,7 @@ NIOS II + Embedded C developpement project, for school
 
 ## Known issues
 ### Todo
-- Only first note is played --> Change the method of playing notes with polling status on the 1ms interrupt
+- Only first note is played --> Normal : Cannot register ISR from ISR. Need to launch "manually" the song with the Ctx->Ring & Ctx->Song values !
 - Add a blinker for the settings mode of the hour / alarm display (500/1000 ?)
 - Test of the whole system
 
