@@ -50,7 +50,8 @@ NIOS II + Embedded C developpement project, for school
 - LEDR0 :		--> Blink at 0.2 Hz (500 ms on, 4.5s off) when alarm is enabled
 
 ## Known issues
-### Bugs
-- Only first note is played ??
-- Ctx->Time struct contain incorrect values after being initialized ?
+### Todo
+- Only first note is played --> Change the method of playing notes with polling status on the 1ms interrupt
+- Add a blinker for the settings mode of the hour / alarm display (500/1000 ?)
+- Test of the whole system
 
