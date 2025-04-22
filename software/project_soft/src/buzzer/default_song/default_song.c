@@ -77,7 +77,11 @@ struct song Default = {
 
 int empty_data[] = {
 		// Line 1
-		_REG_FROM_PARAM(1, MUTED, La3),
+		_REG_FROM_PARAM(1, MUTED, Si8),
+		_REG_FROM_PARAM(1, MUTED, Si8),
+		_REG_FROM_PARAM(1, MUTED, Si8),
+		_REG_FROM_PARAM(1, MUTED, Si8),
+		_REG_FROM_PARAM(1, MUTED, Si8)
 };
 
 struct song Empty = {

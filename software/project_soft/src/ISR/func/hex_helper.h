@@ -75,5 +75,6 @@ int hexhelp_DefinePrintMessage(	char *buf,
  * @retval 	-1 			Invalid pointer
  */
 int hexhelp_Blink(char *buf, int len, int pos, alt_u64 Timestamp, int Brightness);
+int hexhelp_BlinkCustom(char *buf, int len, alt_u64 Timestamp, alt_u64 HIGH, alt_u64 PERIOD);
 
 #endif /* _DEF_HEX_HELPER */

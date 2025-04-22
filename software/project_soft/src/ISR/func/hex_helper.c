@@ -34,6 +34,7 @@
 // Brightness controller
 static alt_u64 HexTime = 0;
 static alt_u64 HexLast = 0;
+static alt_u64 HexTime2 = 0;
 
 // CMD restore
 static int LastCmd = 255;
@@ -140,7 +141,7 @@ int hexhelp_DefinePrintMessage(	char *buf,
 		}
 		else if (diff & 0b010) // Handle alarm showing
 		{
-			char *newval = (cmd & 0b010) ? ".hour" : ".hour";
+			char *newval = (cmd & 0b010) ? ".hour." : ".hour.";
 			strncpy(saveBuf, newval, 6);
 		}
 		else if (diff & 0b001) // Handle alarm showing
@@ -173,18 +174,48 @@ int hexhelp_Blink(char *buf, int len, int pos, alt_u64 Timestamp, int Brightness
 	if (HexInterval <= (Brightness + 1) << 1)
 	{
 		// Enable hex
-		hex_display(buf, len, pos);
+		return 0;
 
 	}
 	else if (HexInterval < 16)
 	{
 		// Disable hex
-		hex_display("......", 6, 0);
+		char *newval = "......";
+		strncpy(buf, newval, len);
 	}
 	else
 	{
 		// Clear timestamp
 		HexTime = Timestamp;
+	}
+
+	return 0;
+}
+
+int hexhelp_BlinkCustom(char *buf, int len, alt_u64 Timestamp, alt_u64 HIGH, alt_u64 PERIOD)
+{
+	// Input checks
+	if (buf == NULL)
+	{
+		return -1;
+	}
+
+	alt_u64 HexInterval = Timestamp - HexTime2;
+	if (HexInterval <= HIGH)
+	{
+		// Enable hex
+		return 0;
+	}
+	else if (HexInterval < (HIGH + PERIOD))
+	{
+		// Disable hex
+		char *newval = "......";
+		strncpy(buf, newval, 6);
+	}
+	else
+	{
+		// Clear timestamp
+		HexTime2 = Timestamp;
 	}
 
 	return 0;

@@ -178,7 +178,17 @@ void ISR_1MS(void *context)
 									Ctx->Time,
 									&Alarm);
 
+		// Blink the hex when we're configuring the hour or the alarm
+		if ((SetHour ^ SetAlarm) == 1) // SetHour XOR SetAlarm
+		{
+			hexhelp_BlinkCustom(buf, 6, Timestamp, 750, 250);
+		}
+
+		// Brightness control
 		hexhelp_Blink(buf, 6, 0, Timestamp, HexBrightness);
+
+		// Update hex
+		hex_display(buf, 6, 0);
 
 		/** =======================================================================
 		 *	SONG UPDATE
@@ -215,7 +225,7 @@ void ISR_1MS(void *context)
 		}
 		else if (AlarmEnabled == 0)
 		{
-			buzzer_play_song(&Empty); // This will play a MUTED Song -> No more music !
+			buzzer_play_song(&Empty);
 			SongLaunched = 0;
 		}
 
