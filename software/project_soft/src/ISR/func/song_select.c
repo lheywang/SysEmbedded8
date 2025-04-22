@@ -19,108 +19,94 @@
 #include "drivers/buzzer.h"
 
 /** =======================================================================
- * VARIABLES
- *  =======================================================================
- */
-static int LastMel = 255;
-
-/** =======================================================================
  * FUNCTIONS
  *  =======================================================================
  */
 struct song* songSel_GetSong(int SelectedMel, struct song *Actual)
 {
-	if (LastMel != SelectedMel)
+	// Select the new one.
+	// Play will be triggered if needed.
+	switch (SelectedMel)
 	{
-		// Cancel the ongoing song
-		buzzer_stop_song();
-
-		// Select the new one.
-		// Play will be triggered if needed.
-		switch (SelectedMel)
+		case 0 :		// Elise
 		{
-			case 0 :		// Elise
-			{
 #if (INCLUDE_ELISE == 1)
-				return &Elise;
+			return &Elise;
 #endif
-				break;
-			}
-
-			case 1 :		// Astronomia
-			{
-#if (INCLUDE_ASTRONOMIA == 1)
-				return &Astronomia;
-#endif
-				break;
-			}
-
-			case 2 :		// Crazy frog
-			{
-#if (INCLUDE_CRAZY_FROG == 1)
-				return &CrazyFrog;
-#endif
-				break;
-			}
-
-			case 3 :		// Baby Shark
-			{
-#if (INCLUDE_BABY_SHARK == 1)
-				return &BabyShark;
-#endif
-				break;
-			}
-
-			case 4 :
-			{
-#if (0 == 1)
-				// Unused for now
-				return;
-#endif
-				break;
-			}
-			case 5 :
-			{
-#if (0 == 1)
-				// Unused for now
-				return;
-#endif
-				break;
-			}
-
-			case 6 :
-			{
-#if (0 == 1)
-				// Unusued for now
-				return;
-#endif
-				break;
-			}
-
-			case 7 :
-			{
-#if (0 == 1)
-				// Unused for now
-				return;
-#endif
-				break;
-			}
-
-			case 8 :
-			{
-#if (0 == 1)
-				// Unused for now
-				return;
-#endif
-				break;
-			}
-
-			default:
-				return &Default;
-				break;
+			break;
 		}
 
-		LastMel = SelectedMel;
+		case 1 :		// Astronomia
+		{
+#if (INCLUDE_ASTRONOMIA == 1)
+			return &Astronomia;
+#endif
+			break;
+		}
+
+		case 2 :		// Crazy frog
+		{
+#if (INCLUDE_CRAZY_FROG == 1)
+			return &CrazyFrog;
+#endif
+			break;
+		}
+
+		case 3 :		// Baby Shark
+		{
+#if (INCLUDE_BABY_SHARK == 1)
+			return &BabyShark;
+#endif
+			break;
+		}
+
+		case 4 :
+		{
+#if (0 == 1)
+			// Unused for now
+			return;
+#endif
+			break;
+		}
+		case 5 :
+		{
+#if (0 == 1)
+			// Unused for now
+			return;
+#endif
+			break;
+		}
+
+		case 6 :
+		{
+#if (0 == 1)
+			// Unusued for now
+			return;
+#endif
+			break;
+		}
+
+		case 7 :
+		{
+#if (0 == 1)
+			// Unused for now
+			return;
+#endif
+			break;
+		}
+
+		case 8 :
+		{
+#if (0 == 1)
+			// Unused for now
+			return;
+#endif
+			break;
+		}
+
+		default:
+			return &Default;
+			break;
 	}
 
 	return Actual;

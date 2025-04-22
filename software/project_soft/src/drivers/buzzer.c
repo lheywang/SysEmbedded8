@@ -39,13 +39,6 @@ static int actual = 0;
 static int pad_required = 0;
 
 /** =======================================================================
- *	PRIVATE FUNCTIONS PROTOTYPES
- *  =======================================================================
- */
-
-static void _SONG_ISR(void *context);
-
-/** =======================================================================
  *	FUNCTIONS
  *  =======================================================================
  */
@@ -183,21 +176,6 @@ int buzzer_play_song(const struct song *Song)
 	// Initialize the buzzer
 	buzzer_enable();
 
-	// Initialize the interrupts for the PWM to see
-	PWM_IOWR_MASK(0x40); // --> Only the END NOTE FLAG
-	PWM_IOWR_EDGE(0x00);
-	PWM_IOWR_SDATA(0x00);
-  	int ret = alt_ic_isr_register(	PWM_STATUS_IRQ_INTERRUPT_CONTROLLER_ID,
-  									PWM_STATUS_IRQ,
-									(void *)_SONG_ISR,
-									NULL,
-									0x00);
-
-  	if (ret != 0)
-  	{
-  		return -4;
-  	}
-
   	// Start the play of the first note
   	int reg = data[actual];
 	buzzer_set_duration((reg & 0x00FF0000) >> 16);
@@ -210,19 +188,10 @@ int buzzer_play_song(const struct song *Song)
 	return 0;
 }
 
-int buzzer_stop_song()
-{
-	// We wont serve anymore interrupts. So, the song will stop at the end of the actual note.
-	alt_ic_irq_disable(	PWM_STATUS_IRQ_INTERRUPT_CONTROLLER_ID,
-						PWM_STATUS_IRQ);
-	return 0;
-}
-
-
 /*
  * ISR
  */
-static void _SONG_ISR(void *context)
+void _SONG_ISR(void *context)
 {
 	// Handle the interrupt source
     PWM_IOWR_SDATA(PWM_IORD_EDGE);
@@ -231,9 +200,6 @@ static void _SONG_ISR(void *context)
     // Check if we're at the end
     if (actual == len)
     {
-    	// Disable interrupts for the PWM peripheral
-    	buzzer_stop_song();
-
     	// Return
     	return;
     }

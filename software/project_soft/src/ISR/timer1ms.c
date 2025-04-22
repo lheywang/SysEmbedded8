@@ -44,18 +44,15 @@ static alt_u64 		Timestamp = 0;
 static int 			MinuteButtonStatus = OFF;
 static int 			HourButtonStatus = OFF;
 
-// Variable to track the hex PWM
-static alt_u64		HexDiff = 0;
-
 // Alarm struct
 static struct time 	Alarm = {	.hour = 0,
-								.minute = 0,
+								.minute = 1,
 								.second = 0};
 
 // Song struct
 static struct song 	*Song = &CrazyFrog;
 static int			SongLaunched = 0;
-static int 			MaintainRing = 0;
+static int 			DayElapsed = 0;
 
 /** =======================================================================
  *	FUNCTIONS
@@ -131,6 +128,7 @@ void ISR_1MS(void *context)
 								Timestamp,
 								&HourButtonStatus);
 
+		// Creating a binary value that represent all the values.
 		int cmd = 	((SetHour == 0) ? 0 : 1) << 1 |
 					((SetAlarm == 0) ? 0 : 1);
 
@@ -196,31 +194,39 @@ void ISR_1MS(void *context)
 		// Thus, once the alarm has been disabled that's done for the day !
 		// This does not affect the led blinking, which will remain on !
 		Ctx->Ring = time_compare(Ctx->Time, &Alarm);
-		if (Ctx->Ring < 0)
+		if (Ctx->Ring < 1)
 		{
-			MaintainRing = 0;
+			DayElapsed = 0;
 		}
 
 		/** =======================================================================
 		 *	BUZZER PLAY
 		 *  =======================================================================
 		 */
-		if ((Ctx->Ring == 1) & (AlarmEnabled == 1))
+		// Handle the launch of the song
+		if (	(Ctx->Ring == 1) &
+				(DayElapsed == 0) &
+				(SongLaunched == 0) &
+				(AlarmEnabled == 1))
 		{
-			if ((SongLaunched == 0) & (MaintainRing == 0))
-			{
-				buzzer_play_song(Song);
-				SongLaunched = 1;
-				MaintainRing = 1;
-			}
+			buzzer_play_song(Song);
+			SongLaunched = 1;
+			DayElapsed = 1;
+		}
+		else if (AlarmEnabled == 0)
+		{
+			buzzer_play_song(&Empty); // This will play a MUTED Song -> No more music !
+			SongLaunched = 0;
+		}
+
+		// Blink the led
+		if (SongLaunched == 1)
+		{
 			ledblink_Blink(9, Timestamp, ALARM_BUZZ_HIGH, ALARM_BUZZ_PERIOD);
 		}
-		// If we shut down the switch, cut the song and the led !
 		else
 		{
-			buzzer_stop_song();
-			leds_SetLed(9, 0);
-			SongLaunched = 0;
+			leds_SetLed(9, 0); // Ensure led is off.
 		}
 	}
 	ISR_LeaveMutex();

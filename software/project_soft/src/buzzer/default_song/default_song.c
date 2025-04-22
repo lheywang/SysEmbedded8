@@ -74,3 +74,16 @@ struct song Default = {
 	.len = (sizeof(default_data) / sizeof(int)),
 	.notes = default_data
 };
+
+int empty_data[] = {
+		// Line 1
+		_REG_FROM_PARAM(1, MUTED, La3),
+};
+
+struct song Empty = {
+	.name = "Empty",
+	.artist = "?",
+	.len = (sizeof(empty_data) / sizeof(int)),
+	.notes = empty_data
+};
+

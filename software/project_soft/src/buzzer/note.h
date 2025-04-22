@@ -142,7 +142,7 @@ enum note {
  *  =======================================================================
  */
 // Volume control
-#define DEFAULT_VOLUME 			80
+#define DEFAULT_VOLUME 			1
 #define MUTED 					0
 
 // Notes interval

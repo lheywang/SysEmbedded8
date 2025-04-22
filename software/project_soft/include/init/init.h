@@ -31,6 +31,15 @@
  */
 int init_PIO();
 
+/**
+ * @brief 	Initialize the ISR for the PWM engine. Does not start any song.
+ *
+ * @return 	int
+ * @retval 	 0 			Struct was initialized
+ * @retval 	-1 			Failed to initialize ISR
+ */
+int init_pwm();
+
 /** =======================================================================
  *	FUNCTIONS (TIMERS)
  *  =======================================================================

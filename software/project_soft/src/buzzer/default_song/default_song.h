@@ -8,7 +8,7 @@
  *  =======================================================================
  */
 
-#ifndef _DEF_CRAZY_FROG
+#ifndef _DEF_DEFAULT_SONG
 #define _DEF_DEFAULT_SONG
 
 /** =======================================================================
@@ -18,5 +18,8 @@
 
 extern int default_data[];
 extern struct song Default;
+
+extern int empty_data[];
+extern struct song Empty;
 
 #endif /* _DEF_DEFAULT_SONG */

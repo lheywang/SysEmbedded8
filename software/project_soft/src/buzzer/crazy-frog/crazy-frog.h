@@ -8,8 +8,8 @@
  *  =======================================================================
  */
 
-#ifndef _DEF_DEFAULT_SONG
-#define _DEF_DEFAULT_SONG
+#ifndef _DEF_CRAZY_FROG
+#define _DEF_CRAZY_FROG
 
 /** =======================================================================
  *	DATA
@@ -19,4 +19,4 @@
 extern int crazy_frog_data[];
 extern struct song CrazyFrog;
 
-#endif /* _DEF_DEFAULT_SONG */
+#endif /* _DEF_CRAZY_FROG */

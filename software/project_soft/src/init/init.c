@@ -20,6 +20,7 @@
 #include "ISR/timer1ms.h"
 #include "ISR/timer1s.h"
 #include "ISR/ISR.h"
+#include "drivers/buzzer.h"
 
 // Altera
 #include <altera_avalon_timer_regs.h>
@@ -43,10 +44,10 @@ int init_timer1s()
 {
 	// Register the interrupt
 	int res = alt_ic_isr_register(	SYS_SEC_IRQ_INTERRUPT_CONTROLLER_ID,
-							SYS_SEC_IRQ,
-							(void*)ISR_1S,
-							(void*)ISR_Data,
-							0x0);
+									SYS_SEC_IRQ,
+									(void*)ISR_1S,
+									(void*)ISR_Data,
+									0x0);
 	if (res != 0)
 	{
 		return -1;
@@ -57,6 +58,29 @@ int init_timer1s()
 	TIMER1S_IOWR_CONTROL(	ALTERA_AVALON_TIMER_CONTROL_CONT_MSK |
 							ALTERA_AVALON_TIMER_CONTROL_START_MSK |
 							ALTERA_AVALON_TIMER_CONTROL_ITO_MSK);
+
+	return 0;
+}
+
+int init_pwm()
+{
+	// Register the interrupt
+  	int ret = alt_ic_isr_register(	PWM_STATUS_IRQ_INTERRUPT_CONTROLLER_ID,
+  									PWM_STATUS_IRQ,
+									(void *)_SONG_ISR,
+									NULL,
+									0x00);
+
+  	if (ret != 0)
+  	{
+  		return -1;
+  	}
+
+
+	// Initialize the interrupts for the PWM to see
+	PWM_IOWR_MASK(0x40); // --> Only the END NOTE FLAG
+	PWM_IOWR_EDGE(0x00);
+	PWM_IOWR_SDATA(0x00);
 
 	return 0;
 }

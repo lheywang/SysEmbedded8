@@ -32,6 +32,7 @@ int main()
 	// Init the different peripherals
 	init_timer1s();
 	init_timer1ms();
+	init_pwm();
 
 	/*
 	 * After this point, all of the code executed is done under interrupts

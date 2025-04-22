@@ -98,6 +98,11 @@ int buzzer_play();
  *	@return 	-3 				Song already in play.
  */
 int buzzer_play_song(const struct song *Song);
-int buzzer_stop_song();
+/**
+ *	@brief 		ISR for the buzzer.
+ *
+ *	@warning 	Do not use as a function.
+ */
+void _SONG_ISR(void *context);
 
 #endif /* _DEF_BUZZER */

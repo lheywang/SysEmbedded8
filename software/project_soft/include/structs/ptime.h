@@ -62,8 +62,8 @@ int time_print12(const struct time * hour, char buf[6]);
  *
  * @return 	int
  * @return 	0		Times are equal
- * @return 	>1 		Time A is greater than time B
- * @return <1(>-127)Time A is smaller than time B
+ * @return 	>0 		Time A is greater than time B
+ * @return <0(>-127)Time A is smaller than time B
  * @return -128 	Invalid pointers provided
  */
 int time_compare(const struct time * A, const struct time * B);
