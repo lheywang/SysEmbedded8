@@ -8,6 +8,7 @@ rotating pattern on the LEDs and HEXs:
 
 #include <stdio.h>
 #include <unistd.h>
+#include <math.h>
 
 static void initial_message(){ printf("\n\n***CE PROGRAMME UTILISE DES MACROS***\n"); }
 
@@ -18,37 +19,102 @@ int main(void) {
 	int LED_bits = 0x0; // initial pattern for LED lights
 	int SW_value; //, KEY_value;
 	int press, delay_count = 0;
+	float res = 0.0;
+	int round_res = 0;
+
+	int Op1 = 0, Op2 = 0;
+	int Op = 0xFF;
+
+	char hexval[4];
 
 	initial_message();
 
-	hex_display("-", 1, 3);
-
-	while(1)
-	{
-
-	}
-
 	while (1)
 	{
-		SW_value = SW_IORD_DATA; // read the SW slider switch values
-		press = BP_IORD_EDGE; // read the pushbutton edge capture register
-		BP_IOWR_EDGE(press); // Clear the edge capture register
+		// Read the value
+		SW_value = SW_IORD_DATA;
+		Op1 = SW_value & 0x01F;
+		Op2 = (SW_value & 0x3e0) >> 5;
 
-		if (press & 0x1) // KEY0 pressed
-		LED_bits = SW_value; // set LEDs pattern using SW values
+		Op = BP_IORD_DATA & 0x03;
+		BP_IOWR_EDGE(Op); // Clear the edge register
 
-		if (press & 0x2) // KEY1 pressed
-		HEX_bits = ~SW_value; // set HEX pattern using SW values
+		printf("DBG-INF <Input> Op1 %d, Op2 %d, Op %d \n", Op1, Op2, Op);
 
-		HEX_IOWR_DATA(HEX_bits); // display pattern on HEX3 ... HEX0
-		LEDR_IOWR_DATA(LED_bits); // display leds
+		switch (Op)
+		{
+		case 0 :
+		{
+			res = (float)((float)Op1 + (float)Op2);
+			printf("DBG-INF <Loop> res %d \n", (int)(res * 100));
 
-		if (HEX_bits & 0x80000000) HEX_bits = (HEX_bits << 1) | 1;
-		else HEX_bits = HEX_bits << 1;
+			round_res = (int)floor(res);
+			res = res - (float)round_res;
 
-		if (LED_bits & 0x00000001) LED_bits = (LED_bits >> 1) | 0x80000000;
-		else LED_bits = (LED_bits >> 1) & 0x7FFFFFFF;
+			LEDR_IOWR_DATA(res * 1024);
+			printf("DBG-INF <Loop> remains %d \n", (int)(res * 1024));
 
-		for (delay_count = 200000; delay_count != 0; --delay_count); // delay loop
+			sprintf(&hexval, "%04d", round_res);
+			hex_display(hexval, 4, 0);
+
+			break;
+		}
+		case 1 :
+		{
+			res = (float)((float)Op1 - (float)Op2);
+			printf("DBG-INF <Loop> res %d \n", (int)(res * 100));
+
+			round_res = (int)floor(res);
+			res = res - (float)round_res;
+
+			sprintf(&hexval, "%04d", round_res);
+			hex_display(hexval, 4, 0);
+
+			LEDR_IOWR_DATA(res * 1024);
+			printf("DBG-INF <Loop> remains %d \n", (int)(res * 1024));
+
+			break;
+		}
+		case 2 :
+		{
+			res = (float)((float)Op1 * (float)Op2);
+			printf("DBG-INF <Loop> res %d \n", (int)(res * 100));
+
+			round_res = (int)floor(res);
+			res = res - (float)round_res;
+
+			sprintf(&hexval, "%04d", round_res);
+			hex_display(hexval, 4, 0);
+
+			LEDR_IOWR_DATA(res * 1024);
+			printf("DBG-INF <Loop> remains %d \n", (int)(res * 1024));
+
+			break;
+		}
+		case 3 :
+		{
+			res = (float)((float)Op1 / (float)Op2);
+			printf("DBG-INF <Loop> res %d \n", (int)(res * 100));
+
+			round_res = (int)floor(res);
+			res = res - (float)round_res;
+
+			sprintf(&hexval, "%04d", round_res);
+			hex_display(hexval, 4, 0);
+
+			LEDR_IOWR_DATA(res * 1024);
+			printf("DBG-INF <Loop> remains %d \n", (int)(res * 1024));
+
+			break;
+		}
+		default:
+		{
+			hex_display("----", 4, 0);
+			break;
+		}
+		}
+
+		// Delay
+		for (delay_count = 200000; delay_count != 0; --delay_count);
 		}
 }

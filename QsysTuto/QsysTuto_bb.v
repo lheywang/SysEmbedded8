@@ -1,16 +1,20 @@
 
 module QsysTuto (
 	clk_clk,
-	reset_reset_n,
+	hex1_export,
+	hex2_export,
 	interrupteurs_export,
-	boutons_poussoirs_export,
 	leds_export,
-	hex_export);	
+	pwm_ctrl_export,
+	pwm_status_export,
+	reset_reset_n);	
 
 	input		clk_clk;
-	input		reset_reset_n;
+	output	[31:0]	hex1_export;
+	output	[31:0]	hex2_export;
 	input	[9:0]	interrupteurs_export;
-	input	[1:0]	boutons_poussoirs_export;
 	output	[9:0]	leds_export;
-	output	[31:0]	hex_export;
+	output	[31:0]	pwm_ctrl_export;
+	input	[7:0]	pwm_status_export;
+	input		reset_reset_n;
 endmodule

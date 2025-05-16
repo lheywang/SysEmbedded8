@@ -1,8 +1,36 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst unsaved.clk_0 -pg 1 -lvl 1 -y 30
-preplace inst unsaved -pg 1 -lvl 1 -y 40 -regy -20
-preplace netloc EXPORT<net_container>unsaved</net_container>(SLAVE)unsaved.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>unsaved</net_container>(SLAVE)clk_0.clk_in,(SLAVE)unsaved.clk) 1 0 1 NJ
-levelinfo -pg 1 0 50 270
-levelinfo -hier unsaved 60 90 260
+preplace inst QsysTuto.sysid_qsys_0 -pg 1 -lvl 3 -y 630
+preplace inst QsysTuto.MEMOIRE_ONCHIP -pg 1 -lvl 3 -y 550
+preplace inst QsysTuto.LEDR -pg 1 -lvl 3 -y 810
+preplace inst QsysTuto.NiosII_CPU.cpu -pg 1
+preplace inst QsysTuto.NiosII_CPU -pg 1 -lvl 2 -y 210
+preplace inst QsysTuto.HEX5_HEX4 -pg 1 -lvl 3 -y 1010
+preplace inst QsysTuto.PWM_CTRL -pg 1 -lvl 3 -y 1210
+preplace inst QsysTuto.HEX3_HEX0 -pg 1 -lvl 3 -y 910
+preplace inst QsysTuto -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst QsysTuto.SYS_CLK_timer -pg 1 -lvl 3 -y 150
+preplace inst QsysTuto.NiosII_CPU.reset_bridge -pg 1
+preplace inst QsysTuto.NiosII_CPU.clock_bridge -pg 1
+preplace inst QsysTuto.jtag_uart_0 -pg 1 -lvl 3 -y 450
+preplace inst QsysTuto.SYS_MEL -pg 1 -lvl 3 -y 250
+preplace inst QsysTuto.INTERRUPTEURS -pg 1 -lvl 3 -y 710
+preplace inst QsysTuto.PWM_STATUS -pg 1 -lvl 3 -y 1110
+preplace inst QsysTuto.SYS_SEC -pg 1 -lvl 3 -y 350
+preplace inst QsysTuto.BOUTONS_POUSSOIRS -pg 1 -lvl 3 -y 30
+preplace inst QsysTuto.clk_0 -pg 1 -lvl 1 -y 230
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)PWM_STATUS.external_connection,(SLAVE)QsysTuto.pwm_status) 1 0 3 NJ 1140 NJ 1140 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)BOUTONS_POUSSOIRS.external_connection,(SLAVE)QsysTuto.boutons_poussoirs) 1 0 3 NJ 60 NJ 60 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)QsysTuto.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)PWM_CTRL.external_connection,(SLAVE)QsysTuto.pwm_ctrl) 1 0 3 NJ 1240 NJ 1240 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)QsysTuto.hex2,(SLAVE)HEX5_HEX4.external_connection) 1 0 3 NJ 1040 NJ 1040 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)HEX3_HEX0.external_connection,(SLAVE)QsysTuto.hex1) 1 0 3 NJ 940 NJ 940 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)QsysTuto.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)QsysTuto.interrupteurs,(SLAVE)INTERRUPTEURS.external_connection) 1 0 3 NJ 740 NJ 740 NJ
+preplace netloc INTERCONNECT<net_container>QsysTuto</net_container>(SLAVE)HEX3_HEX0.reset,(SLAVE)NiosII_CPU.reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)INTERRUPTEURS.reset,(MASTER)NiosII_CPU.debug_reset_request,(SLAVE)HEX5_HEX4.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)PWM_CTRL.reset,(MASTER)clk_0.clk_reset,(SLAVE)LEDR.reset,(SLAVE)SYS_MEL.reset,(SLAVE)BOUTONS_POUSSOIRS.reset,(SLAVE)PWM_STATUS.reset,(SLAVE)SYS_SEC.reset,(SLAVE)MEMOIRE_ONCHIP.reset1,(SLAVE)SYS_CLK_timer.reset) 1 1 2 350 150 730
+preplace netloc FAN_OUT<net_container>QsysTuto</net_container>(SLAVE)SYS_MEL.irq,(SLAVE)SYS_CLK_timer.irq,(SLAVE)jtag_uart_0.irq,(SLAVE)BOUTONS_POUSSOIRS.irq,(SLAVE)SYS_SEC.irq,(MASTER)NiosII_CPU.irq) 1 2 1 790
+preplace netloc INTERCONNECT<net_container>QsysTuto</net_container>(SLAVE)MEMOIRE_ONCHIP.s1,(SLAVE)INTERRUPTEURS.s1,(SLAVE)LEDR.s1,(SLAVE)PWM_STATUS.s1,(SLAVE)HEX5_HEX4.s1,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)BOUTONS_POUSSOIRS.s1,(SLAVE)SYS_SEC.s1,(SLAVE)PWM_CTRL.s1,(SLAVE)SYS_MEL.s1,(MASTER)NiosII_CPU.data_master,(SLAVE)NiosII_CPU.debug_mem_slave,(SLAVE)SYS_CLK_timer.s1,(SLAVE)HEX3_HEX0.s1,(MASTER)NiosII_CPU.instruction_master) 1 1 2 370 170 770
+preplace netloc FAN_OUT<net_container>QsysTuto</net_container>(SLAVE)sysid_qsys_0.clk,(MASTER)clk_0.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)SYS_CLK_timer.clk,(SLAVE)HEX5_HEX4.clk,(SLAVE)INTERRUPTEURS.clk,(SLAVE)HEX3_HEX0.clk,(SLAVE)SYS_SEC.clk,(SLAVE)PWM_CTRL.clk,(SLAVE)LEDR.clk,(SLAVE)MEMOIRE_ONCHIP.clk1,(SLAVE)NiosII_CPU.clk,(SLAVE)BOUTONS_POUSSOIRS.clk,(SLAVE)SYS_MEL.clk,(SLAVE)PWM_STATUS.clk) 1 1 2 330 130 750
+preplace netloc EXPORT<net_container>QsysTuto</net_container>(SLAVE)LEDR.external_connection,(SLAVE)QsysTuto.leds) 1 0 3 NJ 840 NJ 840 NJ
+levelinfo -pg 1 0 120 990
+levelinfo -hier QsysTuto 130 160 490 830 980

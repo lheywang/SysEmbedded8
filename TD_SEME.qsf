@@ -41,7 +41,7 @@ set_global_assignment -name DEVICE 10M50DAF484C7G
 set_global_assignment -name TOP_LEVEL_ENTITY TD_SEME
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:06:33  MARCH 27, 2025"
-set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Standard Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
@@ -49,8 +49,6 @@ set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
-set_global_assignment -name QIP_FILE QsysTuto/synthesis/QsysTuto.qip
-set_global_assignment -name BDF_FILE TD_SEME.bdf
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
@@ -107,4 +105,26 @@ set_location_assignment PIN_C20 -to HEX28
 set_location_assignment PIN_D19 -to HEX29
 set_location_assignment PIN_E17 -to HEX30
 set_location_assignment PIN_P11 -to MAX10_CLK1_50
+set_location_assignment PIN_F18 -to HEX32
+set_location_assignment PIN_E20 -to HEX33
+set_location_assignment PIN_E19 -to HEX34
+set_location_assignment PIN_J18 -to HEX35
+set_location_assignment PIN_H19 -to HEX36
+set_location_assignment PIN_F19 -to HEX37
+set_location_assignment PIN_F20 -to HEX38
+set_location_assignment PIN_J20 -to HEX40
+set_location_assignment PIN_K20 -to HEX41
+set_location_assignment PIN_L18 -to HEX42
+set_location_assignment PIN_N18 -to HEX43
+set_location_assignment PIN_M20 -to HEX44
+set_location_assignment PIN_N19 -to HEX45
+set_location_assignment PIN_N20 -to HEX46
+set_location_assignment PIN_L19 -to HEX47
+set_location_assignment PIN_Y11 -to PWM_BUZZ
+set_global_assignment -name VHDL_FILE MusicalPWM.vhd
+set_global_assignment -name VHDL_FILE MusicalPWM_vol.vhd
+set_global_assignment -name VHDL_FILE MusicalPWM_freq.vhd
+set_global_assignment -name QIP_FILE QsysTD/synthesis/QsysTD.qip
+set_global_assignment -name BDF_FILE TD_SEME.bdf
+set_location_assignment LCCOMB_X60_Y25_N6 -to "QsysTD:inst999|QsysTD_mm_interconnect_0:mm_interconnect_0|altera_merlin_slave_translator:ledr_s1_translator|wait_latency_counter[1]"
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -8,30 +8,18 @@ use IEEE.numeric_std.all;
 
 entity QsysTuto is
 	port (
-		boutons_poussoirs_export : in  std_logic_vector(1 downto 0)  := (others => '0'); -- boutons_poussoirs.export
-		clk_clk                  : in  std_logic                     := '0';             --               clk.clk
-		hex_export               : out std_logic_vector(31 downto 0);                    --               hex.export
-		interrupteurs_export     : in  std_logic_vector(9 downto 0)  := (others => '0'); --     interrupteurs.export
-		leds_export              : out std_logic_vector(9 downto 0);                     --              leds.export
-		reset_reset_n            : in  std_logic                     := '0'              --             reset.reset_n
+		clk_clk              : in  std_logic                     := '0';             --           clk.clk
+		hex1_export          : out std_logic_vector(31 downto 0);                    --          hex1.export
+		hex2_export          : out std_logic_vector(31 downto 0);                    --          hex2.export
+		interrupteurs_export : in  std_logic_vector(9 downto 0)  := (others => '0'); -- interrupteurs.export
+		leds_export          : out std_logic_vector(9 downto 0);                     --          leds.export
+		pwm_ctrl_export      : out std_logic_vector(31 downto 0);                    --      pwm_ctrl.export
+		pwm_status_export    : in  std_logic_vector(7 downto 0)  := (others => '0'); --    pwm_status.export
+		reset_reset_n        : in  std_logic                     := '0'              --         reset.reset_n
 	);
 end entity QsysTuto;
 
 architecture rtl of QsysTuto is
-	component QsysTuto_BOUTONS_POUSSOIRS is
-		port (
-			clk        : in  std_logic                     := 'X';             -- clk
-			reset_n    : in  std_logic                     := 'X';             -- reset_n
-			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			write_n    : in  std_logic                     := 'X';             -- write_n
-			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			chipselect : in  std_logic                     := 'X';             -- chipselect
-			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			in_port    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- export
-			irq        : out std_logic                                         -- irq
-		);
-	end component QsysTuto_BOUTONS_POUSSOIRS;
-
 	component QsysTuto_HEX3_HEX0 is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -116,6 +104,29 @@ architecture rtl of QsysTuto is
 		);
 	end component QsysTuto_NiosII_CPU;
 
+	component QsysTuto_PWM_CTRL is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(31 downto 0)                     -- export
+		);
+	end component QsysTuto_PWM_CTRL;
+
+	component QsysTuto_PWM_STATUS is
+		port (
+			clk      : in  std_logic                     := 'X';             -- clk
+			reset_n  : in  std_logic                     := 'X';             -- reset_n
+			address  : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			readdata : out std_logic_vector(31 downto 0);                    -- readdata
+			in_port  : in  std_logic_vector(7 downto 0)  := (others => 'X')  -- export
+		);
+	end component QsysTuto_PWM_STATUS;
+
 	component QsysTuto_SYS_CLK_timer is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -128,6 +139,32 @@ architecture rtl of QsysTuto is
 			irq        : out std_logic                                         -- irq
 		);
 	end component QsysTuto_SYS_CLK_timer;
+
+	component QsysTuto_SYS_MEL is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			writedata  : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			readdata   : out std_logic_vector(15 downto 0);                    -- readdata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			irq        : out std_logic                                         -- irq
+		);
+	end component QsysTuto_SYS_MEL;
+
+	component QsysTuto_SYS_SEC is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			writedata  : in  std_logic_vector(15 downto 0) := (others => 'X'); -- writedata
+			readdata   : out std_logic_vector(15 downto 0);                    -- readdata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			irq        : out std_logic                                         -- irq
+		);
+	end component QsysTuto_SYS_SEC;
 
 	component QsysTuto_jtag_uart_0 is
 		port (
@@ -171,16 +208,16 @@ architecture rtl of QsysTuto is
 			NiosII_CPU_instruction_master_read            : in  std_logic                     := 'X';             -- read
 			NiosII_CPU_instruction_master_readdata        : out std_logic_vector(31 downto 0);                    -- readdata
 			NiosII_CPU_instruction_master_readdatavalid   : out std_logic;                                        -- readdatavalid
-			BOUTONS_POUSSOIRS_s1_address                  : out std_logic_vector(1 downto 0);                     -- address
-			BOUTONS_POUSSOIRS_s1_write                    : out std_logic;                                        -- write
-			BOUTONS_POUSSOIRS_s1_readdata                 : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			BOUTONS_POUSSOIRS_s1_writedata                : out std_logic_vector(31 downto 0);                    -- writedata
-			BOUTONS_POUSSOIRS_s1_chipselect               : out std_logic;                                        -- chipselect
 			HEX3_HEX0_s1_address                          : out std_logic_vector(1 downto 0);                     -- address
 			HEX3_HEX0_s1_write                            : out std_logic;                                        -- write
 			HEX3_HEX0_s1_readdata                         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			HEX3_HEX0_s1_writedata                        : out std_logic_vector(31 downto 0);                    -- writedata
 			HEX3_HEX0_s1_chipselect                       : out std_logic;                                        -- chipselect
+			HEX5_HEX4_s1_address                          : out std_logic_vector(1 downto 0);                     -- address
+			HEX5_HEX4_s1_write                            : out std_logic;                                        -- write
+			HEX5_HEX4_s1_readdata                         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			HEX5_HEX4_s1_writedata                        : out std_logic_vector(31 downto 0);                    -- writedata
+			HEX5_HEX4_s1_chipselect                       : out std_logic;                                        -- chipselect
 			INTERRUPTEURS_s1_address                      : out std_logic_vector(1 downto 0);                     -- address
 			INTERRUPTEURS_s1_readdata                     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			jtag_uart_0_avalon_jtag_slave_address         : out std_logic_vector(0 downto 0);                     -- address
@@ -210,11 +247,28 @@ architecture rtl of QsysTuto is
 			NiosII_CPU_debug_mem_slave_byteenable         : out std_logic_vector(3 downto 0);                     -- byteenable
 			NiosII_CPU_debug_mem_slave_waitrequest        : in  std_logic                     := 'X';             -- waitrequest
 			NiosII_CPU_debug_mem_slave_debugaccess        : out std_logic;                                        -- debugaccess
+			PWM_CTRL_s1_address                           : out std_logic_vector(1 downto 0);                     -- address
+			PWM_CTRL_s1_write                             : out std_logic;                                        -- write
+			PWM_CTRL_s1_readdata                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			PWM_CTRL_s1_writedata                         : out std_logic_vector(31 downto 0);                    -- writedata
+			PWM_CTRL_s1_chipselect                        : out std_logic;                                        -- chipselect
+			PWM_STATUS_s1_address                         : out std_logic_vector(1 downto 0);                     -- address
+			PWM_STATUS_s1_readdata                        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			SYS_CLK_timer_s1_address                      : out std_logic_vector(2 downto 0);                     -- address
 			SYS_CLK_timer_s1_write                        : out std_logic;                                        -- write
 			SYS_CLK_timer_s1_readdata                     : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
 			SYS_CLK_timer_s1_writedata                    : out std_logic_vector(15 downto 0);                    -- writedata
 			SYS_CLK_timer_s1_chipselect                   : out std_logic;                                        -- chipselect
+			SYS_MEL_s1_address                            : out std_logic_vector(2 downto 0);                     -- address
+			SYS_MEL_s1_write                              : out std_logic;                                        -- write
+			SYS_MEL_s1_readdata                           : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			SYS_MEL_s1_writedata                          : out std_logic_vector(15 downto 0);                    -- writedata
+			SYS_MEL_s1_chipselect                         : out std_logic;                                        -- chipselect
+			SYS_SEC_s1_address                            : out std_logic_vector(2 downto 0);                     -- address
+			SYS_SEC_s1_write                              : out std_logic;                                        -- write
+			SYS_SEC_s1_readdata                           : in  std_logic_vector(15 downto 0) := (others => 'X'); -- readdata
+			SYS_SEC_s1_writedata                          : out std_logic_vector(15 downto 0);                    -- writedata
+			SYS_SEC_s1_chipselect                         : out std_logic;                                        -- chipselect
 			sysid_qsys_0_control_slave_address            : out std_logic_vector(0 downto 0);                     -- address
 			sysid_qsys_0_control_slave_readdata           : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
 		);
@@ -227,6 +281,7 @@ architecture rtl of QsysTuto is
 			receiver0_irq : in  std_logic                     := 'X'; -- irq
 			receiver1_irq : in  std_logic                     := 'X'; -- irq
 			receiver2_irq : in  std_logic                     := 'X'; -- irq
+			receiver3_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq    : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component QsysTuto_irq_mapper;
@@ -407,11 +462,6 @@ architecture rtl of QsysTuto is
 	signal mm_interconnect_0_sys_clk_timer_s1_writedata                    : std_logic_vector(15 downto 0); -- mm_interconnect_0:SYS_CLK_timer_s1_writedata -> SYS_CLK_timer:writedata
 	signal mm_interconnect_0_interrupteurs_s1_readdata                     : std_logic_vector(31 downto 0); -- INTERRUPTEURS:readdata -> mm_interconnect_0:INTERRUPTEURS_s1_readdata
 	signal mm_interconnect_0_interrupteurs_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:INTERRUPTEURS_s1_address -> INTERRUPTEURS:address
-	signal mm_interconnect_0_boutons_poussoirs_s1_chipselect               : std_logic;                     -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_chipselect -> BOUTONS_POUSSOIRS:chipselect
-	signal mm_interconnect_0_boutons_poussoirs_s1_readdata                 : std_logic_vector(31 downto 0); -- BOUTONS_POUSSOIRS:readdata -> mm_interconnect_0:BOUTONS_POUSSOIRS_s1_readdata
-	signal mm_interconnect_0_boutons_poussoirs_s1_address                  : std_logic_vector(1 downto 0);  -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_address -> BOUTONS_POUSSOIRS:address
-	signal mm_interconnect_0_boutons_poussoirs_s1_write                    : std_logic;                     -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_write -> mm_interconnect_0_boutons_poussoirs_s1_write:in
-	signal mm_interconnect_0_boutons_poussoirs_s1_writedata                : std_logic_vector(31 downto 0); -- mm_interconnect_0:BOUTONS_POUSSOIRS_s1_writedata -> BOUTONS_POUSSOIRS:writedata
 	signal mm_interconnect_0_ledr_s1_chipselect                            : std_logic;                     -- mm_interconnect_0:LEDR_s1_chipselect -> LEDR:chipselect
 	signal mm_interconnect_0_ledr_s1_readdata                              : std_logic_vector(31 downto 0); -- LEDR:readdata -> mm_interconnect_0:LEDR_s1_readdata
 	signal mm_interconnect_0_ledr_s1_address                               : std_logic_vector(1 downto 0);  -- mm_interconnect_0:LEDR_s1_address -> LEDR:address
@@ -422,9 +472,32 @@ architecture rtl of QsysTuto is
 	signal mm_interconnect_0_hex3_hex0_s1_address                          : std_logic_vector(1 downto 0);  -- mm_interconnect_0:HEX3_HEX0_s1_address -> HEX3_HEX0:address
 	signal mm_interconnect_0_hex3_hex0_s1_write                            : std_logic;                     -- mm_interconnect_0:HEX3_HEX0_s1_write -> mm_interconnect_0_hex3_hex0_s1_write:in
 	signal mm_interconnect_0_hex3_hex0_s1_writedata                        : std_logic_vector(31 downto 0); -- mm_interconnect_0:HEX3_HEX0_s1_writedata -> HEX3_HEX0:writedata
+	signal mm_interconnect_0_hex5_hex4_s1_chipselect                       : std_logic;                     -- mm_interconnect_0:HEX5_HEX4_s1_chipselect -> HEX5_HEX4:chipselect
+	signal mm_interconnect_0_hex5_hex4_s1_readdata                         : std_logic_vector(31 downto 0); -- HEX5_HEX4:readdata -> mm_interconnect_0:HEX5_HEX4_s1_readdata
+	signal mm_interconnect_0_hex5_hex4_s1_address                          : std_logic_vector(1 downto 0);  -- mm_interconnect_0:HEX5_HEX4_s1_address -> HEX5_HEX4:address
+	signal mm_interconnect_0_hex5_hex4_s1_write                            : std_logic;                     -- mm_interconnect_0:HEX5_HEX4_s1_write -> mm_interconnect_0_hex5_hex4_s1_write:in
+	signal mm_interconnect_0_hex5_hex4_s1_writedata                        : std_logic_vector(31 downto 0); -- mm_interconnect_0:HEX5_HEX4_s1_writedata -> HEX5_HEX4:writedata
+	signal mm_interconnect_0_pwm_ctrl_s1_chipselect                        : std_logic;                     -- mm_interconnect_0:PWM_CTRL_s1_chipselect -> PWM_CTRL:chipselect
+	signal mm_interconnect_0_pwm_ctrl_s1_readdata                          : std_logic_vector(31 downto 0); -- PWM_CTRL:readdata -> mm_interconnect_0:PWM_CTRL_s1_readdata
+	signal mm_interconnect_0_pwm_ctrl_s1_address                           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_CTRL_s1_address -> PWM_CTRL:address
+	signal mm_interconnect_0_pwm_ctrl_s1_write                             : std_logic;                     -- mm_interconnect_0:PWM_CTRL_s1_write -> mm_interconnect_0_pwm_ctrl_s1_write:in
+	signal mm_interconnect_0_pwm_ctrl_s1_writedata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:PWM_CTRL_s1_writedata -> PWM_CTRL:writedata
+	signal mm_interconnect_0_pwm_status_s1_readdata                        : std_logic_vector(31 downto 0); -- PWM_STATUS:readdata -> mm_interconnect_0:PWM_STATUS_s1_readdata
+	signal mm_interconnect_0_pwm_status_s1_address                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:PWM_STATUS_s1_address -> PWM_STATUS:address
+	signal mm_interconnect_0_sys_sec_s1_chipselect                         : std_logic;                     -- mm_interconnect_0:SYS_SEC_s1_chipselect -> SYS_SEC:chipselect
+	signal mm_interconnect_0_sys_sec_s1_readdata                           : std_logic_vector(15 downto 0); -- SYS_SEC:readdata -> mm_interconnect_0:SYS_SEC_s1_readdata
+	signal mm_interconnect_0_sys_sec_s1_address                            : std_logic_vector(2 downto 0);  -- mm_interconnect_0:SYS_SEC_s1_address -> SYS_SEC:address
+	signal mm_interconnect_0_sys_sec_s1_write                              : std_logic;                     -- mm_interconnect_0:SYS_SEC_s1_write -> mm_interconnect_0_sys_sec_s1_write:in
+	signal mm_interconnect_0_sys_sec_s1_writedata                          : std_logic_vector(15 downto 0); -- mm_interconnect_0:SYS_SEC_s1_writedata -> SYS_SEC:writedata
+	signal mm_interconnect_0_sys_mel_s1_chipselect                         : std_logic;                     -- mm_interconnect_0:SYS_MEL_s1_chipselect -> SYS_MEL:chipselect
+	signal mm_interconnect_0_sys_mel_s1_readdata                           : std_logic_vector(15 downto 0); -- SYS_MEL:readdata -> mm_interconnect_0:SYS_MEL_s1_readdata
+	signal mm_interconnect_0_sys_mel_s1_address                            : std_logic_vector(2 downto 0);  -- mm_interconnect_0:SYS_MEL_s1_address -> SYS_MEL:address
+	signal mm_interconnect_0_sys_mel_s1_write                              : std_logic;                     -- mm_interconnect_0:SYS_MEL_s1_write -> mm_interconnect_0_sys_mel_s1_write:in
+	signal mm_interconnect_0_sys_mel_s1_writedata                          : std_logic_vector(15 downto 0); -- mm_interconnect_0:SYS_MEL_s1_writedata -> SYS_MEL:writedata
 	signal irq_mapper_receiver0_irq                                        : std_logic;                     -- jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
-	signal irq_mapper_receiver1_irq                                        : std_logic;                     -- BOUTONS_POUSSOIRS:irq -> irq_mapper:receiver1_irq
-	signal irq_mapper_receiver2_irq                                        : std_logic;                     -- SYS_CLK_timer:irq -> irq_mapper:receiver2_irq
+	signal irq_mapper_receiver1_irq                                        : std_logic;                     -- SYS_CLK_timer:irq -> irq_mapper:receiver1_irq
+	signal irq_mapper_receiver2_irq                                        : std_logic;                     -- SYS_SEC:irq -> irq_mapper:receiver2_irq
+	signal irq_mapper_receiver3_irq                                        : std_logic;                     -- SYS_MEL:irq -> irq_mapper:receiver3_irq
 	signal niosii_cpu_irq_irq                                              : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> NiosII_CPU:irq
 	signal rst_controller_reset_out_reset                                  : std_logic;                     -- rst_controller:reset_out -> [mm_interconnect_0:jtag_uart_0_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                              : std_logic;                     -- rst_controller_001:reset_out -> [MEMOIRE_ONCHIP:reset, irq_mapper:reset, mm_interconnect_0:NiosII_CPU_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
@@ -434,26 +507,16 @@ architecture rtl of QsysTuto is
 	signal mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read_ports_inv  : std_logic;                     -- mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_read:inv -> jtag_uart_0:av_read_n
 	signal mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv : std_logic;                     -- mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write:inv -> jtag_uart_0:av_write_n
 	signal mm_interconnect_0_sys_clk_timer_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_sys_clk_timer_s1_write:inv -> SYS_CLK_timer:write_n
-	signal mm_interconnect_0_boutons_poussoirs_s1_write_ports_inv          : std_logic;                     -- mm_interconnect_0_boutons_poussoirs_s1_write:inv -> BOUTONS_POUSSOIRS:write_n
 	signal mm_interconnect_0_ledr_s1_write_ports_inv                       : std_logic;                     -- mm_interconnect_0_ledr_s1_write:inv -> LEDR:write_n
 	signal mm_interconnect_0_hex3_hex0_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_hex3_hex0_s1_write:inv -> HEX3_HEX0:write_n
-	signal rst_controller_reset_out_reset_ports_inv                        : std_logic;                     -- rst_controller_reset_out_reset:inv -> [BOUTONS_POUSSOIRS:reset_n, HEX3_HEX0:reset_n, INTERRUPTEURS:reset_n, LEDR:reset_n, SYS_CLK_timer:reset_n, jtag_uart_0:rst_n, sysid_qsys_0:reset_n]
+	signal mm_interconnect_0_hex5_hex4_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_hex5_hex4_s1_write:inv -> HEX5_HEX4:write_n
+	signal mm_interconnect_0_pwm_ctrl_s1_write_ports_inv                   : std_logic;                     -- mm_interconnect_0_pwm_ctrl_s1_write:inv -> PWM_CTRL:write_n
+	signal mm_interconnect_0_sys_sec_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_sys_sec_s1_write:inv -> SYS_SEC:write_n
+	signal mm_interconnect_0_sys_mel_s1_write_ports_inv                    : std_logic;                     -- mm_interconnect_0_sys_mel_s1_write:inv -> SYS_MEL:write_n
+	signal rst_controller_reset_out_reset_ports_inv                        : std_logic;                     -- rst_controller_reset_out_reset:inv -> [HEX3_HEX0:reset_n, HEX5_HEX4:reset_n, INTERRUPTEURS:reset_n, LEDR:reset_n, PWM_CTRL:reset_n, PWM_STATUS:reset_n, SYS_CLK_timer:reset_n, SYS_MEL:reset_n, SYS_SEC:reset_n, jtag_uart_0:rst_n, sysid_qsys_0:reset_n]
 	signal rst_controller_001_reset_out_reset_ports_inv                    : std_logic;                     -- rst_controller_001_reset_out_reset:inv -> NiosII_CPU:reset_n
 
 begin
-
-	boutons_poussoirs : component QsysTuto_BOUTONS_POUSSOIRS
-		port map (
-			clk        => clk_clk,                                                --                 clk.clk
-			reset_n    => rst_controller_reset_out_reset_ports_inv,               --               reset.reset_n
-			address    => mm_interconnect_0_boutons_poussoirs_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_0_boutons_poussoirs_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_0_boutons_poussoirs_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_0_boutons_poussoirs_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_0_boutons_poussoirs_s1_readdata,        --                    .readdata
-			in_port    => boutons_poussoirs_export,                               -- external_connection.export
-			irq        => irq_mapper_receiver1_irq                                --                 irq.irq
-		);
 
 	hex3_hex0 : component QsysTuto_HEX3_HEX0
 		port map (
@@ -464,7 +527,19 @@ begin
 			writedata  => mm_interconnect_0_hex3_hex0_s1_writedata,       --                    .writedata
 			chipselect => mm_interconnect_0_hex3_hex0_s1_chipselect,      --                    .chipselect
 			readdata   => mm_interconnect_0_hex3_hex0_s1_readdata,        --                    .readdata
-			out_port   => hex_export                                      -- external_connection.export
+			out_port   => hex1_export                                     -- external_connection.export
+		);
+
+	hex5_hex4 : component QsysTuto_HEX3_HEX0
+		port map (
+			clk        => clk_clk,                                        --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,       --               reset.reset_n
+			address    => mm_interconnect_0_hex5_hex4_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex5_hex4_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex5_hex4_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex5_hex4_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex5_hex4_s1_readdata,        --                    .readdata
+			out_port   => hex2_export                                     -- external_connection.export
 		);
 
 	interrupteurs : component QsysTuto_INTERRUPTEURS
@@ -534,6 +609,27 @@ begin
 			dummy_ci_port                       => open                                                      -- custom_instruction_master.readra
 		);
 
+	pwm_ctrl : component QsysTuto_PWM_CTRL
+		port map (
+			clk        => clk_clk,                                       --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,      --               reset.reset_n
+			address    => mm_interconnect_0_pwm_ctrl_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_pwm_ctrl_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_pwm_ctrl_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_pwm_ctrl_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_pwm_ctrl_s1_readdata,        --                    .readdata
+			out_port   => pwm_ctrl_export                                -- external_connection.export
+		);
+
+	pwm_status : component QsysTuto_PWM_STATUS
+		port map (
+			clk      => clk_clk,                                  --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_0_pwm_status_s1_address,  --                  s1.address
+			readdata => mm_interconnect_0_pwm_status_s1_readdata, --                    .readdata
+			in_port  => pwm_status_export                         -- external_connection.export
+		);
+
 	sys_clk_timer : component QsysTuto_SYS_CLK_timer
 		port map (
 			clk        => clk_clk,                                            --   clk.clk
@@ -543,7 +639,31 @@ begin
 			readdata   => mm_interconnect_0_sys_clk_timer_s1_readdata,        --      .readdata
 			chipselect => mm_interconnect_0_sys_clk_timer_s1_chipselect,      --      .chipselect
 			write_n    => mm_interconnect_0_sys_clk_timer_s1_write_ports_inv, --      .write_n
-			irq        => irq_mapper_receiver2_irq                            --   irq.irq
+			irq        => irq_mapper_receiver1_irq                            --   irq.irq
+		);
+
+	sys_mel : component QsysTuto_SYS_MEL
+		port map (
+			clk        => clk_clk,                                      --   clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,     -- reset.reset_n
+			address    => mm_interconnect_0_sys_mel_s1_address,         --    s1.address
+			writedata  => mm_interconnect_0_sys_mel_s1_writedata,       --      .writedata
+			readdata   => mm_interconnect_0_sys_mel_s1_readdata,        --      .readdata
+			chipselect => mm_interconnect_0_sys_mel_s1_chipselect,      --      .chipselect
+			write_n    => mm_interconnect_0_sys_mel_s1_write_ports_inv, --      .write_n
+			irq        => irq_mapper_receiver3_irq                      --   irq.irq
+		);
+
+	sys_sec : component QsysTuto_SYS_SEC
+		port map (
+			clk        => clk_clk,                                      --   clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,     -- reset.reset_n
+			address    => mm_interconnect_0_sys_sec_s1_address,         --    s1.address
+			writedata  => mm_interconnect_0_sys_sec_s1_writedata,       --      .writedata
+			readdata   => mm_interconnect_0_sys_sec_s1_readdata,        --      .readdata
+			chipselect => mm_interconnect_0_sys_sec_s1_chipselect,      --      .chipselect
+			write_n    => mm_interconnect_0_sys_sec_s1_write_ports_inv, --      .write_n
+			irq        => irq_mapper_receiver2_irq                      --   irq.irq
 		);
 
 	jtag_uart_0 : component QsysTuto_jtag_uart_0
@@ -586,16 +706,16 @@ begin
 			NiosII_CPU_instruction_master_read            => niosii_cpu_instruction_master_read,                          --                                        .read
 			NiosII_CPU_instruction_master_readdata        => niosii_cpu_instruction_master_readdata,                      --                                        .readdata
 			NiosII_CPU_instruction_master_readdatavalid   => niosii_cpu_instruction_master_readdatavalid,                 --                                        .readdatavalid
-			BOUTONS_POUSSOIRS_s1_address                  => mm_interconnect_0_boutons_poussoirs_s1_address,              --                    BOUTONS_POUSSOIRS_s1.address
-			BOUTONS_POUSSOIRS_s1_write                    => mm_interconnect_0_boutons_poussoirs_s1_write,                --                                        .write
-			BOUTONS_POUSSOIRS_s1_readdata                 => mm_interconnect_0_boutons_poussoirs_s1_readdata,             --                                        .readdata
-			BOUTONS_POUSSOIRS_s1_writedata                => mm_interconnect_0_boutons_poussoirs_s1_writedata,            --                                        .writedata
-			BOUTONS_POUSSOIRS_s1_chipselect               => mm_interconnect_0_boutons_poussoirs_s1_chipselect,           --                                        .chipselect
 			HEX3_HEX0_s1_address                          => mm_interconnect_0_hex3_hex0_s1_address,                      --                            HEX3_HEX0_s1.address
 			HEX3_HEX0_s1_write                            => mm_interconnect_0_hex3_hex0_s1_write,                        --                                        .write
 			HEX3_HEX0_s1_readdata                         => mm_interconnect_0_hex3_hex0_s1_readdata,                     --                                        .readdata
 			HEX3_HEX0_s1_writedata                        => mm_interconnect_0_hex3_hex0_s1_writedata,                    --                                        .writedata
 			HEX3_HEX0_s1_chipselect                       => mm_interconnect_0_hex3_hex0_s1_chipselect,                   --                                        .chipselect
+			HEX5_HEX4_s1_address                          => mm_interconnect_0_hex5_hex4_s1_address,                      --                            HEX5_HEX4_s1.address
+			HEX5_HEX4_s1_write                            => mm_interconnect_0_hex5_hex4_s1_write,                        --                                        .write
+			HEX5_HEX4_s1_readdata                         => mm_interconnect_0_hex5_hex4_s1_readdata,                     --                                        .readdata
+			HEX5_HEX4_s1_writedata                        => mm_interconnect_0_hex5_hex4_s1_writedata,                    --                                        .writedata
+			HEX5_HEX4_s1_chipselect                       => mm_interconnect_0_hex5_hex4_s1_chipselect,                   --                                        .chipselect
 			INTERRUPTEURS_s1_address                      => mm_interconnect_0_interrupteurs_s1_address,                  --                        INTERRUPTEURS_s1.address
 			INTERRUPTEURS_s1_readdata                     => mm_interconnect_0_interrupteurs_s1_readdata,                 --                                        .readdata
 			jtag_uart_0_avalon_jtag_slave_address         => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_address,     --           jtag_uart_0_avalon_jtag_slave.address
@@ -625,11 +745,28 @@ begin
 			NiosII_CPU_debug_mem_slave_byteenable         => mm_interconnect_0_niosii_cpu_debug_mem_slave_byteenable,     --                                        .byteenable
 			NiosII_CPU_debug_mem_slave_waitrequest        => mm_interconnect_0_niosii_cpu_debug_mem_slave_waitrequest,    --                                        .waitrequest
 			NiosII_CPU_debug_mem_slave_debugaccess        => mm_interconnect_0_niosii_cpu_debug_mem_slave_debugaccess,    --                                        .debugaccess
+			PWM_CTRL_s1_address                           => mm_interconnect_0_pwm_ctrl_s1_address,                       --                             PWM_CTRL_s1.address
+			PWM_CTRL_s1_write                             => mm_interconnect_0_pwm_ctrl_s1_write,                         --                                        .write
+			PWM_CTRL_s1_readdata                          => mm_interconnect_0_pwm_ctrl_s1_readdata,                      --                                        .readdata
+			PWM_CTRL_s1_writedata                         => mm_interconnect_0_pwm_ctrl_s1_writedata,                     --                                        .writedata
+			PWM_CTRL_s1_chipselect                        => mm_interconnect_0_pwm_ctrl_s1_chipselect,                    --                                        .chipselect
+			PWM_STATUS_s1_address                         => mm_interconnect_0_pwm_status_s1_address,                     --                           PWM_STATUS_s1.address
+			PWM_STATUS_s1_readdata                        => mm_interconnect_0_pwm_status_s1_readdata,                    --                                        .readdata
 			SYS_CLK_timer_s1_address                      => mm_interconnect_0_sys_clk_timer_s1_address,                  --                        SYS_CLK_timer_s1.address
 			SYS_CLK_timer_s1_write                        => mm_interconnect_0_sys_clk_timer_s1_write,                    --                                        .write
 			SYS_CLK_timer_s1_readdata                     => mm_interconnect_0_sys_clk_timer_s1_readdata,                 --                                        .readdata
 			SYS_CLK_timer_s1_writedata                    => mm_interconnect_0_sys_clk_timer_s1_writedata,                --                                        .writedata
 			SYS_CLK_timer_s1_chipselect                   => mm_interconnect_0_sys_clk_timer_s1_chipselect,               --                                        .chipselect
+			SYS_MEL_s1_address                            => mm_interconnect_0_sys_mel_s1_address,                        --                              SYS_MEL_s1.address
+			SYS_MEL_s1_write                              => mm_interconnect_0_sys_mel_s1_write,                          --                                        .write
+			SYS_MEL_s1_readdata                           => mm_interconnect_0_sys_mel_s1_readdata,                       --                                        .readdata
+			SYS_MEL_s1_writedata                          => mm_interconnect_0_sys_mel_s1_writedata,                      --                                        .writedata
+			SYS_MEL_s1_chipselect                         => mm_interconnect_0_sys_mel_s1_chipselect,                     --                                        .chipselect
+			SYS_SEC_s1_address                            => mm_interconnect_0_sys_sec_s1_address,                        --                              SYS_SEC_s1.address
+			SYS_SEC_s1_write                              => mm_interconnect_0_sys_sec_s1_write,                          --                                        .write
+			SYS_SEC_s1_readdata                           => mm_interconnect_0_sys_sec_s1_readdata,                       --                                        .readdata
+			SYS_SEC_s1_writedata                          => mm_interconnect_0_sys_sec_s1_writedata,                      --                                        .writedata
+			SYS_SEC_s1_chipselect                         => mm_interconnect_0_sys_sec_s1_chipselect,                     --                                        .chipselect
 			sysid_qsys_0_control_slave_address            => mm_interconnect_0_sysid_qsys_0_control_slave_address,        --              sysid_qsys_0_control_slave.address
 			sysid_qsys_0_control_slave_readdata           => mm_interconnect_0_sysid_qsys_0_control_slave_readdata        --                                        .readdata
 		);
@@ -641,6 +778,7 @@ begin
 			receiver0_irq => irq_mapper_receiver0_irq,           -- receiver0.irq
 			receiver1_irq => irq_mapper_receiver1_irq,           -- receiver1.irq
 			receiver2_irq => irq_mapper_receiver2_irq,           -- receiver2.irq
+			receiver3_irq => irq_mapper_receiver3_irq,           -- receiver3.irq
 			sender_irq    => niosii_cpu_irq_irq                  --    sender.irq
 		);
 
@@ -782,11 +920,17 @@ begin
 
 	mm_interconnect_0_sys_clk_timer_s1_write_ports_inv <= not mm_interconnect_0_sys_clk_timer_s1_write;
 
-	mm_interconnect_0_boutons_poussoirs_s1_write_ports_inv <= not mm_interconnect_0_boutons_poussoirs_s1_write;
-
 	mm_interconnect_0_ledr_s1_write_ports_inv <= not mm_interconnect_0_ledr_s1_write;
 
 	mm_interconnect_0_hex3_hex0_s1_write_ports_inv <= not mm_interconnect_0_hex3_hex0_s1_write;
+
+	mm_interconnect_0_hex5_hex4_s1_write_ports_inv <= not mm_interconnect_0_hex5_hex4_s1_write;
+
+	mm_interconnect_0_pwm_ctrl_s1_write_ports_inv <= not mm_interconnect_0_pwm_ctrl_s1_write;
+
+	mm_interconnect_0_sys_sec_s1_write_ports_inv <= not mm_interconnect_0_sys_sec_s1_write;
+
+	mm_interconnect_0_sys_mel_s1_write_ports_inv <= not mm_interconnect_0_sys_mel_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

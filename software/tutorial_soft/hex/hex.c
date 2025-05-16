@@ -20,7 +20,7 @@
  *  =======================================================================
  */
 //							binary val	   id char   7 - 6 - 5 - 4 - 3 - 2 - 1 - 0
-static const chars[] = {	0b11000000, // 0    0            x   x   x   x   x   x
+static const int chars[] = {0b11000000, // 0    0            x   x   x   x   x   x
 							0b11111001, //      1 						 x   x
 							0b10100100, //  	2        x       x   x       x   x
 							0b10110000, //  	3        x           x   x   x   x

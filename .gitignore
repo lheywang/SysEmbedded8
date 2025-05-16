@@ -2,11 +2,37 @@
 incremental_db/*
 db/*
 output_files/*
+*transcript
+/work
+
+# QSYS
+.qsys_edit/*
 
 # Eclipse build files
 *.o
 *.d
 *.a
+*.obj
+*.elf
+*.objdump
+*.map
+*.cproject
 
 # Eclipse workspace
 EclipseWorkspace/*
+software/project_soft/mem_init/*
+.settings/
+
+# Modelsim files
+*.bak
+*.mti
+*.wlf
+*.do
+
+# NIOS II 
+*.force_relink
+*.force_rebuild
+*.qws
+
+# VSCode artifacts
+.VSCodeCounter/
